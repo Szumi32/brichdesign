@@ -56,8 +56,23 @@
     <a href="#wycena">Wycena</a>
     <a href="#kontakt">Kontakt</a>
   </nav>
-  <a class="pill pill--solid header__cta" href="#wycena">Poproś o wycenę</a>
+  <div class="header__right">
+    <a class="pill pill--solid header__cta" href="#wycena">Poproś o wycenę</a>
+    <button class="burger" id="burger" type="button" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu"><i></i><i></i></button>
+  </div>
 </header>
+
+<!-- Menu mobilne -->
+<div class="mmenu" id="mobileMenu" aria-hidden="true">
+  <nav aria-label="Menu mobilne">
+    <a href="#oferta"><small>01</small>Oferta</a>
+    <a href="#portfolio"><small>02</small>Realizacje</a>
+    <a href="#proces"><small>03</small>Proces</a>
+    <a href="#wycena"><small>04</small>Wycena</a>
+    <a href="#kontakt"><small>05</small>Kontakt</a>
+  </nav>
+  <p class="mmenu__note">Wycena indywidualna · od 1999&nbsp;zł</p>
+</div>
 
 <main id="top">
 
@@ -70,6 +85,7 @@
       <div class="hero__fog"></div>
       <div class="hero__layer" data-layer="mid"></div>
       <div class="hero__leaves" id="leaves"></div>
+      <div class="hero__rays"></div>
       <div class="hero__layer" data-layer="near"></div>
       <div class="hero__ground"></div>
       <div class="hero__shade"></div>
@@ -91,18 +107,10 @@
 
         <!-- Szklana karta z licznikiem (odpowiednik karty „piętro” z filmu) -->
         <aside class="hero__card glass" aria-label="Skrót portfolio">
-          <div class="card-top"><span>Portfolio · na żywo</span><span class="status"><i></i> online</span></div>
-          <div class="card-num"><b id="heroNum">01</b><small>/ 07</small></div>
-          <p class="card-sub">Wdrożone strony</p>
-          <ul class="card-list" id="heroList">
-            <li><span>Karpik</span><em>Turystyka</em></li>
-            <li><span>NOCTE</span><em>Produkt</em></li>
-            <li><span>PureDrive</span><em>Usługi</em></li>
-            <li><span>Barańska</span><em>Medycyna</em></li>
-            <li><span>SOLUM</span><em>E-commerce</em></li>
-            <li><span>Furia RolePlay</span><em>Gaming</em></li>
-            <li><span>VK Cup</span><em>Archiwum</em></li>
-          </ul>
+          <div class="card-top"><span>Wyróżnione realizacje</span><span class="status"><i></i> online</span></div>
+          <div class="card-num"><b id="heroNum">01</b><small>/ 06</small></div>
+          <p class="card-now"><span id="heroName">Karpik</span><em id="heroCat">Turystyka</em></p>
+          <div class="card-bars" id="heroBars" aria-hidden="true"><i class="is-on"></i><i></i><i></i><i></i><i></i><i></i></div>
         </aside>
       </div>
 
@@ -110,10 +118,10 @@
         <div><dt>Cena startowa</dt><dd>od 1999&nbsp;zł</dd></div>
         <div><dt>Realizacji</dt><dd>07</dd></div>
         <div><dt>Responsywne</dt><dd>100%</dd></div>
-        <div><dt>Szablonów</dt><dd>0</dd></div>
       </dl>
 
       <div class="hero__scroll" aria-hidden="true"><span>Przewiń</span><i></i></div>
+      <div class="grain" aria-hidden="true"></div>
       <div class="hero__veil"></div>
     </div>
   </section>
@@ -161,7 +169,7 @@
   <section class="portfolio wrap" id="portfolio" aria-labelledby="portfolioTitle">
     <header class="section-head">
       <p class="label">( Realizacje · 07 )</p>
-      <h2 id="portfolioTitle" class="h2 reveal">Wybrane projekty,<br>które żyją w sieci.</h2>
+      <h2 id="portfolioTitle" class="h2 reveal">Wybrane projekty,<br><span class="dim">które żyją w sieci.</span></h2>
       <p class="section-head__p reveal">Kliknij kafelek, aby otworzyć działającą stronę w nowej karcie.</p>
     </header>
 
@@ -307,7 +315,7 @@
     <div class="wrap process__grid">
       <header class="process__head">
         <p class="label label--dark">( Proces )</p>
-        <h2 id="processTitle" class="h2 reveal">Jak rośnie<br>Twoja strona.</h2>
+        <h2 id="processTitle" class="h2 reveal">Jak rośnie<br><span class="dim">Twoja strona.</span></h2>
         <p class="reveal">Cztery kroki od pierwszej rozmowy do publikacji. Zawsze wiesz, na jakim etapie jesteśmy.</p>
       </header>
 
@@ -326,7 +334,7 @@
     <div class="wrap pricing__grid">
       <div class="pricing__copy">
         <p class="label">( Wycena )</p>
-        <h2 id="pricingTitle" class="h2 reveal">Każdy projekt wyceniamy&nbsp;indywidualnie.</h2>
+        <h2 id="pricingTitle" class="h2 reveal">Każdy projekt wyceniamy <span class="dim">indywidualnie.</span></h2>
         <p class="reveal">Nie ma jednego cennika, bo każda firma potrzebuje czegoś innego. Cena zależy od zakresu i Twoich potrzeb. Wycenę przygotowujemy po krótkiej rozmowie, bezpłatnie i bez zobowiązań.</p>
         <ul class="pricing__factors reveal" aria-label="Co wpływa na cenę">
           <li>Liczba podstron i ilość treści</li>
@@ -360,6 +368,7 @@
 </main>
 
 <footer class="site-footer">
+  <div class="wordmark" aria-hidden="true">brichdesign</div>
   <div class="wrap footer__row">
     <a class="brand" href="#top" aria-label="brichdesign — na górę">
       <svg class="brand__mark" viewBox="3 0 40 48" aria-hidden="true"><use href="#bd-mark"/></svg>

@@ -101,7 +101,7 @@
       // ciemna, rozdarta podstawa
       const hb = tw * R(1.4, 2.4), b0 = C[0], bw = b0[2];
       let bd = `M${f(b0[0] - bw / 2)} 8L${f(b0[0] - bw / 2)} ${f(-hb * .5)}`;
-      for (let i = 1; i <= 7; i++) bd += `L${f(b0[0] - bw / 2 + bw * i / 7)} ${f(-hb * R(.25, 1))}`;
+      for (let i = 1; i <= 7; i++) bd += `L${f(b0[0] - bw / 2 + bw * i / 7)} ${f(-hb * R(.62, 1))}`;
       g += `<path d="${bd}L${f(b0[0] + bw / 2)} 8Z" fill="url(#bs-${o.id})"/>`;
 
       // znaczenia kory
@@ -223,11 +223,16 @@
   });
 
   /* ---------- 4. HERO: „wjazd” w las przy przewijaniu ---------- */
-  const heroNum = $('#heroNum');
-  const heroItems = $$('#heroList li');
+  const HERO_FEATURED = [['Karpik', 'Turystyka'], ['NOCTE', 'Produkt'], ['PureDrive', 'Usługi lokalne'], ['Barańska Stomatolog', 'Medycyna'], ['SOLUM', 'E-commerce'], ['Furia RolePlay', 'Gaming']];
+  const heroNum = $('#heroNum'), heroName = $('#heroName'), heroCat = $('#heroCat'), heroBars = $$('#heroBars i');
+  let heroStep = 0;
   const setHeroStep = n => {
+    if (n === heroStep) return;
+    heroStep = n;
     heroNum.textContent = String(n).padStart(2, '0');
-    heroItems.forEach((li, i) => li.classList.toggle('is-on', i < n));
+    heroName.textContent = HERO_FEATURED[n - 1][0];
+    heroCat.textContent = HERO_FEATURED[n - 1][1];
+    heroBars.forEach((b, i) => b.classList.toggle('is-on', i < n));
   };
   setHeroStep(1);
 
@@ -236,7 +241,7 @@
     scrollTrigger: {
       trigger: '#hero', start: 'top top', end: () => '+=' + innerHeight * CONFIG.heroScroll,
       pin: true, scrub: .8, anticipatePin: 1,
-      onUpdate: self => setHeroStep(Math.min(heroItems.length, 1 + Math.floor(self.progress * heroItems.length))),
+      onUpdate: self => setHeroStep(Math.min(HERO_FEATURED.length, 1 + Math.floor(self.progress * HERO_FEATURED.length))),
       onToggle: self => leafTweens.forEach(t => (self.isActive ? t.play() : t.pause())),
     },
   });
@@ -396,6 +401,20 @@
     else if (pinned && hidden) { hidden = false; gsap.to(header, { yPercent: 0, duration: .6, ease: 'power3.out', overwrite: true }); }
     else if (want && !hidden && headerReady) { hidden = true; gsap.to(header, { yPercent: -100, duration: .6, ease: 'power3.out', overwrite: true }); }
   }, { passive: true });
+
+  /* ---------- 10b. MENU MOBILNE ---------- */
+  const burger = $('#burger'), mmenu = $('#mobileMenu');
+  const setMenu = open => {
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+    mmenu.setAttribute('aria-hidden', !open);
+    document.body.classList.toggle('menu-open', open);
+    if (lenis) open ? lenis.stop() : lenis.start();
+  };
+  burger.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
+  mmenu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  addEventListener('resize', () => { if (innerWidth > 760) setMenu(false); });
 
   /* ---------- 11. PASEK POSTĘPU + AKTYWNA POZYCJA MENU ---------- */
   ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('#progressBar', { scaleX: self.progress }) });
