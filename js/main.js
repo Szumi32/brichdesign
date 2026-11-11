@@ -275,29 +275,18 @@
   });
   gsap.set(cards, { opacity: 0 });
 
-  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const cursor = $('#cursor');
-  if (fine && !reduce) {
-    gsap.set(cursor, { x: -200, y: -200, scale: 0 });
-    const cx = gsap.quickTo(cursor, 'x', { duration: .45, ease: 'power3' });
-    const cy = gsap.quickTo(cursor, 'y', { duration: .45, ease: 'power3' });
-    let cursorOn = false;
-    addEventListener('pointermove', e => { cx(e.clientX); cy(e.clientY); }, { passive: true });
-    const showCursor = on => { if (on === cursorOn) return; cursorOn = on; gsap.to(cursor, { scale: on ? 1 : 0, duration: .5, ease: 'power3.out' }); };
-
+  // nachylenie 3D kafelka za myszką (tylko urządzenia z myszą, bez „ograniczenia ruchu”)
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
     cards.forEach(card => {
       card.addEventListener('pointermove', e => {
         const b = card.getBoundingClientRect(), px = (e.clientX - b.left) / b.width, py = (e.clientY - b.top) / b.height;
-        card.style.setProperty('--ry', ((px - .5) * 7).toFixed(2) + 'deg');
-        card.style.setProperty('--rx', ((.5 - py) * 5).toFixed(2) + 'deg');
+        card.style.setProperty('--ry', ((px - .5) * 6).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', ((.5 - py) * 4).toFixed(2) + 'deg');
         card.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
         card.style.setProperty('--my', (py * 100).toFixed(1) + '%');
       });
-      card.addEventListener('pointerenter', () => showCursor(true));
-      card.addEventListener('pointerleave', () => { showCursor(false); card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+      card.addEventListener('pointerleave', () => { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
     });
-    // sceny wizyty też pokazują kursor
-    $$('.scene').forEach(s => { s.addEventListener('pointerenter', () => showCursor(true)); s.addEventListener('pointerleave', () => showCursor(false)); });
   }
 
   /* ---------- 7. WIZYTA: przypięta sekwencja scen ---------- */
@@ -407,6 +396,17 @@
     else if (pinned && hidden) { hidden = false; gsap.to(header, { yPercent: 0, duration: .6, ease: 'power3.out', overwrite: true }); }
     else if (want && !hidden && headerReady) { hidden = true; gsap.to(header, { yPercent: -100, duration: .6, ease: 'power3.out', overwrite: true }); }
   }, { passive: true });
+
+  /* ---------- 11. PASEK POSTĘPU + AKTYWNA POZYCJA MENU ---------- */
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: self => gsap.set('#progressBar', { scaleX: self.progress }) });
+  $$('.nav a').forEach(a => {
+    const target = $(a.getAttribute('href'));
+    if (!target) return;
+    ScrollTrigger.create({
+      trigger: target, start: 'top 55%', end: 'bottom 55%',
+      onToggle: self => a.classList.toggle('is-active', self.isActive),
+    });
+  });
 
   addEventListener('load', () => ScrollTrigger.refresh());
 })();
