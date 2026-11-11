@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>brichdesign — strony internetowe, które wyrastają ponad resztę</title>
+  <meta name="description" content="brichdesign: wizytówki, strony wielostronowe, rezerwacje online i sklepy internetowe. Wycena indywidualna, od 1999 zł. Zobacz realizacje: Karpik, NOCTE, PureDrive, Barańska Stomatolog, SOLUM, Furia RolePlay.">
+  <meta name="theme-color" content="#0a0b09">
+  <meta property="og:title" content="brichdesign — strony, które wyrastają ponad resztę">
+  <meta property="og:description" content="Projektujemy i kodujemy strony premium. Zobacz realizacje.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brichdesign.pl/">
+  <meta property="og:image" content="https://brichdesign.pl/assets/og-image.jpg">
+  <meta property="og:locale" content="pl_PL">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brichdesign.pl/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <!-- Fonty: Lexend Giga (szeroki nagłówek jak w filmie) + Inter Tight (tekst) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Lexend+Giga:wght@300;400;500&family=Lexend:wght@300;400;600&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <noscript><style>.loader{display:none!important}.reveal,.line>span{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<!-- Symbol logo: litera "b" = pień brzozy (otwory to znaczenia kory) + pierścień + złoty listek -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bd-mark" viewBox="3 0 40 48">
+    <path fill="currentColor" fill-rule="evenodd" d="M6 8.5a5.5 5.5 0 0 1 11 0v31a5.5 5.5 0 0 1-11 0z M9.1 12h3.8a1.1 1.1 0 0 1 0 2.2H9.1a1.1 1.1 0 0 1 0-2.2z M10.6 19h2.2a1.1 1.1 0 0 1 0 2.2h-2.2a1.1 1.1 0 0 1 0-2.2z M8.9 27.5h3a1.1 1.1 0 0 1 0 2.2h-3a1.1 1.1 0 0 1 0-2.2z M10.3 35.5h2.4a1.1 1.1 0 0 1 0 2.2h-2.4a1.1 1.1 0 0 1 0-2.2z"/>
+    <circle cx="28" cy="31.5" r="9.5" fill="none" stroke="currentColor" stroke-width="5"/>
+    <path d="M19.5 12.5C19 6.5 23 2.5 30 2c.5 6.5-3.5 10.8-10.5 10.5z" fill="var(--leaf)"/>
+  </symbol>
+</svg>
+
+<a class="skip" href="#portfolio">Przejdź do realizacji</a>
+
+<!-- ============ PRELOADER ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <svg class="loader__mark" viewBox="3 0 40 48"><use href="#bd-mark"/></svg>
+  <div class="loader__count"><span id="loaderNum">000</span><i>%</i></div>
+</div>
+
+<!-- ============ NAGŁÓWEK ============ -->
+<header class="site-header" id="siteHeader">
+  <a class="brand" href="#top" aria-label="brichdesign — na górę">
+    <svg class="brand__mark" viewBox="3 0 40 48" aria-hidden="true"><use href="#bd-mark"/></svg>
+    <span class="brand__name"><b>brich</b>design</span>
+  </a>
+  <nav class="nav" aria-label="Główna nawigacja">
+    <a href="#oferta">Oferta</a>
+    <a href="#portfolio">Realizacje</a>
+    <a href="#proces">Proces</a>
+    <a href="#wycena">Wycena</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <a class="pill pill--solid header__cta" href="#wycena">Poproś o wycenę</a>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO (przypięty, „wjazd” w las brzozowy) ============ -->
+  <section class="hero" id="hero" aria-labelledby="heroTitle">
+    <div class="hero__stage">
+      <div class="hero__sky"></div>
+      <div class="hero__sun"></div>
+      <div class="hero__layer" data-layer="far"></div>
+      <div class="hero__fog"></div>
+      <div class="hero__layer" data-layer="mid"></div>
+      <div class="hero__leaves" id="leaves"></div>
+      <div class="hero__layer" data-layer="near"></div>
+      <div class="hero__ground"></div>
+      <div class="hero__shade"></div>
+
+      <div class="hero__content">
+        <div class="hero__copy">
+          <p class="eyebrow"><span class="dot"></span> Studio stron WWW · Polska</p>
+          <h1 id="heroTitle" class="hero__title">
+            <span class="line"><span>Wyrośnij</span></span>
+            <span class="line"><span>ponad</span></span>
+            <span class="line"><span>resztę.</span></span>
+          </h1>
+          <p class="hero__lead reveal">Wizytówki, strony wielostronowe, rezerwacje online i sklepy internetowe. Projektowane i kodowane od zera pod Twoją markę, wyceniane indywidualnie, <strong>od 1999&nbsp;zł</strong>.</p>
+          <div class="hero__actions reveal">
+            <a class="pill pill--light" href="#portfolio">Zobacz realizacje</a>
+            <a class="pill pill--ghost" href="#wycena">Bezpłatna wycena</a>
+          </div>
+        </div>
+
+        <!-- Szklana karta z licznikiem (odpowiednik karty „piętro” z filmu) -->
+        <aside class="hero__card glass" aria-label="Skrót portfolio">
+          <div class="card-top"><span>Portfolio · na żywo</span><span class="status"><i></i> online</span></div>
+          <div class="card-num"><b id="heroNum">01</b><small>/ 07</small></div>
+          <p class="card-sub">Wdrożone strony</p>
+          <ul class="card-list" id="heroList">
+            <li><span>Karpik</span><em>Turystyka</em></li>
+            <li><span>NOCTE</span><em>Produkt</em></li>
+            <li><span>PureDrive</span><em>Usługi</em></li>
+            <li><span>Barańska</span><em>Medycyna</em></li>
+            <li><span>SOLUM</span><em>E-commerce</em></li>
+            <li><span>Furia RolePlay</span><em>Gaming</em></li>
+            <li><span>VK Cup</span><em>Archiwum</em></li>
+          </ul>
+        </aside>
+      </div>
+
+      <dl class="hero__stats">
+        <div><dt>Cena startowa</dt><dd>od 1999&nbsp;zł</dd></div>
+        <div><dt>Realizacji</dt><dd>07</dd></div>
+        <div><dt>Responsywne</dt><dd>100%</dd></div>
+        <div><dt>Szablonów</dt><dd>0</dd></div>
+      </dl>
+
+      <div class="hero__scroll" aria-hidden="true"><span>Przewiń</span><i></i></div>
+      <div class="hero__veil"></div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFEST + USŁUGI ============ -->
+  <section class="manifest wrap" aria-labelledby="manifestTitle">
+    <p class="label">( Podejście )</p>
+    <h2 id="manifestTitle" class="manifest__text" data-split>Nie sprzedajemy szablonów. Piszemy kod od zera — szybki, dostępny i zaprojektowany tak, by klient zostawał na stronie dłużej niż kilka sekund.</h2>
+
+    <div class="services" id="oferta">
+      <article class="service reveal">
+        <span class="service__n">01</span>
+        <h3>Wizytówki</h3>
+        <p>Jednostronicowa strona firmowa: kim jesteś, co oferujesz i jak się z Tobą skontaktować. Szybka, elegancka, gotowa pod telefon.</p>
+      </article>
+      <article class="service reveal">
+        <span class="service__n">02</span>
+        <h3>Strony wielostronowe</h3>
+        <p>Rozbudowane serwisy z podstronami, ofertą, blogiem i galerią. Czytelna nawigacja i struktura przyjazna wyszukiwarkom.</p>
+      </article>
+      <article class="service reveal">
+        <span class="service__n">03</span>
+        <h3>Rezerwacje i umawianie</h3>
+        <p>Strony z kalendarzem terminów, formularzem rezerwacji i panelem do zarządzania wizytami lub pobytami.</p>
+      </article>
+      <article class="service reveal">
+        <span class="service__n">04</span>
+        <h3>Sklepy internetowe</h3>
+        <p>Katalog produktów, koszyk i zamówienia bez zbędnego tarcia. Od małej kolekcji po rozbudowany sklep.</p>
+      </article>
+      <article class="service reveal">
+        <span class="service__n">05</span>
+        <h3>Panele i integracje</h3>
+        <p>Panele administracyjne, rankingi, asystenci czatu i połączenia z narzędziami, z których już korzystasz.</p>
+      </article>
+      <article class="service reveal service--more">
+        <span class="service__n">06</span>
+        <h3>I wiele więcej</h3>
+        <p>Landing page, przebudowa starej strony, dedykowane rozwiązania. Opisz potrzebę, a my ją wycenimy.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO — KAFELKI ============ -->
+  <section class="portfolio wrap" id="portfolio" aria-labelledby="portfolioTitle">
+    <header class="section-head">
+      <p class="label">( Realizacje · 07 )</p>
+      <h2 id="portfolioTitle" class="h2 reveal">Wybrane projekty,<br>które żyją w sieci.</h2>
+      <p class="section-head__p reveal">Kliknij kafelek, aby otworzyć działającą stronę w nowej karcie.</p>
+    </header>
+
+    <div class="grid">
+      <a class="card card--xl" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener" data-name="Karpik">
+        <div class="card__media"><img src="assets/previews/karpik.jpg" alt="Podgląd strony Karpik — domki nad Jeziorem Białym" width="1440" height="900" loading="lazy"></div>
+        <div class="card__shine"></div>
+        <div class="card__body">
+          <div class="card__meta"><span class="card__idx">01</span><ul class="tags"><li>Turystyka</li><li>Rezerwacje</li><li>Asystent</li></ul></div>
+          <div class="card__foot">
+            <div><h3 class="card__title">Karpik</h3><p>Domki nad Jeziorem Białym z cennikiem, kalendarzem terminów i asystentem czatu.</p></div>
+            <span class="card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card card--l7" href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener" data-name="NOCTE">
+        <div class="card__media"><img src="assets/previews/nocte.jpg" alt="Podgląd strony NOCTE — inteligentna maska do snu" width="1440" height="900" loading="lazy"></div>
+        <div class="card__shine"></div>
+        <div class="card__body">
+          <div class="card__meta"><span class="card__idx">02</span><ul class="tags"><li>Produkt</li><li>Startup</li></ul></div>
+          <div class="card__foot">
+            <div><h3 class="card__title">NOCTE</h3><p>Strona produktu premium: maska do snu przeciw koszmarom.</p></div>
+            <span class="card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card card--l5" href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener" data-name="PureDrive">
+        <div class="card__media"><img src="assets/previews/puredrive.jpg" alt="Podgląd strony PureDrive — ręczna myjnia samochodowa" width="1440" height="900" loading="lazy"></div>
+        <div class="card__shine"></div>
+        <div class="card__body">
+          <div class="card__meta"><span class="card__idx">03</span><ul class="tags"><li>Usługi lokalne</li><li>Opinie</li></ul></div>
+          <div class="card__foot">
+            <div><h3 class="card__title">PureDrive</h3><p>Ręczna myjnia i detailing w garażu Galerii Wileńskiej: oferta, opinie i dojazd.</p></div>
+            <span class="card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card card--m6" href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener" data-name="Barańska Stomatolog">
+        <div class="card__media"><img src="assets/previews/baranska.jpg" alt="Podgląd strony Barańska Stomatolog — gabinet w Piasecznie" width="1440" height="900" loading="lazy"></div>
+        <div class="card__shine"></div>
+        <div class="card__body">
+          <div class="card__meta"><span class="card__idx">04</span><ul class="tags"><li>Medycyna</li><li>Logo</li></ul></div>
+          <div class="card__foot">
+            <div><h3 class="card__title">Barańska Stomatolog</h3><p>Gabinet stomatologiczny w Piasecznie: logo, oferta usług i umawianie wizyt.</p></div>
+            <span class="card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card card--m6" href="https://szumi32.github.io/solum/" target="_blank" rel="noopener" data-name="SOLUM">
+        <div class="card__media"><img src="assets/previews/solum.jpg" alt="Podgląd strony SOLUM — sklep z bransoletkami z kamieni naturalnych" width="1440" height="900" loading="lazy"></div>
+        <div class="card__shine"></div>
+        <div class="card__body">
+          <div class="card__meta"><span class="card__idx">05</span><ul class="tags"><li>E-commerce</li><li>Sklep</li></ul></div>
+          <div class="card__foot">
+            <div><h3 class="card__title">SOLUM</h3><p>Sklep z bransoletkami z kamieni naturalnych.</p></div>
+            <span class="card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card card--s" href="https://www.furiarp.eu/#top" target="_blank" rel="noopener" data-name="Furia RolePlay">
+        <div class="card__media"><img src="assets/previews/furiarp.jpg" alt="Podgląd strony Furia RolePlay — serwer FiveM" width="1440" height="900" loading="lazy"></div>
+        <div class="card__shine"></div>
+        <div class="card__body">
+          <div class="card__meta"><span class="card__idx">06</span><ul class="tags"><li>Gaming</li><li>Portal</li></ul></div>
+          <div class="card__foot">
+            <div><h3 class="card__title">Furia RolePlay</h3><p>Portal serwera RP.</p></div>
+            <span class="card__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+          </div>
+        </div>
+      </a>
+
+      <aside class="cta-tile glass reveal" aria-label="Zamów stronę">
+        <p class="label">( Następna? )</p>
+        <h3>Twoja strona może być kolejną realizacją.</h3>
+        <a class="pill pill--light" href="#wycena">Poproś o wycenę</a>
+      </aside>
+    </div>
+
+    <p class="more-line reveal">Starsze projekty: <a href="https://www.vkcup.pl/" target="_blank" rel="noopener">VK Cup&nbsp;↗</a></p>
+  </section>
+
+  <!-- ============ WIZYTA — przypięta sekwencja scen (jak „wjazd do apartamentu” z filmu) ============ -->
+  <section class="tour" id="tour" aria-label="Przegląd realizacji krok po kroku">
+    <div class="tour__stage">
+      <div class="tour__glows" aria-hidden="true">
+        <i style="--g:#c58b4a"></i><i style="--g:#4a5fc4"></i><i style="--g:#ff8a1e"></i><i style="--g:#e8845a"></i><i style="--g:#d6c7a4"></i><i style="--g:#d11a35"></i>
+      </div>
+      <p class="tour__label label">( Wejdź do środka )</p>
+      <p class="tour__hint" aria-hidden="true">Przewijaj — każda scena to osobna strona</p>
+
+      <div class="tour__scenes" id="tourScenes">
+        <a class="scene" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener" tabindex="-1" aria-label="Otwórz Karpik">
+          <div class="device"><div class="device__bar"><i></i><i></i><i></i><span>szumi32.github.io/karpik</span></div><img src="assets/previews/karpik.jpg" alt="" width="1440" height="900" loading="lazy"></div>
+        </a>
+        <a class="scene" href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener" tabindex="-1" aria-label="Otwórz NOCTE">
+          <div class="device"><div class="device__bar"><i></i><i></i><i></i><span>szumi32.github.io/nocte</span></div><img src="assets/previews/nocte.jpg" alt="" width="1440" height="900" loading="lazy"></div>
+        </a>
+        <a class="scene" href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener" tabindex="-1" aria-label="Otwórz PureDrive">
+          <div class="device"><div class="device__bar"><i></i><i></i><i></i><span>szumi32.github.io/puredrive</span></div><img src="assets/previews/puredrive.jpg" alt="" width="1440" height="900" loading="lazy"></div>
+        </a>
+        <a class="scene" href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener" tabindex="-1" aria-label="Otwórz Barańska Stomatolog">
+          <div class="device"><div class="device__bar"><i></i><i></i><i></i><span>szumi32.github.io/baranska-stomatolog</span></div><img src="assets/previews/baranska.jpg" alt="" width="1440" height="900" loading="lazy"></div>
+        </a>
+        <a class="scene" href="https://szumi32.github.io/solum/" target="_blank" rel="noopener" tabindex="-1" aria-label="Otwórz SOLUM">
+          <div class="device"><div class="device__bar"><i></i><i></i><i></i><span>szumi32.github.io/solum</span></div><img src="assets/previews/solum.jpg" alt="" width="1440" height="900" loading="lazy"></div>
+        </a>
+        <a class="scene" href="https://www.furiarp.eu/#top" target="_blank" rel="noopener" tabindex="-1" aria-label="Otwórz Furia RolePlay">
+          <div class="device"><div class="device__bar"><i></i><i></i><i></i><span>furiarp.eu</span></div><img src="assets/previews/furiarp.jpg" alt="" width="1440" height="900" loading="lazy"></div>
+        </a>
+      </div>
+
+      <!-- Karta informacyjna — treść podmienia JS wg aktywnej sceny -->
+      <aside class="tour__card glass" aria-live="polite">
+        <p class="tour__eyebrow"><span id="tourIdx">01</span> / 06 · <span id="tourCat">Turystyka</span></p>
+        <h3 id="tourName">Karpik</h3>
+        <p id="tourDesc">Domki nad Jeziorem Białym.</p>
+        <dl class="tour__spec">
+          <div><dt>Zakres</dt><dd id="tourScope">Strona, rezerwacje, asystent</dd></div>
+          <div><dt>Adres</dt><dd id="tourUrl">szumi32.github.io/karpik</dd></div>
+        </dl>
+        <a id="tourLink" class="pill pill--light" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener">Otwórz stronę ↗</a>
+      </aside>
+
+      <nav class="tour__nav" id="tourNav" aria-label="Wybór realizacji">
+        <span class="tour__rail"><i id="tourRail"></i></span>
+        <button type="button" data-i="0" class="is-on"><b></b><span>Karpik</span></button>
+        <button type="button" data-i="1"><b></b><span>NOCTE</span></button>
+        <button type="button" data-i="2"><b></b><span>PureDrive</span></button>
+        <button type="button" data-i="3"><b></b><span>Barańska</span></button>
+        <button type="button" data-i="4"><b></b><span>SOLUM</span></button>
+        <button type="button" data-i="5"><b></b><span>Furia</span></button>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ============ PROCES (jasna sekcja; pień brzozy rośnie przy przewijaniu) ============ -->
+  <section class="process" id="proces" aria-labelledby="processTitle">
+    <div class="wrap process__grid">
+      <header class="process__head">
+        <p class="label label--dark">( Proces )</p>
+        <h2 id="processTitle" class="h2 reveal">Jak rośnie<br>Twoja strona.</h2>
+        <p class="reveal">Cztery kroki od pierwszej rozmowy do publikacji. Zawsze wiesz, na jakim etapie jesteśmy.</p>
+      </header>
+
+      <ol class="steps" id="steps">
+        <span class="trunk" aria-hidden="true"><i id="trunkFill"></i></span>
+        <li class="step"><span class="step__mark"></span><span class="step__n">01</span><h3>Rozmowa i cel</h3><p>Poznajemy markę, klientów i to, co strona ma sprzedawać. Wychodzimy z jasnym zakresem i wyceną.</p></li>
+        <li class="step"><span class="step__mark"></span><span class="step__n">02</span><h3>Projekt i styl</h3><p>Układ, typografia, kolory i ruch. Dostajesz makietę, którą da się ocenić, zanim powstanie kod.</p></li>
+        <li class="step"><span class="step__mark"></span><span class="step__n">03</span><h3>Kod i animacje</h3><p>Semantyczny HTML, lekki CSS i dopracowany ruch. Responsywnie od telefonu po duży monitor.</p></li>
+        <li class="step"><span class="step__mark"></span><span class="step__n">04</span><h3>Publikacja i opieka</h3><p>Wdrożenie na Twojej domenie, testy na prawdziwych urządzeniach i poprawki po starcie.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ WYCENA ============ -->
+  <section class="pricing" id="wycena" aria-labelledby="pricingTitle">
+    <div class="wrap pricing__grid">
+      <div class="pricing__copy">
+        <p class="label">( Wycena )</p>
+        <h2 id="pricingTitle" class="h2 reveal">Każdy projekt wyceniamy&nbsp;indywidualnie.</h2>
+        <p class="reveal">Nie ma jednego cennika, bo każda firma potrzebuje czegoś innego. Cena zależy od zakresu i Twoich potrzeb. Wycenę przygotowujemy po krótkiej rozmowie, bezpłatnie i bez zobowiązań.</p>
+        <ul class="pricing__factors reveal" aria-label="Co wpływa na cenę">
+          <li>Liczba podstron i ilość treści</li>
+          <li>Rezerwacje, sklep lub panel administracyjny</li>
+          <li>Własna grafika, animacje i integracje</li>
+          <li>Termin realizacji</li>
+        </ul>
+      </div>
+
+      <aside class="pricing__card glass reveal" aria-label="Cena startowa">
+        <p class="pricing__eyebrow">Cena startowa</p>
+        <p class="pricing__price"><span>od</span> 1999 <small>zł</small></p>
+        <p class="pricing__note">Minimalna cena projektu. Ostateczną kwotę ustalamy indywidualnie, zależnie od zakresu.</p>
+        <a class="pill pill--light" href="#kontakt">Poproś o wycenę</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section class="contact" id="kontakt" aria-labelledby="contactTitle">
+    <div class="wrap">
+      <p class="label">( Kontakt )</p>
+      <h2 id="contactTitle" class="contact__title" data-split>Posadźmy razem Twoją stronę.</h2>
+      <div class="contact__row reveal">
+        <!-- ZMIEŃ: wpisz prawdziwy adres e-mail studia -->
+        <a class="pill pill--light pill--lg" href="mailto:hello@brichdesign.pl?subject=Wycena%20strony">hello@brichdesign.pl</a>
+        <p>Opisz w dwóch zdaniach, czego potrzebujesz, a przygotujemy bezpłatną wycenę. Odpowiadamy w ciągu jednego dnia roboczego.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer__row">
+    <a class="brand" href="#top" aria-label="brichdesign — na górę">
+      <svg class="brand__mark" viewBox="3 0 40 48" aria-hidden="true"><use href="#bd-mark"/></svg>
+      <span class="brand__name"><b>brich</b>design</span>
+    </a>
+    <ul class="footer__links" aria-label="Realizacje">
+      <li><a href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener">Karpik</a></li>
+      <li><a href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener">NOCTE</a></li>
+      <li><a href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener">PureDrive</a></li>
+      <li><a href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener">Barańska Stomatolog</a></li>
+      <li><a href="https://szumi32.github.io/solum/" target="_blank" rel="noopener">SOLUM</a></li>
+      <li><a href="https://www.furiarp.eu/#top" target="_blank" rel="noopener">Furia RolePlay</a></li>
+    </ul>
+    <p class="footer__copy">© 2026 brichdesign</p>
+  </div>
+</footer>
+
+<!-- Własny kursor nad kafelkami (tylko urządzenia z myszką) -->
+<div class="cursor" id="cursor" aria-hidden="true"><span>Otwórz</span></div>
+
+<!-- Biblioteki: GSAP + ScrollTrigger (animacje scrollowane) i Lenis (płynne przewijanie) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

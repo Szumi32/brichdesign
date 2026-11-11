@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brichdesign.pl/sitemap.xml
