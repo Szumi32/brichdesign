@@ -1,7 +1,7 @@
-Birch Studio – strona portfolio
+brichdesign – strona portfolio
 ================================
 Pliki: index.html (cała strona), folder assets/ (zrzuty realizacji, logo, ikona), 404.html, .nojekyll (dla GitHub Pages).
-Marka: Birch Studio. W treści strony i w kodzie nie ma żadnych innych nazw.
+Marka: brichdesign. W treści strony i w kodzie nie ma żadnych innych nazw.
 
 Kolory (2 główne + 1 dodatkowy, czarny motyw), na górze stylów w sekcji „KOLORY”:
   czysta czerń #000000 (--black + odcienie --bg2, --s1, --card, --card2, --green, --s4), biel kory #ece8df (--bark), akcent: miedź #d98a5f (--gold, tylko akcenty).
@@ -27,11 +27,11 @@ POKRĘTŁA (w skrypcie na dole index.html)
 
 ZRZUTY I LOGO
 assets/previews/*.jpg to zrzuty Twoich realizacji (1440×900). Gdy strona się zmieni, podmień plik pod tą samą nazwą.
-assets/logo.svg – logo (znak drzewa z listkiem w kolorze akcentu + napis birchstudio), assets/favicon.svg – ikona karty.
+assets/logo.svg – logo (znak drzewa z listkiem w kolorze akcentu + napis brichdesign), assets/favicon.svg – ikona karty.
 
 DO PODMIANY (szukaj tych tekstów w index.html)
-1. Kontakt: kontakt@birchstudio.pl (kilka miejsc, także w skrypcie formularza) i +48 600 000 000, „Warszawa i zdalnie”.
-   Domena birchstudio.pl nie była sprawdzana – sprawdź, czy jest wolna, zanim ją kupisz.
+1. Kontakt: hello@brichdesign.pl (kilka miejsc, także w skrypcie formularza) i +48 600 000 000, „Warszawa i zdalnie”.
+   Domena brichdesign.pl nie była sprawdzana – sprawdź, czy jest wolna, zanim ją kupisz.
 2. Zdjęcie: w sekcji „O mnie” jest ramka z literą B. Wstaw swoje zdjęcie (pion 4:5) w miejsce <div class="portrait rv">.
 3. Ceny: pakiety 1 999 / 3 490 / 5 990 zł, dodatki (sklep +2 490, rezerwacje +990, teksty +590, logo +790,
    podstrona +290, opieka 99 zł/mies.). Zmień liczbę w value="..." ORAZ tekst obok. Ceny są też w zakładkach Usług.
