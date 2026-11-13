@@ -6,13 +6,13 @@
 <title>brichdesign – strony internetowe, które wyrastają ponad resztę</title>
 <meta name="description" content="brichdesign: wizytówki, strony firmowe, rezerwacje online i sklepy internetowe. Projekt i kod od zera, od 1 999 zł. Zobacz realizacje: Karpik, NOCTE, PureDrive, Barańska Stomatolog, SOLUM, Furia RolePlay.">
 <meta property="og:title" content="brichdesign – strony, które wyrastają ponad resztę">
-<meta property="og:description" content="Projektuję i koduję strony dla firm. Zobacz realizacje i policz swoją stronę.">
+<meta property="og:description" content="Projektujemy i kodujemy strony dla firm. Zobacz realizacje i policz swoją stronę.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <link rel="canonical" href="https://brichdesign.pl/">
 <meta property="og:url" content="https://brichdesign.pl/">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%23000000'/%3E%3Cg transform='translate(6 4) scale(.85)'%3E%3Cpath fill='%23ece8df' d='M6 8.5a5.5 5.5 0 0 1 11 0v31a5.5 5.5 0 0 1-11 0z'/%3E%3Ccircle cx='28' cy='31.5' r='9.5' fill='none' stroke='%23ece8df' stroke-width='5'/%3E%3Cpath fill='%23d98a5f' d='M19.5 12.5C19 6.5 23 2.5 30 2c.5 6.5-3.5 10.8-10.5 10.5z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -786,15 +786,55 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 .giant .ch.b { color: var(--gold); }
 
 
+/* ============ v3: płynne przejście hero, koniec realizacji, logo, formularz ============ */
+/* hero „tonie” w czerni: dół ma długi gradient, a welon (JS) ściemnia las wraz z przewijaniem */
+.hero__veil { position: absolute; inset: 0; z-index: 4; background: #000; opacity: 0; pointer-events: none; }
+.hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: clamp(200px, 40vh, 440px); z-index: 2; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .22) 30%, rgba(0, 0, 0, .62) 64%, rgba(0, 0, 0, .92) 88%, #000 100%); }
+.strip { border-top-color: transparent; background: linear-gradient(to bottom, #000 0%, var(--bg2) 70%); }
+
+/* koniec realizacji: kafelek zachęty + archiwum */
+.works-end { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 16px; margin-top: 28px; }
+.works-end .works-cta { position: relative; overflow: hidden; margin: 0; display: grid; align-content: space-between; align-items: start; justify-content: stretch; gap: 20px; min-height: 230px; padding: clamp(24px, 3vw, 40px); border-radius: 22px;
+  background: radial-gradient(90% 140% at 100% 0%, rgba(var(--gold-rgb), .2), transparent 62%), var(--card); }
+.works-end .works-cta h3 { margin: 0; max-width: 21ch; font: 300 clamp(22px, 2.6vw, 36px)/1.15 var(--f-g); letter-spacing: -.03em; }
+.works-end .works-cta p { margin: 0; max-width: 44ch; color: var(--muted); font: 400 15px/1.6 var(--f-b); letter-spacing: 0; }
+.works-end .works-cta .btn { justify-self: start; }
+.archive { display: grid; align-content: space-between; gap: 18px; padding: 24px; border-radius: 22px; border: 1px solid var(--line); background: var(--bg2); }
+.archive__label { display: flex; align-items: center; gap: 10px; font: 400 11px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.archive__label::before { content: ''; width: 22px; height: 1px; background: currentColor; opacity: .6; }
+.archive__note { margin: 10px 0 0; font-size: 14px; color: rgba(236, 232, 223, .55); }
+.arch-item { display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; align-items: center; gap: 14px; margin: 0 -10px; padding: 10px; border-radius: 16px; text-decoration: none; color: var(--bark); transition: background .4s var(--ease); }
+.arch-item:hover { background: rgba(236, 232, 223, .06); }
+.arch-thumb { display: block; width: 92px; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 10px; background: #111; box-shadow: inset 0 0 0 1px rgba(236, 232, 223, .14); }
+.arch-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top left; filter: grayscale(1) brightness(.65); transition: filter .5s var(--ease), transform .8s var(--ease); }
+.arch-item:hover .arch-thumb img { filter: none; transform: scale(1.07); }
+.arch-item b { display: block; font: 500 17px/1.2 var(--f-d); }
+.arch-item small { display: block; margin-top: 3px; font-size: 13px; color: var(--muted); }
+.arch-arrow { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--line2); transition: background .35s, color .35s, transform .5s var(--ease), box-shadow .35s; }
+.arch-arrow svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.arch-item:hover .arch-arrow { background: var(--gold); color: #000; box-shadow: none; transform: rotate(45deg); }
+@media (max-width: 860px) { .works-end { grid-template-columns: 1fr; } .works-end .works-cta { min-height: 0; } }
+
+/* logo: pień brzozy w bieli, pierścień „b” i słowo „design” w miedzi */
+.logo-mark { width: 31px; height: 34px; }
+.logo-mark svg { width: 31px; height: 34px; }
+.logo b, .nav:not(.solid):not(.open) .logo b { color: var(--gold); font-weight: 300; }
+
+/* formularz: pole-pułapka na boty i kontakt w stopce */
+.hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.foot-contact { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+.foot-contact a { color: var(--bark); text-decoration: none; }
+.foot-contact a:hover { color: var(--gold); }
+
 </style>
 </head>
 <body>
-<!-- Znak brichdesign: litera „b” = pień drzewa (otwory to znaczenia kory) + pierścień + listek -->
+<!-- Znak brichdesign: litera „b” = biały pień brzozy (dwa znaczenia kory) + miedziany pierścień -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="bd-mark" viewBox="3 0 40 48">
-    <path fill="currentColor" fill-rule="evenodd" d="M6 8.5a5.5 5.5 0 0 1 11 0v31a5.5 5.5 0 0 1-11 0z M9.1 12h3.8a1.1 1.1 0 0 1 0 2.2H9.1a1.1 1.1 0 0 1 0-2.2z M10.6 19h2.2a1.1 1.1 0 0 1 0 2.2h-2.2a1.1 1.1 0 0 1 0-2.2z M8.9 27.5h3a1.1 1.1 0 0 1 0 2.2h-3a1.1 1.1 0 0 1 0-2.2z M10.3 35.5h2.4a1.1 1.1 0 0 1 0 2.2h-2.4a1.1 1.1 0 0 1 0-2.2z"/>
-    <circle cx="28" cy="31.5" r="9.5" fill="none" stroke="currentColor" stroke-width="5"/>
-    <path d="M19.5 12.5C19 6.5 23 2.5 30 2c.5 6.5-3.5 10.8-10.5 10.5z" fill="var(--leaf, #d98a5f)"/>
+  <symbol id="bd-mark" viewBox="6 2 40 44">
+    <circle cx="31" cy="31" r="10" fill="none" stroke="var(--leaf, #d98a5f)" stroke-width="6"/>
+    <path fill="currentColor" fill-rule="evenodd" d="M8.5 9.5a5.5 5.5 0 0 1 11 0v29a5.5 5.5 0 0 1-11 0z M12.4 14.5h3.2a1.4 1.4 0 0 1 0 2.8h-3.2a1.4 1.4 0 0 1 0-2.8z M12.4 23h1.7a1.4 1.4 0 0 1 0 2.8h-1.7a1.4 1.4 0 0 1 0-2.8z"/>
   </symbol>
 </svg>
 <div class="progress-bar" aria-hidden="true"></div>
@@ -802,12 +842,12 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a href="#top" class="logo" aria-label="brichdesign – początek strony"><span class="logo-mark"><svg viewBox="3 0 40 48" aria-hidden="true"><use href="#bd-mark"/></svg></span><span><span class="lb">brich</span><b>design</b></span></a>
+    <a href="#top" class="logo" aria-label="brichdesign – początek strony"><span class="logo-mark"><svg viewBox="6 2 40 44" aria-hidden="true"><use href="#bd-mark"/></svg></span><span><span class="lb">brich</span><b>design</b></span></a>
     <ul class="nav-links" id="navlinks">
       <li><a href="#realizacje">Realizacje</a></li>
       <li><a href="#uslugi">Usługi</a></li>
       <li><a href="#proces">Proces</a></li>
-      <li><a href="#o-mnie">O mnie</a></li>
+      <li><a href="#o-nas">O nas</a></li>
       <li><a href="#cennik">Cennik</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
@@ -828,6 +868,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   <div class="hero__layer" data-layer="near" aria-hidden="true"></div>
   <div class="hero__ground" aria-hidden="true"></div>
   <div class="hero__shade" aria-hidden="true"></div>
+  <div class="hero__veil" aria-hidden="true"></div>
 
   <div class="hero__content">
     <div class="hero__copy">
@@ -863,17 +904,17 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 </section>
 
 <div class="strip" aria-label="W każdym projekcie">
-  <div class="wrap">
+  <div class="wrap rv">
     <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Projekt od zera, bez szablonów</span>
     <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Wersja na telefon</span>
     <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>SEO lokalne i Google</span>
-    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Domena i hosting</span>
+    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pomoc z domeną i hostingiem</span>
     <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Opieka po starcie</span>
   
     <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Projekt od zera, bez szablonów</span>
     <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Wersja na telefon</span>
     <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>SEO lokalne i Google</span>
-    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Domena i hosting</span>
+    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pomoc z domeną i hostingiem</span>
     <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Opieka po starcie</span>
   </div>
 </div>
@@ -958,9 +999,23 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         </article>
       </div>
     </div>
-    <div class="works-cta rv">
-      <p>Twoja firma może być następna na tej liście.<small>Starsze projekty: <a href="https://www.vkcup.pl/" target="_blank" rel="noopener">VK Cup ↗</a></small></p>
-      <a href="#kontakt" class="btn btn-dark">Porozmawiajmy <span class="arr">→</span></a>
+    <div class="works-end rv">
+      <div class="works-cta">
+        <h3>Twoja firma może być następna na tej liście.</h3>
+        <p>Opisz, czego potrzebujesz. Przygotujemy bezpłatną wycenę i powiemy, co ma sens w Twojej branży.</p>
+        <a href="#kontakt" class="btn btn-primary">Porozmawiajmy <span class="arr">→</span></a>
+      </div>
+      <aside class="archive" aria-label="Archiwum realizacji">
+        <div>
+          <span class="archive__label">Archiwum</span>
+          <p class="archive__note">Starsze projekty, nadal działają online.</p>
+        </div>
+        <a class="arch-item" href="https://www.vkcup.pl/" target="_blank" rel="noopener" aria-label="Otwórz stronę VK Cup w nowej karcie">
+          <span class="arch-thumb"><img src="assets/previews/vkcup.jpg" alt="" width="1440" height="900" loading="lazy"></span>
+          <span><b>VK Cup</b><small>Serwer Battle Royale</small></span>
+          <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+        </a>
+      </aside>
     </div>
   </div>
 </section>
@@ -970,7 +1025,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow rv">Usługi</span>
-      <h2 class="rv">Co mogę dla Ciebie zrobić</h2>
+      <h2 class="rv">Co możemy dla Ciebie zrobić</h2>
       <p class="lead rv">Wybierz usługę, żeby zobaczyć szczegóły, cenę i czas realizacji.</p>
     </div>
     <div class="svc-tabs rv">
@@ -979,8 +1034,8 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <button type="button" role="tab" id="svc-t1" aria-controls="svc-p1" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><rect x="4" y="7" width="22" height="16" rx="2"/><rect x="18" y="21" width="22" height="16" rx="2"/><path d="M8 12h10M22 27h12"/></svg></span><span class="t"><b>Strona firmowa</b><small>od 3 490 zł</small></span><span class="chev" aria-hidden="true">→</span></button>
         <button type="button" role="tab" id="svc-t2" aria-controls="svc-p2" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><path d="M6 10h5l4 18h19l4-13H13"/><circle cx="18" cy="34" r="2.5"/><circle cx="31" cy="34" r="2.5"/></svg></span><span class="t"><b>Sklep internetowy</b><small>+2 490 zł</small></span><span class="chev" aria-hidden="true">→</span></button>
         <button type="button" role="tab" id="svc-t3" aria-controls="svc-p3" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><rect x="6" y="9" width="32" height="28" rx="3"/><path d="M6 17h32M14 5v8M30 5v8M13 24h5M21 24h5M13 30h5"/></svg></span><span class="t"><b>Rezerwacje online</b><small>+990 zł</small></span><span class="chev" aria-hidden="true">→</span></button>
-        <button type="button" role="tab" id="svc-t4" aria-controls="svc-p4" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><path d="M6 34c6 0 6-24 12-24s6 24 12 24 6-12 8-12"/><circle cx="18" cy="10" r="2"/></svg></span><span class="t"><b>Animacje i efekty</b><small>w pakiecie Premium</small></span><span class="chev" aria-hidden="true">→</span></button>
-        <button type="button" role="tab" id="svc-t5" aria-controls="svc-p5" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><path d="M22 5l14 6v10c0 9-6 15-14 18C14 36 8 30 8 21V11z"/><path d="M16 22l4 4 8-9"/></svg></span><span class="t"><b>Opieka i hosting</b><small>99 zł / mies.</small></span><span class="chev" aria-hidden="true">→</span></button>
+        <button type="button" role="tab" id="svc-t4" aria-controls="svc-p4" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><path d="M6 34c6 0 6-24 12-24s6 24 12 24 6-12 8-12"/><circle cx="18" cy="10" r="2"/></svg></span><span class="t"><b>Animacje i modele 3D</b><small>+399 zł · w Premium w cenie</small></span><span class="chev" aria-hidden="true">→</span></button>
+        <button type="button" role="tab" id="svc-t5" aria-controls="svc-p5" aria-selected="false" tabindex="-1"><span class="ic"><svg viewBox="0 0 44 44"><path d="M22 5l14 6v10c0 9-6 15-14 18C14 36 8 30 8 21V11z"/><path d="M16 22l4 4 8-9"/></svg></span><span class="t"><b>Opieka nad stroną</b><small>99 zł / mies.</small></span><span class="chev" aria-hidden="true">→</span></button>
       </div>
       <div class="svc-panes">
         <article class="svc-pane on" role="tabpanel" id="svc-p0" aria-labelledby="svc-t0">
@@ -988,20 +1043,20 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
           <h3>Strona wizytówka</h3>
           <p>Jedna przewijana strona: kim jesteś, co robisz i jak Cię znaleźć. Idealna dla gabinetu, salonu albo warsztatu, który chce dobrze wyglądać w sieci.</p>
           <ul class="pane-list"><li>Projekt pod Twoją firmę, bez szablonu</li><li>Wersja na telefon</li><li>Formularz kontaktowy i mapa dojazdu</li><li>Podstawowe SEO i Google</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>od 1 999 zł</b></div><div><small>Czas</small><b>7–10 dni</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="2">PureDrive</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-start">Policz w kalkulatorze <span class="arr">→</span></a></div>
+          <div class="pane-meta"><div><small>Cena</small><b>od 1 999 zł</b></div><div><small>Czas</small><b>do 72 godzin</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="2">PureDrive</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-start">Policz w kalkulatorze <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p1" aria-labelledby="svc-t1" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><rect x="4" y="7" width="22" height="16" rx="2"/><rect x="18" y="21" width="22" height="16" rx="2"/><path d="M8 12h10M22 27h12"/></svg></span><span class="pane-tag">Najczęściej wybierana</span></div>
           <h3>Strona firmowa</h3>
           <p>Kilka podstron: oferta, galeria, cennik, opinie i formularz. Wszystko, czego klient szuka, zanim do Ciebie zadzwoni.</p>
-          <ul class="pane-list"><li>Do 6 podstron</li><li>Galeria, cennik i opinie</li><li>Google Moja Firma i SEO lokalne</li><li>Panel do edycji na życzenie</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>od 3 490 zł</b></div><div><small>Czas</small><b>2–3 tygodnie</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="3">Barańska</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-firma">Policz w kalkulatorze <span class="arr">→</span></a></div>
+          <ul class="pane-list"><li>Do 6 podstron</li><li>Galeria, cennik i opinie</li><li>Google Moja Firma i SEO lokalne</li><li>Panel do własnej modyfikacji (+699 zł)</li></ul>
+          <div class="pane-meta"><div><small>Cena</small><b>od 3 490 zł</b></div><div><small>Czas</small><b>do 5 dni roboczych</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="3">Barańska</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-firma">Policz w kalkulatorze <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p2" aria-labelledby="svc-t2" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M6 10h5l4 18h19l4-13H13"/><circle cx="18" cy="34" r="2.5"/><circle cx="31" cy="34" r="2.5"/></svg></span><span class="pane-tag">Sprzedaż online</span></div>
           <h3>Sklep internetowy</h3>
           <p>Produkty, koszyk, płatności i dostawy. Prosty w obsłudze, także z telefonu, więc dodasz nowy produkt w kilka minut.</p>
-          <ul class="pane-list"><li>Do 50 produktów na start</li><li>Płatności online</li><li>Dostawy i paczkomaty</li><li>Panel do dodawania produktów</li></ul>
+          <ul class="pane-list"><li>Do 50 produktów na start, kolejne 50: +699 zł</li><li>Płatności online</li><li>Dostawy i paczkomaty</li><li>Panel do dodawania produktów</li></ul>
           <div class="pane-meta"><div><small>Cena</small><b>+2 490 zł do pakietu</b></div><div><small>Czas</small><b>ustalamy w wycenie</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="4">SOLUM</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-shop">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p3" aria-labelledby="svc-t3" hidden>
@@ -1013,17 +1068,17 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p4" aria-labelledby="svc-t4" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M6 34c6 0 6-24 12-24s6 24 12 24 6-12 8-12"/><circle cx="18" cy="10" r="2"/></svg></span><span class="pane-tag">Efekt „wow”</span></div>
-          <h3>Animacje i efekty</h3>
+          <h3>Animacje i modele 3D</h3>
           <p>Płynne wejścia sekcji, sceny przypinane przy przewijaniu i ruch, który prowadzi wzrok tam, gdzie chcesz. Bez spowalniania strony.</p>
-          <ul class="pane-list"><li>Animacje przy przewijaniu</li><li>Efekty po najechaniu</li><li>Płynnie także na telefonie</li><li>Lekki kod bez ciężkich bibliotek</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>Premium od 5 990 zł</b></div><div><small>Czas</small><b>3–5 tygodni</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="1">NOCTE</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-kino">Policz w kalkulatorze <span class="arr">→</span></a></div>
+          <ul class="pane-list"><li>Animacje przy przewijaniu</li><li>Efekty po najechaniu</li><li>Płynnie także na telefonie</li><li>Modele 3D wbudowane w stronę</li></ul>
+          <div class="pane-meta"><div><small>Cena</small><b>+399 zł do pakietu</b></div><div><small>Czas</small><b>w Premium do 2 tygodni</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="1">NOCTE</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-3d">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p5" aria-labelledby="svc-t5" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M22 5l14 6v10c0 9-6 15-14 18C14 36 8 30 8 21V11z"/><path d="M16 22l4 4 8-9"/></svg></span><span class="pane-tag">Po starcie</span></div>
-          <h3>Opieka i hosting</h3>
-          <p>Domena, serwer, kopie zapasowe i drobne zmiany. Piszesz, co zmienić, a ja to poprawiam. Nie musisz znać się na technice.</p>
-          <ul class="pane-list"><li>Hosting i domena</li><li>Kopie zapasowe</li><li>Aktualizacje i bezpieczeństwo</li><li>Drobne zmiany w treści</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>99 zł / mies.</b></div><div><small>Czas</small><b>od dnia startu</b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-care">Dodaj do wyceny <span class="arr">→</span></a></div>
+          <h3>Opieka nad stroną</h3>
+          <p>Wrzucamy poprawki i aktualizujemy stronę: nowe ceny, zdjęcia, teksty i dane kontaktowe. To opieka, a nie przebudowa, więc większe zmiany wyceniamy osobno. Kosztów hostingu nie pokrywamy: pomagamy go wybrać i ustawić.</p>
+          <ul class="pane-list"><li>Poprawki i aktualizacje treści</li><li>Pomoc w setupie hostingu i domeny</li><li>Konfiguracja poczty i certyfikatu SSL</li><li>Bez przebudowy strony (wyceniana osobno)</li></ul>
+          <div class="pane-meta"><div><small>Cena</small><b>99 zł / mies.</b></div><div><small>Czas</small><b>od dnia startu</b></div><div><small>Hosting i domena</small><b>płatne u dostawcy</b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-care">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
       </div>
     </div>
@@ -1037,7 +1092,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
       <span class="eyebrow rv">Proces</span>
       <h2 class="rv">Jak rośnie Twoja strona</h2>
       <p class="rv">Pięć kroków, zawsze w tej samej kolejności, a Ty wiesz, na jakim etapie jesteśmy. Kliknij krok albo poczekaj, przewiną się same.</p>
-      <div class="proc-total rv"><small>Strona firmowa</small><b>2–3 tygodnie</b><span>od rozmowy do publikacji</span></div>
+      <div class="proc-total rv"><small>Strona firmowa</small><b>do 5 dni roboczych</b><span>od rozmowy do publikacji</span></div>
     </div>
     <div class="stepper rv" id="stepper">
       <div class="st-nav" role="tablist" aria-label="Kroki współpracy">
@@ -1050,39 +1105,39 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
       <div class="st-panes">
           <article class="st-pane on" role="tabpanel" id="st-p0" aria-labelledby="st-t0">
             <div class="st-num" aria-hidden="true">01</div>
-            <div><h3>Rozmowa</h3><p>Opowiadasz o firmie i klientach. Pytam o cel strony, budżet i termin.</p><div class="st-get"><small>Dostajesz</small>Wycenę i plan działania w 24 godziny</div><span class="dur">dzień 1</span></div>
+            <div><h3>Rozmowa</h3><p>Opowiadasz o firmie i klientach. Pytamy o cel strony, budżet i termin.</p><div class="st-get"><small>Dostajesz</small>Wycenę i plan działania w 24 godziny</div><span class="dur">dzień 1</span></div>
           </article>
           <article class="st-pane" role="tabpanel" id="st-p1" aria-labelledby="st-t1" hidden>
             <div class="st-num" aria-hidden="true">02</div>
-            <div><h3>Projekt</h3><p>Pokazuję wygląd strony głównej na komputerze i telefonie. Poprawiamy, aż powiesz „to jest to”.</p><div class="st-get"><small>Dostajesz</small>Projekt do akceptacji, zanim cokolwiek zakoduję</div><span class="dur">dni 2–5</span></div>
+            <div><h3>Projekt</h3><p>Pokazujemy wygląd strony głównej na komputerze i telefonie. Poprawiamy, aż powiesz „to jest to”.</p><div class="st-get"><small>Dostajesz</small>Projekt do akceptacji, zanim cokolwiek zakodujemy</div><span class="dur">dni 1–2</span></div>
           </article>
           <article class="st-pane" role="tabpanel" id="st-p2" aria-labelledby="st-t2" hidden>
             <div class="st-num" aria-hidden="true">03</div>
-            <div><h3>Budowa</h3><p>Koduję całość, dodaję animacje i treści. Postęp widzisz na bieżąco.</p><div class="st-get"><small>Dostajesz</small>Prywatny link do wersji roboczej</div><span class="dur">dni 5–14</span></div>
+            <div><h3>Budowa</h3><p>Kodujemy całość, dodajemy animacje i treści. Postęp widzisz na bieżąco.</p><div class="st-get"><small>Dostajesz</small>Prywatny link do wersji roboczej</div><span class="dur">dni 2–4</span></div>
           </article>
           <article class="st-pane" role="tabpanel" id="st-p3" aria-labelledby="st-t3" hidden>
             <div class="st-num" aria-hidden="true">04</div>
-            <div><h3>Poprawki i start</h3><p>Dwie rundy poprawek w cenie. Podpinam domenę, ustawiam Google i publikuję.</p><div class="st-get"><small>Dostajesz</small>Gotową stronę pod Twoim adresem</div><span class="dur">dni 14–18</span></div>
+            <div><h3>Poprawki i start</h3><p>Dwie rundy poprawek w cenie. Pomagamy podpiąć domenę, ustawiamy Google i publikujemy stronę.</p><div class="st-get"><small>Dostajesz</small>Gotową stronę pod Twoim adresem</div><span class="dur">dzień 5</span></div>
           </article>
           <article class="st-pane" role="tabpanel" id="st-p4" aria-labelledby="st-t4" hidden>
             <div class="st-num" aria-hidden="true">05</div>
-            <div><h3>Opieka</h3><p>Po starcie nie znikam. Zmiana cen, nowe zdjęcie, sezonowe menu: robię to za Ciebie.</p><div class="st-get"><small>Dostajesz</small>Szybkie zmiany bez szukania informatyka</div><span class="dur">na bieżąco</span></div>
+            <div><h3>Opieka</h3><p>Po starcie nie znikamy. Zmiana cen, nowe zdjęcie, sezonowe menu: wrzucamy to za Ciebie. To opieka i poprawki, a nie przebudowa strony.</p><div class="st-get"><small>Dostajesz</small>Szybkie poprawki bez szukania informatyka</div><span class="dur">na bieżąco</span></div>
           </article>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ O MNIE ============ -->
-<section class="sec" id="o-mnie">
+<!-- ============ O NAS ============ -->
+<section class="sec" id="o-nas">
   <div class="wrap about-grid">
-    <div class="portrait rv"><b>B</b><small>Tu wstaw swoje zdjęcie: images/ja.jpg, pion 4:5</small></div>
+    <div class="portrait rv"><b>B</b><small>brichdesign · studio stron WWW</small></div>
     <div>
-      <span class="eyebrow rv">O mnie</span>
-      <p class="manifest" id="manifest">Cześć, tu <span class="hl">brichdesign</span>. Robię strony dla firm, które zasługują na więcej niż szablon. Piszę kod od zera, szybki i czytelny na telefonie. Sam projektuję, sam koduję i sam odbieram telefon, więc nic nie ginie po drodze. Lubię, kiedy strona <span class="hl">rusza się z sensem</span> i sprzedaje bez krzyku.</p>
+      <span class="eyebrow rv">O nas</span>
+      <p class="manifest" id="manifest">Cześć, tu <span class="hl">brichdesign</span>. Robimy strony dla firm, które zasługują na więcej niż szablon. Piszemy kod od zera, szybki i czytelny na telefonie. Sami projektujemy, sami kodujemy i sami odbieramy telefon, więc nic nie ginie po drodze. Lubimy, kiedy strona <span class="hl">rusza się z sensem</span> i sprzedaje bez krzyku.</p>
       <div class="values">
-        <div class="rv"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg><b>Bez szablonów</b><p>Każdy projekt rysuję od zera pod konkretną firmę.</p></div>
-        <div class="rv" style="--d:.08s"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg><b>Najpierw telefon</b><p>Większość klientów wejdzie z komórki. Projektuję najpierw pod nią.</p></div>
+        <div class="rv"><svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z"/></svg><b>Bez szablonów</b><p>Każdy projekt rysujemy od zera pod konkretną firmę.</p></div>
+        <div class="rv" style="--d:.08s"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg><b>Najpierw telefon</b><p>Większość klientów wejdzie z komórki. Projektujemy najpierw pod nią.</p></div>
         <div class="rv" style="--d:.16s"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><b>Twoje na zawsze</b><p>Dostajesz pliki i dostęp do domeny. Żadnych pułapek w umowie.</p></div>
       </div>
     </div>
@@ -1095,12 +1150,12 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     <div class="sec-head">
       <span class="eyebrow rv">Cennik</span>
       <h2 class="rv">Policz swoją stronę</h2>
-      <p class="lead rv">Każdy projekt wyceniam indywidualnie, a ceny zaczynają się od 1 999 zł. Wybierz pakiet i dodatki, kalkulator pokaże orientacyjny koszt.</p>
+      <p class="lead rv">Każdy projekt wyceniamy indywidualnie, a ceny zaczynają się od 1 999 zł. Wybierz pakiet i dodatki, kalkulator pokaże orientacyjny koszt.</p>
     </div>
     <p class="swipe-hint">Przesuń, żeby zobaczyć pakiety</p>
     <div class="plans" id="plans">
       <label class="plan rv">
-        <input type="radio" name="plan" id="plan-start" value="1999" data-days="7–10 dni" data-name="Wizytówka">
+        <input type="radio" name="plan" id="plan-start" value="1999" data-days="do 72 godzin" data-name="Wizytówka">
         <span class="radio"></span>
         <span class="plan-name">Wizytówka</span>
         <div class="price"><small>od</small>1 999 zł</div>
@@ -1108,7 +1163,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <ul><li>Projekt i wersja na telefon</li><li>Do 5 sekcji</li><li>Formularz kontaktowy i mapa</li><li>Podstawowe SEO</li></ul>
       </label>
       <label class="plan featured rv" style="--d:.08s">
-        <input type="radio" name="plan" id="plan-firma" value="3490" data-days="2–3 tygodnie" data-name="Strona firmowa" checked>
+        <input type="radio" name="plan" id="plan-firma" value="3490" data-days="do 5 dni roboczych" data-name="Strona firmowa" checked>
         <span class="radio"></span>
         <span class="ribbon">Najczęściej wybierany</span>
         <span class="plan-name">Strona firmowa</span>
@@ -1117,7 +1172,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <ul><li>Do 6 podstron</li><li>Animacje wejścia sekcji</li><li>Galeria, cennik, opinie</li><li>Google Moja Firma i SEO lokalne</li></ul>
       </label>
       <label class="plan rv" style="--d:.16s">
-        <input type="radio" name="plan" id="plan-kino" value="5990" data-days="3–5 tygodni" data-name="Premium">
+        <input type="radio" name="plan" id="plan-kino" value="5990" data-days="do 2 tygodni" data-name="Premium">
         <span class="radio"></span>
         <span class="plan-name">Premium</span>
         <div class="price"><small>od</small>5 990 zł</div>
@@ -1131,21 +1186,24 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <div class="addon-grid">
         <label class="addon"><input type="checkbox" id="ad-sub" value="290" data-label="Dodatkowa podstrona"><span>Dodatkowa podstrona</span><span>+290 zł</span></label>
         <label class="addon"><input type="checkbox" id="ad-shop" value="2490" data-label="Sklep internetowy"><span>Sklep internetowy (do 50 produktów)</span><span>+2 490 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-prod" value="699" data-label="Dodatkowe 50 produktów"><span>Dodatkowe 50 produktów w sklepie</span><span>+699 zł</span></label>
         <label class="addon"><input type="checkbox" id="ad-book" value="990" data-label="Rezerwacje online"><span>Rezerwacje online i kalendarz</span><span>+990 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-text" value="590" data-label="Teksty i SEO"><span>Napiszę teksty i zadbam o SEO</span><span>+590 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-text" value="590" data-label="Teksty i SEO"><span>Napiszemy teksty i zadbamy o SEO</span><span>+590 zł</span></label>
         <label class="addon"><input type="checkbox" id="ad-logo" value="790" data-label="Logo"><span>Logo i kolory firmy</span><span>+790 zł</span></label>
         
-        <label class="addon"><input type="checkbox" id="ad-care" value="99" data-monthly="1" data-label="Opieka i hosting" checked><span>Opieka, hosting i kopie zapasowe</span><span>99 zł / mies.</span></label>
+        <label class="addon"><input type="checkbox" id="ad-3d" value="399" data-label="Animacje i modele 3D"><span>Animacje i modele 3D</span><span>+399 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-panel" value="699" data-label="Panel do własnej modyfikacji"><span>Panel do własnej modyfikacji strony</span><span>+699 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-care" value="99" data-monthly="1" data-label="Opieka nad stroną" checked><span>Opieka nad stroną: poprawki i aktualizacje</span><span>99 zł / mies.</span></label>
         </div>
       </div>
       <div class="total rv" style="--d:.1s" aria-live="polite">
         <span class="mono">Szacunek</span>
         <div class="total-sum" id="sum">3 490 zł</div>
         <div class="total-rows" id="rows"></div>
-        <a href="#kontakt" class="btn btn-primary" id="calc-cta">Wyślij mi tę wycenę <span class="arr">→</span></a>
+        <a href="#kontakt" class="btn btn-primary" id="calc-cta">Wyślij to zapytanie <span class="arr">→</span></a>
       </div>
     </div>
-    <p class="fine">Ceny orientacyjne, brutto. Ostateczna kwota zależy od zakresu i jest zapisana w umowie przed startem prac.</p>
+    <p class="fine">Ceny orientacyjne, brutto. Ostateczna kwota zależy od zakresu i jest zapisana w umowie przed startem prac. Ceny nie obejmują kosztów hostingu i domeny, które opłacasz u wybranego dostawcy. Pomagamy w ich wyborze, w konfiguracji i w uruchomieniu strony.</p>
   </div>
 </section>
 
@@ -1153,13 +1211,15 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 <section class="sec" id="faq">
   <div class="wrap">
     <div class="faq-grid">
-    <div class="sec-head faq-head"><span class="eyebrow rv">Pytania</span><h2 class="rv">Zanim napiszesz</h2><p class="lead rv">Nie ma tu Twojego pytania? Napisz albo zadzwoń, odpowiadam tego samego dnia.</p><a href="#kontakt" class="btn btn-dark rv">Zadaj pytanie <span class="arr">→</span></a></div>
+    <div class="sec-head faq-head"><span class="eyebrow rv">Pytania</span><h2 class="rv">Zanim napiszesz</h2><p class="lead rv">Nie ma tu Twojego pytania? Napisz albo zadzwoń, odpowiadamy tego samego dnia.</p><a href="#kontakt" class="btn btn-dark rv">Zadaj pytanie <span class="arr">→</span></a></div>
     <div class="faq rv">
-      <details name="faq" open><summary>Ile trwa zrobienie strony?</summary><p>Wizytówka zwykle 7–10 dni, strona firmowa 2–3 tygodnie, a wersja premium z animacjami 3–5 tygodni. Najwięcej zależy od tego, jak szybko dostanę teksty i zdjęcia.</p></details>
-      <details name="faq"><summary>Nie mam tekstów ani zdjęć. Co wtedy?</summary><p>Mogę napisać teksty na podstawie rozmowy i przygotować zdjęcia poglądowe, które potem podmienisz na prawdziwe.</p></details>
-      <details name="faq"><summary>Czy sam będę mógł zmieniać treści?</summary><p>Tak, jeśli zależy Ci na samodzielnej edycji, podepnę prosty panel. Możesz też wybrać abonament opieki i po prostu wysyłać mi zmiany.</p></details>
-      <details name="faq"><summary>Czy animacje nie spowolnią strony?</summary><p>Nie. Piszę je bez ciężkich bibliotek, zdjęcia są kompresowane, a na słabszych telefonach efekty są lżejsze.</p></details>
-      <details name="faq"><summary>Mam już stronę. Przerobisz ją?</summary><p>Tak. Zostawiam treści i adres, a zmieniam wygląd, wersję na telefon i szybkość. Ustawiam przekierowania, żeby nie stracić miejsca w Google. Wycenę robię po obejrzeniu obecnej strony.</p></details>
+      <details name="faq" open><summary>Ile trwa zrobienie strony?</summary><p>Wizytówka do 72 godzin, strona firmowa do 5 dni roboczych, projekt premium do 2 tygodni. Termin sklepu internetowego ustalamy w wycenie. Najwięcej zależy od tego, jak szybko dostaniemy teksty i zdjęcia.</p></details>
+      <details name="faq"><summary>Czy hosting i domena są w cenie?</summary><p>Nie. Kosztów hostingu i domeny nie pokrywamy, opłacasz je u wybranego dostawcy. Pomagamy za to w setupie: doradzamy wybór, konfigurujemy domenę, pocztę i certyfikat SSL oraz uruchamiamy stronę.</p></details>
+      <details name="faq"><summary>Nie mam tekstów ani zdjęć. Co wtedy?</summary><p>Możemy napisać teksty na podstawie rozmowy (dodatek +590 zł) i przygotować zdjęcia poglądowe, które potem podmienisz na prawdziwe.</p></details>
+      <details name="faq"><summary>Czy sam będę mógł zmieniać treści?</summary><p>Tak. Możesz zamówić Panel do własnej modyfikacji (+699 zł), w którym samodzielnie zmienisz teksty, grafiki i linki. Możesz też wybrać opiekę nad stroną (99 zł / mies.) i wysyłać nam poprawki, a my wgramy je za Ciebie.</p></details>
+      <details name="faq"><summary>Co obejmuje opieka nad stroną?</summary><p>Wrzucanie poprawek i aktualizacje: zmiany tekstów, zdjęć, cen i danych kontaktowych. Opieka nie obejmuje przebudowy strony ani nowych funkcji, takie zmiany wyceniamy osobno.</p></details>
+      <details name="faq"><summary>Czy animacje nie spowolnią strony?</summary><p>Nie. Piszemy je bez ciężkich bibliotek, zdjęcia są kompresowane, a na słabszych telefonach efekty są lżejsze.</p></details>
+      <details name="faq"><summary>Mam już stronę. Przerobicie ją?</summary><p>Tak. Zostawiamy treści i adres, a zmieniamy wygląd, wersję na telefon i szybkość. Ustawiamy przekierowania, żeby nie stracić miejsca w Google. Wycenę robimy po obejrzeniu obecnej strony.</p></details>
       <details name="faq"><summary>Jak wygląda płatność?</summary><p>50% zaliczki na start, reszta po publikacji strony. Wszystko zapisane w umowie.</p></details>
     </div>
     </div>
@@ -1171,7 +1231,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   <div class="wrap">
     <div class="contact-head">
       <div><span class="eyebrow">Kontakt</span><h2>Posadźmy razem <span class="grad">Twoją stronę.</span></h2></div>
-      <p>Odpowiedz na 4 krótkie pytania. Zajmie to minutę, a ja odezwę się w ciągu 24 godzin z wyceną.</p>
+      <p>Odpowiedz na 4 krótkie pytania. Zajmie to minutę, a my odezwiemy się w ciągu 24 godzin z wyceną.</p>
     </div>
 
     <form class="wiz" id="wiz" novalidate>
@@ -1194,6 +1254,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
       </aside>
 
       <div class="wiz-main">
+        <input type="text" id="f-web" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="wiz-top">
           <div class="wiz-count"><span>Krok <b id="wn">1</b> z 4</span><span id="wname">Twoja firma</span></div>
           <div class="wbar" id="wbar"><i class="fill"></i><i></i><i></i><i></i></div>
@@ -1210,7 +1271,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
               <label class="tile"><input type="radio" name="biz" id="biz-health" value="Zdrowie"><svg viewBox="0 0 34 34"><path d="M17 29S5 22 5 13a6 6 0 0 1 12-2 6 6 0 0 1 12 2c0 9-12 16-12 16z"/><path d="M11 16h4l2-4 2 7 2-3h3"/></svg><b>Zdrowie</b><small>gabinet, fizjo, dietetyk</small></label>
               <label class="tile"><input type="radio" name="biz" id="biz-build" value="Rzemiosło i budowlanka"><svg viewBox="0 0 34 34"><path d="M6 28 18 16M15 9l6-4 8 8-4 6-10-10z"/></svg><b>Rzemiosło</b><small>budowlanka, stolarz, warsztat</small></label>
               <label class="tile"><input type="radio" name="biz" id="biz-shop" value="Sklep i handel"><svg viewBox="0 0 34 34"><path d="M6 11h22l-2 18H8z"/><path d="M12 14V9a5 5 0 0 1 10 0v5"/></svg><b>Sklep i handel</b><small>sklep, hurtownia, marka</small></label>
-              <label class="tile"><input type="radio" name="biz" id="biz-other" value="Inna"><svg viewBox="0 0 34 34"><circle cx="8" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/><circle cx="26" cy="17" r="2.5"/></svg><b>Coś innego</b><small>opiszę w jednym zdaniu</small></label>
+              <label class="tile"><input type="radio" name="biz" id="biz-other" value="Inna"><svg viewBox="0 0 34 34"><circle cx="8" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/><circle cx="26" cy="17" r="2.5"/></svg><b>Coś innego</b><small>opisz w jednym zdaniu</small></label>
             </div>
             <div class="reveal" id="biz-other-wrap"><div><input class="winput" id="biz-other-txt" placeholder="Np. szkoła tańca, biuro rachunkowe…" aria-label="Rodzaj firmy"></div></div>
           </fieldset>
@@ -1245,7 +1306,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
               <label class="tile"><input type="radio" name="pack" id="p-card" value="Wizytówka" data-min="1999"><b>Wizytówka</b><small>od 1 999 zł</small></label>
               <label class="tile"><input type="radio" name="pack" id="p-firm" value="Strona firmowa" data-min="3490"><b>Strona firmowa</b><small>od 3 490 zł</small></label>
               <label class="tile"><input type="radio" name="pack" id="p-kino" value="Premium" data-min="5990"><b>Premium</b><small>od 5 990 zł</small></label>
-              <label class="tile"><input type="radio" name="pack" id="p-idk" value="Nie wiem, doradź" data-min="0"><b>Nie wiem</b><small>doradzę po rozmowie</small></label>
+              <label class="tile"><input type="radio" name="pack" id="p-idk" value="Nie wiem, doradź" data-min="0"><b>Nie wiem</b><small>doradzimy po rozmowie</small></label>
             </div>
             <div class="budget stg">
               <span class="wlabel">Budżet</span>
@@ -1266,7 +1327,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 
           <!-- KROK 4 -->
           <fieldset class="wstep" data-step="4">
-            <legend class="stg">Jak mam się odezwać?</legend>
+            <legend class="stg">Jak możemy się odezwać?</legend>
             <div class="wrow stg">
               <div class="wfield"><label class="wlabel" for="f-name">Imię</label><input class="winput" id="f-name" autocomplete="name" placeholder="Jan"></div>
               <div class="wfield"><label class="wlabel" for="f-contact">E-mail lub telefon</label><input class="winput" id="f-contact" autocomplete="email" placeholder="jan@firma.pl"></div>
@@ -1286,7 +1347,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
           <div class="wstep wdone" data-step="5" role="status">
             <svg viewBox="0 0 74 74" aria-hidden="true"><circle cx="37" cy="37" r="34"/><path d="M23 38l9 9 19-20"/></svg>
             <h3 class="stg wtitle" id="done-title">Dzięki!</h3>
-            <p class="stg" id="done-text">Twoja wiadomość czeka gotowa w programie pocztowym. Kliknij tam „Wyślij”, a odezwę się w ciągu 24 godzin.</p>
+            <p class="stg" id="done-text">Zapytanie dotarło na hello@brichdesign.pl. Odezwiemy się w ciągu 24 godzin.</p>
             <div class="actions stg">
               <button type="button" class="btn btn-primary" id="w-copy">Skopiuj treść zapytania</button>
               <button type="button" class="btn btn-ghost" id="w-reset">Wypełnij od nowa</button>
@@ -1305,8 +1366,8 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 
     <div class="direct">
       <div class="dline"><span class="mono">Wolisz od razu napisać?</span><div class="dline-row"><a href="mailto:hello@brichdesign.pl" id="mail">hello@brichdesign.pl</a><button class="copy" type="button" data-copy="hello@brichdesign.pl">Kopiuj</button></div></div>
-      <div class="dline"><span class="mono">Albo zadzwonić</span><div class="dline-row"><a href="tel:+48513970699">+48 513 970 699</a><button class="copy" type="button" data-copy="+48 513 970 699">Kopiuj</button></div></div>
-      <div class="dline"><span class="mono">Działam</span><div class="dline-row"><strong>Warszawa i zdalnie</strong></div></div>
+      <div class="dline"><span class="mono">Albo zadzwonić</span><div class="dline-row"><a href="tel:+48513970666">+48 513 970 666</a><button class="copy" type="button" data-copy="+48 513 970 666">Kopiuj</button></div></div>
+      <div class="dline"><span class="mono">Działamy</span><div class="dline-row"><strong>Warszawa i zdalnie</strong></div></div>
     </div>
   </div>
 </section>
@@ -1315,9 +1376,10 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <a href="#top" class="logo" aria-label="brichdesign – do góry"><span class="logo-mark"><svg viewBox="3 0 40 48" aria-hidden="true"><use href="#bd-mark"/></svg></span><span><span class="lb">brich</span><b>design</b></span></a>
+      <a href="#top" class="logo" aria-label="brichdesign – do góry"><span class="logo-mark"><svg viewBox="6 2 40 44" aria-hidden="true"><use href="#bd-mark"/></svg></span><span><span class="lb">brich</span><b>design</b></span></a>
       <nav><a href="#realizacje">Realizacje</a><a href="#uslugi">Usługi</a><a href="#cennik">Cennik</a><a href="#kontakt">Kontakt</a><a href="#top">Do góry ↑</a></nav>
     </div>
+    <p class="foot-contact"><a href="mailto:hello@brichdesign.pl">hello@brichdesign.pl</a> · <a href="tel:+48513970666">+48 513 970 666</a> · Warszawa i zdalnie</p>
     <p class="foot-copy">© 2026 brichdesign · Strony internetowe dla firm · Realizacje: <a href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener">Karpik</a>, <a href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener">NOCTE</a>, <a href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener">PureDrive</a>, <a href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener">Barańska Stomatolog</a>, <a href="https://szumi32.github.io/solum/" target="_blank" rel="noopener">SOLUM</a>, <a href="https://www.furiarp.eu/#top" target="_blank" rel="noopener">Furia RolePlay</a></p>
   </div>
   <div class="giant" id="giant" aria-hidden="true">brich/design</div>
@@ -1457,6 +1519,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     l.innerHTML = '<i></i>'; leavesEl.append(l);
   }
   // las reaguje na kursor, a przy przewijaniu „wjeżdżamy” w niego (bez przypinania strony)
+  const heroVeil = $('.hero__veil');
   const fLayers = $$('.hero__layer'), heroIn = $('.hero__content'), heroFadeEls = $$('.hero__copy, .hcard, .hero__stats'), heroSun = $('.hero__sun');
   const DEPTH = { far: [8, .12], mid: [20, .4], near: [42, 1.1] }; // [ruch za kursorem w px, przybliżenie przy przewinięciu]
   const pm = { x: 0, y: 0, tx: 0, ty: 0, p: 0 };
@@ -1478,6 +1541,8 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     heroIn.style.transform = `translate3d(0, ${(pm.p * -90).toFixed(1)}px, 0)`;
     const op = (1 - Math.max(0, pm.p - .1) * 1.6).toFixed(3);
     heroFadeEls.forEach(el => { el.style.opacity = op; });
+    // las „tonie” w czerni, więc dół hero płynnie przechodzi w następną sekcję (bez ostrej krawędzi)
+    heroVeil.style.opacity = clamp((pm.p - .04) * 1.15).toFixed(3);
   };
 
   // szklana karta: licznik przelatuje przez realizacje
@@ -1671,7 +1736,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     if (!e.isIntersecting) return;
     links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
   }), { rootMargin: '-45% 0px -50% 0px' });
-  ['realizacje', 'uslugi', 'proces', 'o-mnie', 'cennik', 'faq', 'kontakt'].forEach(id => { const el = document.getElementById(id); el && spy.observe(el); });
+  ['realizacje', 'uslugi', 'proces', 'o-nas', 'cennik', 'faq', 'kontakt'].forEach(id => { const el = document.getElementById(id); el && spy.observe(el); });
   new IntersectionObserver(es => { if (es[0].isIntersecting) links.forEach(a => a.classList.remove('active')); }).observe(hero);
   const toTop = $('#toTop');
   toTop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
@@ -1799,14 +1864,33 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     '', $('#f-msg').value.trim()
   ].join('\n');
 
-  wiz.addEventListener('submit', (e) => {
+  wiz.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (cur === 5 || !check()) return;
     if (cur < 4) { go(cur + 1); return; }
+    const subject = 'Zapytanie o stronę – ' + bizText();
+    const mailto = 'mailto:hello@brichdesign.pl?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(bodyText());
+    nextB.disabled = true; nextB.textContent = 'Wysyłamy…';
+    // wysyłka przez wyslij.php (hosting z PHP); gdy się nie uda, otwieramy program pocztowy z gotową wiadomością
+    let sent = false;
+    try {
+      const ctl = new AbortController(); const tm = setTimeout(() => ctl.abort(), 12000);
+      const r = await fetch('wyslij.php', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+        body: JSON.stringify({ name: $('#f-name').value.trim(), contact: $('#f-contact').value.trim(), subject, text: bodyText(), website: $('#f-web').value }),
+      });
+      clearTimeout(tm);
+      const j = await r.json().catch(() => ({}));
+      sent = r.ok && j.ok === true;
+    } catch (err) { sent = false; }
+    nextB.disabled = false;
     $('#done-title').textContent = `Dzięki, ${$('#f-name').value.trim()}!`;
+    $('#done-text').textContent = sent
+      ? 'Zapytanie dotarło na hello@brichdesign.pl. Odezwiemy się w ciągu 24 godzin.'
+      : 'Nie udało się wysłać formularza automatycznie, więc otwieramy Twój program pocztowy z gotową wiadomością. Kliknij tam „Wyślij”, a odezwiemy się w ciągu 24 godzin.';
     go(5);
     confetti();
-    location.href = 'mailto:hello@brichdesign.pl?subject=' + encodeURIComponent('Zapytanie o stronę – ' + bizText()) + '&body=' + encodeURIComponent(bodyText());
+    if (!sent) location.href = mailto;
   });
   prevB.addEventListener('click', () => { if (cur > 1) go(cur - 1); });
 

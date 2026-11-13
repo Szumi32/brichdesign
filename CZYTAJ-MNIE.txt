@@ -30,7 +30,7 @@ assets/previews/*.jpg to zrzuty Twoich realizacji (1440×900). Gdy strona się z
 assets/logo.svg – logo (znak drzewa z listkiem w kolorze akcentu + napis brichdesign), assets/favicon.svg – ikona karty.
 
 DO PODMIANY (szukaj tych tekstów w index.html)
-1. Kontakt: hello@brichdesign.pl (kilka miejsc, także w skrypcie formularza) i +48 513 970 699, „Warszawa i zdalnie”.
+1. Kontakt: hello@brichdesign.pl (kilka miejsc, także w skrypcie formularza) i +48 513 970 666, „Warszawa i zdalnie”.
    Domena brichdesign.pl nie była sprawdzana – sprawdź, czy jest wolna, zanim ją kupisz.
 2. Zdjęcie: w sekcji „O mnie” jest ramka z literą B. Wstaw swoje zdjęcie (pion 4:5) w miejsce <div class="portrait rv">.
 3. Ceny: pakiety 1 999 / 3 490 / 5 990 zł, dodatki (sklep +2 490, rezerwacje +990, teksty +590, logo +790,
@@ -44,3 +44,13 @@ Formularz otwiera program pocztowy z gotową wiadomością (mailto). Żeby zapyt
 Formspree (miejsce: obsługa 'submit' w sekcji „formularz w 4 krokach” w skrypcie).
 Poprzednie wersje są w archiwum/ (birch-zielona = przed czarnym motywem, birch-czarna-zloto = czarna ze złotym akcentem, birch-oliwkowe-tlo = przed zmianą tła,
 birch-przelacznik-kolorow = wersja z próbkami tła i akcentu do porównania).
+
+
+AKTUALIZACJA 2026-11-14
+- Teksty są w liczbie mnogiej (my). Sekcja „O nas”.
+- Terminy: wizytówka do 72 godzin, strona firmowa do 5 dni roboczych, sklep ustalany w wycenie, projekt premium do 2 tygodni.
+- Nowe dodatki w cenniku: +50 produktów 699 zł, animacje i modele 3D 399 zł, panel do własnej modyfikacji 699 zł.
+- Hosting i domena NIE są w cenie (klient płaci dostawcy, my pomagamy w setupie). Opieka = poprawki i aktualizacje, bez przebudowy.
+- Kontakt: hello@brichdesign.pl, +48 513 970 666.
+- Formularz: wysyła mail przez wyslij.php (hosting z PHP, np. home.pl) na hello@brichdesign.pl. Bez PHP (GitHub Pages) otwiera program pocztowy.
+- Logo: biały pień brzozy z dwoma nacięciami + miedziany pierścień (assets/logo.svg, assets/favicon.svg, symbol #bd-mark w index.html).
