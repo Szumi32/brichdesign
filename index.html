@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>brichdesign – strony internetowe, które wyrastają ponad resztę</title>
-<meta name="description" content="brichdesign: wizytówki, strony firmowe, rezerwacje online i sklepy internetowe. Projekt i kod od zera, od 1 999 zł. Zobacz realizacje: Karpik, NOCTE, PureDrive, Barańska Stomatolog, SOLUM, Furia RolePlay.">
-<meta property="og:title" content="brichdesign – strony, które wyrastają ponad resztę">
-<meta property="og:description" content="Projektujemy i kodujemy strony dla firm. Zobacz realizacje i policz swoją stronę.">
+<title>Projektowanie stron internetowych Warszawa i cała Polska | brichdesign</title>
+<meta name="description" content="Szybkie, nowoczesne strony internetowe, sklepy e-commerce i panele zarządzania. Warszawa i zdalnie z całej Polski. Wycena indywidualna, od 1 999 zł.">
+<meta property="og:title" content="Projektowanie stron internetowych Warszawa i cała Polska | brichdesign">
+<meta property="og:description" content="Tworzymy szybkie, nowoczesne i nieszablonowe strony internetowe, sklepy e-commerce oraz panele zarządzania. Warszawa i zdalnie.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pl_PL">
 <link rel="canonical" href="https://brichdesign.pl/">
@@ -304,7 +304,7 @@ h2 { font: 700 clamp(34px, 4.4vw, 54px)/1.08 var(--f-d); letter-spacing: -.03em;
   .works-cta { padding: 20px; margin-top: 20px; }
 }
 
-/* zrzuty realizacji (assets/previews/*.jpg, 1440×900) */
+/* zrzuty realizacji (assets/previews/*.webp, 1440×900) */
 .screen { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--card2); }
 .screen::before { content: attr(data-name); position: absolute; inset: 0; display: grid; place-items: center; font: 300 clamp(20px, 3vw, 40px) var(--f-g); color: rgba(236, 232, 223, .3); }
 .screen > img { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: top center; opacity: 0; transition: opacity .4s, transform 1.2s var(--ease); }
@@ -827,7 +827,34 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 .foot-contact a { color: var(--bark); text-decoration: none; }
 .foot-contact a:hover { color: var(--gold); }
 
+
+/* ============ v4: logo w „O nas”, teksty SEO, studia przypadków ============ */
+.portrait svg.portrait-logo { position: relative; width: clamp(104px, 11vw, 156px); height: auto; color: var(--bark); filter: drop-shadow(0 12px 28px rgba(var(--gold-rgb), .18)); }
+.hero__title .hero-eyebrow { display: flex; margin-bottom: clamp(18px, 2.6vh, 28px); text-shadow: none; text-transform: uppercase; letter-spacing: .14em; }
+.hero__title .hero-eyebrow { font-size: 11px; line-height: 1.5; }
+
+.seo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
+.seo-grid article { padding: 26px 28px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); transition: border-color .4s var(--ease), transform .6s var(--ease); }
+.seo-grid article:hover { border-color: rgba(var(--gold-rgb), .45); transform: translateY(-3px); }
+.seo-grid h3 { margin: 0 0 8px; font: 400 clamp(17px, 1.5vw, 21px)/1.3 var(--f-g); letter-spacing: -.02em; }
+.seo-grid p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
+
+.about-more { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 84px); margin-top: clamp(56px, 8vw, 96px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line); }
+.about-more h2 { margin: 0 0 16px; font: 300 clamp(22px, 2.4vw, 32px)/1.2 var(--f-g); letter-spacing: -.03em; }
+.about-more .loc p { margin: 0; color: var(--muted); font-size: 16.5px; line-height: 1.7; max-width: 52ch; }
+.why ul { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.why li { display: grid; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.why b { font: 500 16px/1.3 var(--f-d); color: var(--bark); }
+.why span { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+.pj-case { margin: 12px 0 0; font-size: 14px; line-height: 1.6; color: rgba(236, 232, 223, .72); }
+.pj-case b { color: var(--gold); font-weight: 500; }
+
+@media (max-width: 860px) { .seo-grid, .about-more { grid-template-columns: 1fr; } }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"brichdesign","url":"https://brichdesign.pl/","logo":"https://brichdesign.pl/assets/logo.svg","image":"https://brichdesign.pl/assets/previews/karpik.webp","email":"hello@brichdesign.pl","telephone":"+48513970666","priceRange":"od 1999 zł","description":"Projektowanie stron internetowych, sklepów e-commerce i paneli zarządzania. Warszawa i zdalnie z całej Polski.","address":{"@type":"PostalAddress","addressLocality":"Warszawa","addressCountry":"PL"},"areaServed":[{"@type":"City","name":"Warszawa"},{"@type":"Country","name":"Polska"}],"knowsAbout":["projektowanie stron internetowych","sklepy internetowe","e-commerce","panele zarządzania","SEO"]}
+</script>
 </head>
 <body>
 <!-- Znak brichdesign: litera „b” = biały pień brzozy (dwa znaczenia kory) + miedziany pierścień -->
@@ -872,16 +899,16 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 
   <div class="hero__content">
     <div class="hero__copy">
-      <p class="hero-eyebrow fade" style="--d:.1s"><i></i>Studio stron WWW · Polska</p>
-      <h1 class="hero__title" id="heroTitle" aria-label="Wyrośnij ponad resztę.">
-        <span class="ln" aria-hidden="true"><span style="--i:0">Wyrośnij</span></span>
-        <span class="ln" aria-hidden="true"><span style="--i:1">ponad</span></span>
-        <span class="ln" aria-hidden="true"><span style="--i:2">resztę.</span></span>
+      <h1 class="hero__title" id="heroTitle">
+        <span class="hero-eyebrow fade" style="--d:.1s"><i></i>Projektowanie stron internetowych · Warszawa i cała Polska</span>
+        <span class="ln"><span style="--i:0">Wyrośnij</span></span>
+        <span class="ln"><span style="--i:1">ponad</span></span>
+        <span class="ln"><span style="--i:2">resztę.</span></span>
       </h1>
-      <p class="hero__lead fade" style="--d:.6s">Wizytówki, strony firmowe, rezerwacje online i sklepy internetowe. Projektowane i kodowane od zera pod Twoją markę, wyceniane indywidualnie, <strong>od 1 999 zł</strong>.</p>
+      <p class="hero__lead fade" style="--d:.6s">Tworzymy szybkie, nowoczesne i nieszablonowe strony internetowe, dedykowane sklepy e-commerce oraz panele zarządzania. Stacjonujemy w Warszawie, a rozwiązania dostarczamy klientom z całej Polski. Wycena indywidualna, <strong>od 1 999 zł</strong>.</p>
       <div class="actions fade" style="--d:.75s">
         <a href="#realizacje" class="btn btn-primary">Zobacz realizacje</a>
-        <a href="#kontakt" class="btn btn-glass">Bezpłatna wycena <span class="arr">→</span></a>
+        <a href="#kontakt" class="btn btn-glass">Wyceń swój projekt <span class="arr">→</span></a>
       </div>
     </div>
 
@@ -940,60 +967,60 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <article class="pj on" role="tabpanel" id="pj-p0" aria-labelledby="pj-t0">
           <a class="device" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener" aria-label="Otwórz stronę Karpik w nowej karcie">
             <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/karpik</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="Karpik"><img src="assets/previews/karpik.jpg" alt="Zrzut strony Karpik" width="1440" height="900" loading="lazy"></div>
+            <div class="screen" data-name="Karpik"><img src="assets/previews/karpik.webp" alt="Projekt strony internetowej z rezerwacjami dla domków nad Jeziorem Białym" width="1440" height="900" loading="lazy"></div>
           </a>
           <div class="pj-info">
-            <div><small>01 / 06 · Turystyka · rezerwacje</small><h3>Karpik</h3><p>Domki nad Jeziorem Białym: cennik, kalendarz terminów i asystent odpowiadający gościom.</p><ul class="pj-tags"><li>Rezerwacje</li><li>Kalendarz terminów</li><li>Asystent czatu</li></ul></div>
+            <div><small>01 / 06 · Turystyka · rezerwacje</small><h3>Karpik</h3><p>Domki nad Jeziorem Białym: cennik, kalendarz terminów i asystent odpowiadający gościom.</p><p class="pj-case"><b>Cel:</b> pokazać domki i ułatwić rezerwację pobytu. <b>Rozwiązanie:</b> cennik, kalendarz terminów, asystent odpowiadający gościom i panel właściciela.</p><ul class="pj-tags"><li>Rezerwacje</li><li>Kalendarz terminów</li><li>Asystent czatu</li></ul></div>
             <a class="btn btn-primary" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
           </div>
         </article>
         <article class="pj" role="tabpanel" id="pj-p1" aria-labelledby="pj-t1" hidden>
           <a class="device" href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener" aria-label="Otwórz stronę NOCTE w nowej karcie">
             <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/nocte</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="NOCTE"><img src="assets/previews/nocte.jpg" alt="Zrzut strony NOCTE" width="1440" height="900" loading="lazy"></div>
+            <div class="screen" data-name="NOCTE"><img src="assets/previews/nocte.webp" alt="Projekt nowoczesnej strony produktowej z ciemnym motywem dla maski do snu NOCTE" width="1440" height="900" loading="lazy"></div>
           </a>
           <div class="pj-info">
-            <div><small>02 / 06 · Produkt · startup</small><h3>NOCTE</h3><p>Koncepcja inteligentnej maski do snu. Czarne studio, produkt w świetle i konfigurator.</p><ul class="pj-tags"><li>Strona produktu</li><li>Konfigurator</li><li>Animacje</li></ul></div>
+            <div><small>02 / 06 · Produkt · startup</small><h3>NOCTE</h3><p>Koncepcja inteligentnej maski do snu. Czarne studio, produkt w świetle i konfigurator.</p><p class="pj-case"><b>Cel:</b> przedstawić nowy produkt i zainteresować nim odwiedzających. <b>Rozwiązanie:</b> strona w ciemnym stylu z animacjami i konfiguratorem maski.</p><ul class="pj-tags"><li>Strona produktu</li><li>Konfigurator</li><li>Animacje</li></ul></div>
             <a class="btn btn-primary" href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
           </div>
         </article>
         <article class="pj" role="tabpanel" id="pj-p2" aria-labelledby="pj-t2" hidden>
           <a class="device" href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener" aria-label="Otwórz stronę PureDrive w nowej karcie">
             <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/puredrive</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="PureDrive"><img src="assets/previews/puredrive.jpg" alt="Zrzut strony PureDrive" width="1440" height="900" loading="lazy"></div>
+            <div class="screen" data-name="PureDrive"><img src="assets/previews/puredrive.webp" alt="Projekt strony www dla ręcznej myjni samochodowej i auto detailingu w Warszawie" width="1440" height="900" loading="lazy"></div>
           </a>
           <div class="pj-info">
-            <div><small>03 / 06 · Usługi lokalne</small><h3>PureDrive</h3><p>Ręczna myjnia i detailing w garażu Galerii Wileńskiej: oferta, opinie klientów, karta lojalnościowa i dojazd.</p><ul class="pj-tags"><li>Oferta</li><li>Opinie</li><li>Karta lojalnościowa</li></ul></div>
+            <div><small>03 / 06 · Usługi lokalne</small><h3>PureDrive</h3><p>Ręczna myjnia i detailing w garażu Galerii Wileńskiej: oferta, opinie klientów, karta lojalnościowa i dojazd.</p><p class="pj-case"><b>Cel:</b> pokazać ofertę myjni i ułatwić umówienie terminu. <b>Rozwiązanie:</b> oferta, opinie klientów, karta lojalnościowa i dojazd do garażu Galerii Wileńskiej.</p><ul class="pj-tags"><li>Oferta</li><li>Opinie</li><li>Karta lojalnościowa</li></ul></div>
             <a class="btn btn-primary" href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
           </div>
         </article>
         <article class="pj" role="tabpanel" id="pj-p3" aria-labelledby="pj-t3" hidden>
           <a class="device" href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener" aria-label="Otwórz stronę Barańska Stomatolog w nowej karcie">
             <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/baranska-stomatolog</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="Barańska Stomatolog"><img src="assets/previews/baranska.jpg" alt="Zrzut strony Barańska Stomatolog" width="1440" height="900" loading="lazy"></div>
+            <div class="screen" data-name="Barańska Stomatolog"><img src="assets/previews/baranska.webp" alt="Projekt nowoczesnej strony www dla gabinetu stomatologicznego w Piasecznie" width="1440" height="900" loading="lazy"></div>
           </a>
           <div class="pj-info">
-            <div><small>04 / 06 · Medycyna</small><h3>Barańska Stomatolog</h3><p>Gabinet stomatologiczny w Piasecznie: logo, oferta usług, FAQ i umawianie wizyt.</p><ul class="pj-tags"><li>Logo</li><li>Oferta usług</li><li>Umawianie wizyt</li></ul></div>
+            <div><small>04 / 06 · Medycyna</small><h3>Barańska Stomatolog</h3><p>Gabinet stomatologiczny w Piasecznie: logo, oferta usług, FAQ i umawianie wizyt.</p><p class="pj-case"><b>Cel:</b> nowoczesny wizerunek gabinetu i łatwe umawianie wizyt. <b>Rozwiązanie:</b> logo, paleta z kolorów gabinetu, oferta usług, FAQ i przycisk umówienia wizyty.</p><ul class="pj-tags"><li>Logo</li><li>Oferta usług</li><li>Umawianie wizyt</li></ul></div>
             <a class="btn btn-primary" href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
           </div>
         </article>
         <article class="pj" role="tabpanel" id="pj-p4" aria-labelledby="pj-t4" hidden>
           <a class="device" href="https://szumi32.github.io/solum/" target="_blank" rel="noopener" aria-label="Otwórz stronę SOLUM w nowej karcie">
             <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/solum</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="SOLUM"><img src="assets/previews/solum.jpg" alt="Zrzut strony SOLUM" width="1440" height="900" loading="lazy"></div>
+            <div class="screen" data-name="SOLUM"><img src="assets/previews/solum.webp" alt="Projekt sklepu internetowego z biżuterią z kamieni naturalnych SOLUM" width="1440" height="900" loading="lazy"></div>
           </a>
           <div class="pj-info">
-            <div><small>05 / 06 · E-commerce</small><h3>SOLUM</h3><p>Sklep z bransoletkami i breloczkami z kamieni naturalnych: jasny, spokojny, skupiony na produkcie.</p><ul class="pj-tags"><li>Sklep</li><li>Katalog</li><li>Koszyk</li></ul></div>
+            <div><small>05 / 06 · E-commerce</small><h3>SOLUM</h3><p>Sklep z bransoletkami i breloczkami z kamieni naturalnych: jasny, spokojny, skupiony na produkcie.</p><p class="pj-case"><b>Cel:</b> sprzedawać ręcznie robioną biżuterię online. <b>Rozwiązanie:</b> katalog 25 produktów, koszyk i spokojna, skupiona na produkcie szata graficzna.</p><ul class="pj-tags"><li>Sklep</li><li>Katalog</li><li>Koszyk</li></ul></div>
             <a class="btn btn-primary" href="https://szumi32.github.io/solum/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
           </div>
         </article>
         <article class="pj" role="tabpanel" id="pj-p5" aria-labelledby="pj-t5" hidden>
           <a class="device" href="https://www.furiarp.eu/#top" target="_blank" rel="noopener" aria-label="Otwórz stronę Furia RolePlay w nowej karcie">
             <div class="dbar"><i></i><i></i><i></i><span>furiarp.eu</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="Furia RolePlay"><img src="assets/previews/furiarp.jpg" alt="Zrzut strony Furia RolePlay" width="1440" height="900" loading="lazy"></div>
+            <div class="screen" data-name="Furia RolePlay"><img src="assets/previews/furiarp.webp" alt="Projekt portalu i sklepu dla serwera gry roleplay Furia RolePlay" width="1440" height="900" loading="lazy"></div>
           </a>
           <div class="pj-info">
-            <div><small>06 / 06 · Gaming · portal</small><h3>Furia RolePlay</h3><p>Portal serwera RP: sklep, ranking, podania, regulamin i panel administracji.</p><ul class="pj-tags"><li>Portal</li><li>Sklep i ranking</li><li>Panel admina</li></ul></div>
+            <div><small>06 / 06 · Gaming · portal</small><h3>Furia RolePlay</h3><p>Portal serwera RP: sklep, ranking, podania, regulamin i panel administracji.</p><p class="pj-case"><b>Cel:</b> jedno miejsce dla graczy serwera RP. <b>Rozwiązanie:</b> portal ze sklepem, rankingiem, podaniami, regulaminem i panelem administracji.</p><ul class="pj-tags"><li>Portal</li><li>Sklep i ranking</li><li>Panel admina</li></ul></div>
             <a class="btn btn-primary" href="https://www.furiarp.eu/#top" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
           </div>
         </article>
@@ -1011,7 +1038,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
           <p class="archive__note">Starsze projekty, nadal działają online.</p>
         </div>
         <a class="arch-item" href="https://www.vkcup.pl/" target="_blank" rel="noopener" aria-label="Otwórz stronę VK Cup w nowej karcie">
-          <span class="arch-thumb"><img src="assets/previews/vkcup.jpg" alt="" width="1440" height="900" loading="lazy"></span>
+          <span class="arch-thumb"><img src="assets/previews/vkcup.webp" alt="" width="1440" height="900" loading="lazy"></span>
           <span><b>VK Cup</b><small>Serwer Battle Royale</small></span>
           <span class="arch-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
         </a>
@@ -1025,7 +1052,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   <div class="wrap">
     <div class="sec-head">
       <span class="eyebrow rv">Usługi</span>
-      <h2 class="rv">Co możemy dla Ciebie zrobić</h2>
+      <h2 class="rv">Nasze usługi webowe: co możemy dla Ciebie zbudować?</h2>
       <p class="lead rv">Wybierz usługę, żeby zobaczyć szczegóły, cenę i czas realizacji.</p>
     </div>
     <div class="svc-tabs rv">
@@ -1076,11 +1103,17 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <article class="svc-pane" role="tabpanel" id="svc-p5" aria-labelledby="svc-t5" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M22 5l14 6v10c0 9-6 15-14 18C14 36 8 30 8 21V11z"/><path d="M16 22l4 4 8-9"/></svg></span><span class="pane-tag">Po starcie</span></div>
           <h3>Opieka nad stroną</h3>
-          <p>Wrzucamy poprawki i aktualizujemy stronę: nowe ceny, zdjęcia, teksty i dane kontaktowe. To opieka, a nie przebudowa, więc większe zmiany wyceniamy osobno. Kosztów hostingu nie pokrywamy: pomagamy go wybrać i ustawić.</p>
-          <ul class="pane-list"><li>Poprawki i aktualizacje treści</li><li>Pomoc w setupie hostingu i domeny</li><li>Konfiguracja poczty i certyfikatu SSL</li><li>Bez przebudowy strony (wyceniana osobno)</li></ul>
+          <p>Wrzucamy poprawki i aktualizujemy stronę: nowe ceny, zdjęcia, teksty i dane kontaktowe. To opieka, a nie przebudowa, więc większe zmiany wyceniamy osobno. Kosztów hostingu nie pokrywamy: pomagamy go wybrać i ustawić, a stronę uruchamiamy tak, żeby działała na telefonie, komputerze i innych urządzeniach mobilnych.</p>
+          <ul class="pane-list"><li>Poprawki i aktualizacje treści</li><li>Setup hostingu, domeny, poczty i certyfikatu SSL</li><li>Uruchomienie i testy na telefonie, komputerze i tabletach</li><li>Bez przebudowy strony (wyceniana osobno)</li></ul>
           <div class="pane-meta"><div><small>Cena</small><b>99 zł / mies.</b></div><div><small>Czas</small><b>od dnia startu</b></div><div><small>Hosting i domena</small><b>płatne u dostawcy</b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-care">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
       </div>
+    </div>
+    <div class="seo-grid rv">
+      <article><h3>Tworzenie stron WWW na wymiar</h3><p>Projektujemy wizytówki firmowe, które przyciągają wzrok minimalistycznym designem i nowoczesnym UI (m.in. dark mode, glassmorphism). Idealne dla branż premium, od medycyny estetycznej po profesjonalny auto detailing.</p></article>
+      <article><h3>Sklepy internetowe (e-commerce)</h3><p>Budujemy platformy sprzedażowe zoptymalizowane pod kątem konwersji i szybkości ładowania. Intuicyjna ścieżka zakupowa to więcej klientów w Twoim sklepie.</p></article>
+      <article><h3>Dedykowane panele i aplikacje webowe</h3><p>Potrzebujesz spersonalizowanego dashboardu do zarządzania firmą, telemetrią lub klientami? Tworzymy zaawansowane narzędzia oparte na czystym kodzie i nowoczesnych technologiach.</p></article>
+      <article><h3>Kompleksowa obsługa i administracja stron</h3><p>Nie zostawiamy Cię z gotowym produktem. Dbamy o aktualizacje, bezpieczeństwo, kopie zapasowe i bieżący rozwój Twojej witryny.</p></article>
     </div>
   </div>
 </section>
@@ -1131,7 +1164,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 <!-- ============ O NAS ============ -->
 <section class="sec" id="o-nas">
   <div class="wrap about-grid">
-    <div class="portrait rv"><b>B</b><small>brichdesign · studio stron WWW</small></div>
+    <div class="portrait rv"><svg class="portrait-logo" viewBox="6 2 40 44" role="img" aria-label="Logo brichdesign"><use href="#bd-mark"/></svg><small>brichdesign · studio stron WWW</small></div>
     <div>
       <span class="eyebrow rv">O nas</span>
       <p class="manifest" id="manifest">Cześć, tu <span class="hl">brichdesign</span>. Robimy strony dla firm, które zasługują na więcej niż szablon. Piszemy kod od zera, szybki i czytelny na telefonie. Sami projektujemy, sami kodujemy i sami odbieramy telefon, więc nic nie ginie po drodze. Lubimy, kiedy strona <span class="hl">rusza się z sensem</span> i sprzedaje bez krzyku.</p>
@@ -1140,6 +1173,20 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <div class="rv" style="--d:.08s"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18h2"/></svg><b>Najpierw telefon</b><p>Większość klientów wejdzie z komórki. Projektujemy najpierw pod nią.</p></div>
         <div class="rv" style="--d:.16s"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><b>Twoje na zawsze</b><p>Dostajesz pliki i dostęp do domeny. Żadnych pułapek w umowie.</p></div>
       </div>
+    </div>
+  </div>
+  <div class="wrap about-more">
+    <div class="loc rv">
+      <h2>Tworzymy strony internetowe w Warszawie i zdalnie</h2>
+      <p>Nasz zespół stacjonuje w Warszawie, gdzie chętnie spotkamy się na kawę i omówimy strategię Twojej marki. Cenimy jednak elastyczność – ponad połowę projektów, od kodowania customowych skryptów po pełne wdrożenia, realizujemy w 100% zdalnie dla klientów z całej Polski i zagranicy.</p>
+    </div>
+    <div class="why rv">
+      <h2>Dlaczego warto nam zaufać?</h2>
+      <ul>
+        <li><b>Szybkość i wydajność</b><span>Piszemy zoptymalizowany kod. Nasze strony ładują się błyskawicznie, co uwielbiają algorytmy Google.</span></li>
+        <li><b>Nowoczesny design</b><span>Nie korzystamy z gotowców. Stawiamy na autorskie projekty graficzne, które wyróżniają się w sieci.</span></li>
+        <li><b>SEO friendly</b><span>Każda strona opuszczająca nasze studio jest technicznie przygotowana pod wysokie pozycje w Google (odpowiednia struktura nagłówków, optymalizacja zdjęć).</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -1203,7 +1250,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         <a href="#kontakt" class="btn btn-primary" id="calc-cta">Wyślij to zapytanie <span class="arr">→</span></a>
       </div>
     </div>
-    <p class="fine">Ceny orientacyjne, brutto. Ostateczna kwota zależy od zakresu i jest zapisana w umowie przed startem prac. Ceny nie obejmują kosztów hostingu i domeny, które opłacasz u wybranego dostawcy. Pomagamy w ich wyborze, w konfiguracji i w uruchomieniu strony.</p>
+    <p class="fine">Ceny orientacyjne, brutto. Ostateczna kwota zależy od zakresu i jest zapisana w umowie przed startem prac. Ceny nie obejmują kosztów hostingu i domeny, które opłacasz u wybranego dostawcy. Pomagamy w ich wyborze, w konfiguracji i w uruchomieniu strony na telefonie, komputerze i innych urządzeniach mobilnych.</p>
   </div>
 </section>
 
@@ -1214,7 +1261,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     <div class="sec-head faq-head"><span class="eyebrow rv">Pytania</span><h2 class="rv">Zanim napiszesz</h2><p class="lead rv">Nie ma tu Twojego pytania? Napisz albo zadzwoń, odpowiadamy tego samego dnia.</p><a href="#kontakt" class="btn btn-dark rv">Zadaj pytanie <span class="arr">→</span></a></div>
     <div class="faq rv">
       <details name="faq" open><summary>Ile trwa zrobienie strony?</summary><p>Wizytówka do 72 godzin, strona firmowa do 5 dni roboczych, projekt premium do 2 tygodni. Termin sklepu internetowego ustalamy w wycenie. Najwięcej zależy od tego, jak szybko dostaniemy teksty i zdjęcia.</p></details>
-      <details name="faq"><summary>Czy hosting i domena są w cenie?</summary><p>Nie. Kosztów hostingu i domeny nie pokrywamy, opłacasz je u wybranego dostawcy. Pomagamy za to w setupie: doradzamy wybór, konfigurujemy domenę, pocztę i certyfikat SSL oraz uruchamiamy stronę.</p></details>
+      <details name="faq"><summary>Czy hosting i domena są w cenie?</summary><p>Nie. Kosztów hostingu i domeny nie pokrywamy, opłacasz je u wybranego dostawcy. Pomagamy za to w setupie: doradzamy wybór, konfigurujemy domenę, pocztę i certyfikat SSL oraz uruchamiamy stronę. Setup obejmuje też sprawdzenie, że strona działa na telefonie, komputerze i innych urządzeniach mobilnych.</p></details>
       <details name="faq"><summary>Nie mam tekstów ani zdjęć. Co wtedy?</summary><p>Możemy napisać teksty na podstawie rozmowy (dodatek +590 zł) i przygotować zdjęcia poglądowe, które potem podmienisz na prawdziwe.</p></details>
       <details name="faq"><summary>Czy sam będę mógł zmieniać treści?</summary><p>Tak. Możesz zamówić Panel do własnej modyfikacji (+699 zł), w którym samodzielnie zmienisz teksty, grafiki i linki. Możesz też wybrać opiekę nad stroną (99 zł / mies.) i wysyłać nam poprawki, a my wgramy je za Ciebie.</p></details>
       <details name="faq"><summary>Co obejmuje opieka nad stroną?</summary><p>Wrzucanie poprawek i aktualizacje: zmiany tekstów, zdjęć, cen i danych kontaktowych. Opieka nie obejmuje przebudowy strony ani nowych funkcji, takie zmiany wyceniamy osobno.</p></details>

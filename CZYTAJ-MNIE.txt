@@ -54,3 +54,10 @@ AKTUALIZACJA 2026-11-14
 - Kontakt: hello@brichdesign.pl, +48 513 970 666.
 - Formularz: wysyła mail przez wyslij.php (hosting z PHP, np. home.pl) na hello@brichdesign.pl. Bez PHP (GitHub Pages) otwiera program pocztowy.
 - Logo: biały pień brzozy z dwoma nacięciami + miedziany pierścień (assets/logo.svg, assets/favicon.svg, symbol #bd-mark w index.html).
+
+AKTUALIZACJA 2026-11-14 (SEO i „O nas”)
+- W sekcji „O nas” zamiast litery B jest logo (znak b).
+- Setup obejmuje też uruchomienie i test strony na telefonie, komputerze i innych urządzeniach mobilnych.
+- Teksty SEO: nadtytuł w H1 „Projektowanie stron internetowych · Warszawa i cała Polska”, opisy usług (H3), blok „Tworzymy strony internetowe w Warszawie i zdalnie” i „Dlaczego warto nam zaufać?”.
+- Techniczne SEO: title i meta description, opisowe alt-y zrzutów, obrazy w WebP, dane strukturalne JSON-LD (ProfessionalService, Warszawa), krótkie studia przypadków (cel i rozwiązanie) przy realizacjach.
+- DO UZUPEŁNIENIA przez właściciela: realne wyniki klientów w studiach przypadków, wizytówka Google Moja Firma, link „Projekt i realizacja: brichdesign” w stopkach stron klientów.
