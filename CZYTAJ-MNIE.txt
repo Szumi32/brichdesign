@@ -30,7 +30,7 @@ assets/previews/*.jpg to zrzuty Twoich realizacji (1440×900). Gdy strona się z
 assets/logo.svg – logo (znak drzewa z listkiem w kolorze akcentu + napis brichdesign), assets/favicon.svg – ikona karty.
 
 DO PODMIANY (szukaj tych tekstów w index.html)
-1. Kontakt: hello@brichdesign.pl (kilka miejsc, także w skrypcie formularza) i +48 600 000 000, „Warszawa i zdalnie”.
+1. Kontakt: hello@brichdesign.pl (kilka miejsc, także w skrypcie formularza) i +48 513 970 699, „Warszawa i zdalnie”.
    Domena brichdesign.pl nie była sprawdzana – sprawdź, czy jest wolna, zanim ją kupisz.
 2. Zdjęcie: w sekcji „O mnie” jest ramka z literą B. Wstaw swoje zdjęcie (pion 4:5) w miejsce <div class="portrait rv">.
 3. Ceny: pakiety 1 999 / 3 490 / 5 990 zł, dodatki (sklep +2 490, rezerwacje +990, teksty +590, logo +790,
