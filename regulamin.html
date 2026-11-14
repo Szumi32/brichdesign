@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Regulamin współpracy | brichdesign</title>
+<meta name="description" content="Regulamin współpracy brichdesign: nasze obowiązki, obowiązki klienta, terminy i zasady płatności (50% zaliczki, reszta po publikacji strony).">
+<meta name="theme-color" content="#000000">
+<link rel="canonical" href="https://brichdesign.pl/regulamin.html">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Lexend+Giga:wght@300;400;500&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --black: #000; --bark: #ece8df; --gold: #d98a5f; --gold-rgb: 217, 138, 95; --muted: #a1a1a1; --line: rgba(236, 232, 223, .12);
+  --f-g: "Lexend Giga", "Lexend", system-ui, sans-serif; --f-d: "Lexend", system-ui, sans-serif; --f-b: "Inter Tight", system-ui, sans-serif; --ease: cubic-bezier(.22, 1, .36, 1); color-scheme: dark; }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #000; color: var(--bark); font: 400 17px/1.7 var(--f-b); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; }
+::selection { background: var(--gold); color: #000; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: min(1180px, 100% - 48px); margin-inline: auto; }
+body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(48% 40% at 12% 0%, rgba(var(--gold-rgb), .13), transparent 70%), radial-gradient(40% 36% at 100% 60%, rgba(var(--gold-rgb), .06), transparent 70%); }
+
+/* nagłówek */
+.top { position: sticky; top: 0; z-index: 50; background: rgba(0, 0, 0, .72); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 68px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 300 20px var(--f-g); letter-spacing: -.03em; }
+.logo b { font-weight: 300; color: var(--gold); }
+.logo .lb { font-weight: 500; }
+.logo svg { width: 31px; height: 34px; }
+.top nav { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+.top nav a { padding: 8px 14px; border-radius: 99px; text-decoration: none; color: rgba(236, 232, 223, .78); transition: background .3s, color .3s; }
+.top nav a:hover { background: rgba(236, 232, 223, .08); color: var(--bark); }
+.top nav a[aria-current] { color: var(--bark); background: rgba(236, 232, 223, .12); }
+.top nav a.btn { margin-left: 8px; padding: 11px 20px; background: var(--bark); color: #000; }
+.top nav a.btn:hover { background: var(--gold); color: #000; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 20px; border-radius: 99px; background: var(--bark); color: #000; text-decoration: none; font: 500 14px/1 var(--f-b); transition: transform .5s var(--ease), background .3s; }
+.btn:hover { background: var(--gold); transform: translateY(-2px); }
+
+/* wstęp */
+.intro { padding: clamp(56px, 9vw, 110px) 0 clamp(28px, 4vw, 44px); }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; font: 400 11px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--gold); }
+h1 { margin: 18px 0 0; font: 300 clamp(36px, 6vw, 84px)/1.04 var(--f-g); letter-spacing: -.035em; }
+h1 span { color: var(--gold); }
+.lead { max-width: 60ch; margin: 22px 0 0; color: var(--muted); font-size: 18.5px; }
+.upd { margin: 14px 0 0; font-size: 13.5px; color: rgba(236, 232, 223, .45); }
+
+/* trzy karty skrótu */
+.sum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: clamp(28px, 4vw, 44px) 0 0; }
+.sum a { display: grid; gap: 8px; padding: 24px; border-radius: 20px; text-decoration: none; border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(236, 232, 223, .055), rgba(236, 232, 223, .012)); transition: transform .6s var(--ease), border-color .4s; }
+.sum a:hover { transform: translateY(-4px); border-color: rgba(var(--gold-rgb), .5); }
+.sum small { font: 400 11px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.sum b { font: 500 19px/1.3 var(--f-d); }
+.sum span { color: var(--muted); font-size: 15px; line-height: 1.55; }
+
+/* układ: spis + treść */
+.layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: clamp(32px, 6vw, 84px); padding: clamp(44px, 6vw, 80px) 0 clamp(70px, 9vw, 120px); align-items: start; }
+.toc { position: sticky; top: 92px; }
+.toc p { margin: 0 0 12px; font: 400 11px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid var(--line); }
+.toc a { display: block; padding: 7px 14px; margin-left: -1px; border-left: 2px solid transparent; font-size: 14.5px; line-height: 1.4; text-decoration: none; color: rgba(236, 232, 223, .6); transition: color .3s, border-color .3s; }
+.toc a:hover { color: var(--bark); }
+.toc a.on { color: var(--bark); border-left-color: var(--gold); }
+
+article { display: grid; gap: clamp(36px, 5vw, 56px); }
+section { padding-bottom: clamp(32px, 4vw, 48px); border-bottom: 1px solid var(--line); }
+section:last-child { border-bottom: 0; padding-bottom: 0; }
+h2 { display: flex; align-items: baseline; gap: 14px; margin: 0 0 20px; font: 300 clamp(24px, 2.8vw, 34px)/1.2 var(--f-g); letter-spacing: -.03em; }
+h2 i { font: 400 12px/1 var(--f-g); font-style: normal; letter-spacing: .14em; color: var(--gold); }
+ol.rules { list-style: none; counter-reset: r; margin: 0; padding: 0; display: grid; gap: 14px; }
+ol.rules li { counter-increment: r; position: relative; padding-left: 46px; max-width: 70ch; color: rgba(236, 232, 223, .86); }
+ol.rules li::before { content: counter(r) "."; position: absolute; left: 0; top: .1em; width: 34px; font: 500 14px/1.6 var(--f-d); color: var(--gold); }
+ol.rules li b { color: var(--bark); font-weight: 600; }
+ul.dots { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+ul.dots li { padding-left: 18px; position: relative; color: var(--muted); font-size: 15.5px; }
+ul.dots li::before { content: ""; position: absolute; left: 0; top: .75em; width: 7px; height: 2px; border-radius: 2px; background: var(--gold); }
+
+/* wizualizacja płatności */
+.pay { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 24px; padding: 0; list-style: none; counter-reset: p; }
+.pay li { counter-increment: p; position: relative; padding: 22px 20px; border-radius: 18px; border: 1px solid var(--line); background: rgba(236, 232, 223, .035); }
+.pay li::before { content: "0" counter(p); display: block; margin-bottom: 14px; font: 400 11px/1 var(--f-g); letter-spacing: .14em; color: var(--gold); }
+.pay strong { display: block; font: 300 clamp(28px, 3vw, 40px)/1 var(--f-g); letter-spacing: -.04em; }
+.pay span { display: block; margin-top: 8px; color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+.note { margin: 18px 0 0; padding: 16px 18px; max-width: 70ch; border-radius: 14px; background: rgba(var(--gold-rgb), .08); box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), .25); font-size: 15px; color: rgba(236, 232, 223, .85); }
+
+/* stopka */
+footer { border-top: 1px solid var(--line); padding: 36px 0 44px; }
+footer .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 40px; }
+footer p { margin: 0; font-size: 14px; color: var(--muted); }
+footer a { text-decoration: none; color: var(--bark); }
+footer a:hover { color: var(--gold); }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .toc { position: static; }
+  .toc ol { grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 0; gap: 0 14px; }
+  .toc a { border-left: 0; padding: 7px 0; }
+  .sum, .pay { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) { .top nav a:not(.btn) { display: none; } .top nav a.btn { margin-left: 0; padding: 10px 16px; font-size: 13px; white-space: nowrap; } .top .wrap { gap: 12px; } .logo { font-size: 18px; } body { font-size: 16.5px; } ol.rules li { padding-left: 38px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bd-mark" viewBox="6 2 40 44">
+    <circle cx="31" cy="31" r="10" fill="none" stroke="#d98a5f" stroke-width="6"/>
+    <path fill="#ece8df" fill-rule="evenodd" d="M8.5 9.5a5.5 5.5 0 0 1 11 0v29a5.5 5.5 0 0 1-11 0z M12.4 14.5h3.2a1.4 1.4 0 0 1 0 2.8h-3.2a1.4 1.4 0 0 1 0-2.8z M12.4 23h1.7a1.4 1.4 0 0 1 0 2.8h-1.7a1.4 1.4 0 0 1 0-2.8z"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a href="index.html" class="logo" aria-label="brichdesign – strona główna"><svg viewBox="0 0 40 44" aria-hidden="true"><use href="#bd-mark"/></svg><span><span class="lb">brich</span><b>design</b></span></a>
+    <nav aria-label="Nawigacja">
+      <a href="index.html">Strona główna</a>
+      <a href="index.html#cennik">Cennik</a>
+      <a href="regulamin.html" aria-current="page">Regulamin</a>
+      <a href="index.html#kontakt" class="btn keep">Bezpłatna wycena</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="intro" aria-labelledby="t">
+      <span class="eyebrow">Zasady współpracy</span>
+      <h1 id="t">Regulamin <span>współpracy</span></h1>
+      <p class="lead">Krótko i konkretnie: co robimy my, co należy do Ciebie i jak wygląda płatność. Dzięki temu od pierwszego dnia wiadomo, czego się spodziewać.</p>
+      <p class="upd">Obowiązuje od 14 listopada 2026 r.</p>
+      <div class="sum">
+        <a href="#s3"><small>Wykonawca</small><b>Nasze obowiązki</b><span>Projekt, kod od zera, poprawki, setup i przekazanie plików.</span></a>
+        <a href="#s4"><small>Klient</small><b>Obowiązki klienta</b><span>Materiały, terminowe uwagi, płatność i opłaty za hosting.</span></a>
+        <a href="#s5"><small>Płatność</small><b>50% na start, 50% po publikacji</b><span>Zaliczka rozpoczyna prace, reszta po opublikowaniu strony.</span></a>
+      </div>
+    </section>
+
+    <div class="layout">
+      <aside class="toc" aria-label="Spis treści">
+        <p>Spis treści</p>
+        <ol id="toc">
+          <li><a href="#s1">Postanowienia ogólne</a></li>
+          <li><a href="#s2">Zakres i wycena</a></li>
+          <li><a href="#s3">Nasze obowiązki</a></li>
+          <li><a href="#s4">Obowiązki klienta</a></li>
+          <li><a href="#s5">Płatności</a></li>
+          <li><a href="#s6">Terminy realizacji</a></li>
+          <li><a href="#s7">Poprawki i opieka</a></li>
+          <li><a href="#s8">Hosting i domena</a></li>
+          <li><a href="#s9">Portfolio i prawa</a></li>
+          <li><a href="#s10">Reklamacje</a></li>
+          <li><a href="#s11">Dane osobowe</a></li>
+          <li><a href="#s12">Postanowienia końcowe</a></li>
+        </ol>
+      </aside>
+
+      <article>
+        <section id="s1">
+          <h2><i>§1</i> Postanowienia ogólne</h2>
+          <ol class="rules">
+            <li>Regulamin określa zasady, na jakich brichdesign (dalej: <b>Wykonawca</b>, „my”) świadczy usługi na rzecz zamawiających (dalej: <b>Klient</b>): projektowanie i tworzenie stron internetowych, sklepów internetowych, systemów rezerwacji, paneli zarządzania oraz opiekę nad stronami.</li>
+            <li>Usługi są kierowane do firm i osób prowadzących działalność. Dane Wykonawcy (nazwa działalności, NIP, adres) podajemy w umowie i na fakturze.</li>
+            <li>Kontakt: <a href="mailto:hello@brichdesign.pl">hello@brichdesign.pl</a>, tel. <a href="tel:+48513970699">+48 513 970 699</a>.</li>
+            <li>Zakres, cenę i termin konkretnego zlecenia zapisujemy w umowie lub w potwierdzonej e-mailem wycenie. Jeśli umowa mówi coś innego niż Regulamin, pierwszeństwo ma umowa.</li>
+          </ol>
+        </section>
+
+        <section id="s2">
+          <h2><i>§2</i> Zakres i wycena</h2>
+          <ol class="rules">
+            <li>Każdy projekt wyceniamy <b>indywidualnie i bezpłatnie</b>, po rozmowie o potrzebach Klienta. Ceny zaczynają się od 1 999 zł.</li>
+            <li>Ceny pakietów i dodatków na stronie (np. dodatkowe 50 produktów w sklepie, animacje i modele 3D, panel do własnej modyfikacji) są <b>orientacyjne i brutto</b>. Ostateczną kwotę zapisujemy w umowie przed rozpoczęciem prac.</li>
+            <li>Prace wykraczające poza ustalony zakres wyceniamy osobno i wykonujemy po akceptacji Klienta.</li>
+          </ol>
+        </section>
+
+        <section id="s3">
+          <h2><i>§3</i> Nasze obowiązki</h2>
+          <ol class="rules">
+            <li>Projektujemy i wykonujemy stronę <b>zgodnie z ustalonym zakresem i terminem</b>.</li>
+            <li>Kod piszemy od zera, <b>bez gotowych szablonów</b>. Strona działa poprawnie na telefonie, komputerze i tablecie.</li>
+            <li>Przed rozpoczęciem kodowania pokazujemy <b>projekt do akceptacji</b> (wygląd strony głównej na komputerze i telefonie).</li>
+            <li>W trakcie prac udostępniamy <b>prywatny link do wersji roboczej</b>, żeby Klient widział postęp.</li>
+            <li>Zapewniamy <b>dwie rundy poprawek w cenie</b> (w pakiecie Premium trzy).</li>
+            <li>Pomagamy w <b>setupie strony</b>: w wyborze i konfiguracji hostingu, domeny, poczty i certyfikatu SSL oraz w uruchomieniu i sprawdzeniu strony na telefonie, komputerze i innych urządzeniach mobilnych.</li>
+            <li>Po zakończeniu i rozliczeniu zlecenia <b>przekazujemy Klientowi pliki i dostęp do domeny</b>.</li>
+            <li>Zachowujemy w poufności informacje i materiały przekazane przez Klienta.</li>
+          </ol>
+        </section>
+
+        <section id="s4">
+          <h2><i>§4</i> Obowiązki klienta</h2>
+          <ol class="rules">
+            <li>Klient dostarcza <b>teksty, zdjęcia, logo i inne materiały</b> w uzgodnionym terminie. Jeśli ich nie ma, możemy przygotować je jako usługę dodatkową (np. teksty i SEO, logo).</li>
+            <li>Klient odpowiada za to, że ma <b>prawa do przekazanych materiałów</b> (zdjęć, grafik, logo, tekstów) i za ich treść.</li>
+            <li>Klient przekazuje <b>uwagi i akceptacje niezwłocznie</b>, w uzgodnionym terminie. Zwłoka może przesunąć termin zakończenia prac.</li>
+            <li>Klient udostępnia dostępy potrzebne do uruchomienia strony (np. do domeny i hostingu).</li>
+            <li>Klient <b>opłaca wynagrodzenie</b> zgodnie z §5 oraz <b>koszty hostingu i domeny</b> u wybranego dostawcy (§8).</li>
+            <li>Zgłoszenia poprawek Klient przekazuje na adres e-mail Wykonawcy, w ramach rund poprawek z §7.</li>
+          </ol>
+        </section>
+
+        <section id="s5">
+          <h2><i>§5</i> Płatności</h2>
+          <ol class="pay" aria-label="Etapy płatności">
+            <li><strong>50%</strong><span>zaliczki na start. Po jej wpłacie rozpoczynamy prace.</span></li>
+            <li><strong>Prace</strong><span>projekt, akceptacja, budowa strony i poprawki.</span></li>
+            <li><strong>50%</strong><span>pozostałej kwoty po publikacji strony.</span></li>
+          </ol>
+          <ol class="rules">
+            <li>Wynagrodzenie płatne jest w dwóch częściach: <b>50% zaliczki na start prac</b> i <b>pozostałe 50% po publikacji strony</b>. Wszystko zapisujemy w umowie.</li>
+            <li>Płatności dokonuje się przelewem na rachunek wskazany w umowie lub na fakturze, w terminie podanym na fakturze.</li>
+            <li>Ceny podajemy w złotych, brutto. Dodatki i zmiany zakresu rozliczamy osobno po ich zaakceptowaniu przez Klienta.</li>
+            <li><b>Opieka nad stroną</b> jest usługą dodatkową, rozliczaną miesięcznie (99 zł / mies.).</li>
+            <li>Do czasu zapłaty całości wynagrodzenia możemy wstrzymać publikację strony i przekazanie plików oraz dostępów.</li>
+          </ol>
+          <p class="note">Hosting i domena nie są wliczone w cenę. Klient płaci za nie bezpośrednio dostawcy, a my pomagamy w ich konfiguracji.</p>
+        </section>
+
+        <section id="s6">
+          <h2><i>§6</i> Terminy realizacji</h2>
+          <ol class="rules">
+            <li>Orientacyjne terminy, w zależności od zakresu:
+              <ul class="dots">
+                <li>wizytówka: <b>do 72 godzin</b>,</li>
+                <li>strona firmowa: <b>do 5 dni roboczych</b>,</li>
+                <li>projekt premium: <b>do 2 tygodni</b>,</li>
+                <li>sklep internetowy: <b>termin ustalamy w wycenie</b>.</li>
+              </ul>
+            </li>
+            <li>Terminy liczymy od dnia wpłaty zaliczki i dostarczenia kompletu materiałów. Opóźnienia po stronie Klienta (materiały, uwagi) odpowiednio przesuwają termin.</li>
+          </ol>
+        </section>
+
+        <section id="s7">
+          <h2><i>§7</i> Poprawki i opieka</h2>
+          <ol class="rules">
+            <li>W cenie są <b>dwie rundy poprawek</b> (w pakiecie Premium trzy). Runda to jedno zbiorcze zestawienie uwag. Kolejne poprawki wyceniamy osobno.</li>
+            <li><b>Opieka nad stroną</b> polega na wrzucaniu poprawek i aktualizacji: zmianie tekstów, zdjęć, cen i danych kontaktowych.</li>
+            <li>Opieka <b>nie obejmuje przebudowy strony ani nowych funkcji</b>. Takie zmiany wyceniamy osobno.</li>
+          </ol>
+        </section>
+
+        <section id="s8">
+          <h2><i>§8</i> Hosting i domena</h2>
+          <ol class="rules">
+            <li><b>Nie pokrywamy kosztów hostingu ani domeny.</b> Klient opłaca je u wybranego dostawcy.</li>
+            <li>Pomagamy w <b>setupie</b>: doradzamy wybór dostawcy, konfigurujemy domenę, pocztę i certyfikat SSL, uruchamiamy stronę i sprawdzamy jej działanie na telefonie, komputerze i innych urządzeniach mobilnych.</li>
+          </ol>
+        </section>
+
+        <section id="s9">
+          <h2><i>§9</i> Portfolio i prawa</h2>
+          <ol class="rules">
+            <li>Za zgodą Klienta możemy pokazać realizację w portfolio i umieścić w stopce strony dyskretny link <b>„Projekt i realizacja: brichdesign”</b>.</li>
+            <li>Zasady dotyczące praw autorskich i licencji do projektu i kodu określa umowa.</li>
+          </ol>
+        </section>
+
+        <section id="s10">
+          <h2><i>§10</i> Reklamacje</h2>
+          <ol class="rules">
+            <li>Błędy w działaniu strony zgłasza się e-mailem na <a href="mailto:hello@brichdesign.pl">hello@brichdesign.pl</a> z opisem problemu i, jeśli się da, zrzutem ekranu.</li>
+            <li>Odpowiadamy w ciągu 24 godzin. Błędy wynikające z naszej pracy, zgłoszone po publikacji, poprawiamy bezpłatnie.</li>
+          </ol>
+        </section>
+
+        <section id="s11">
+          <h2><i>§11</i> Dane osobowe</h2>
+          <ol class="rules">
+            <li>Dane przekazane w formularzu lub w korespondencji (imię, e-mail, telefon) przetwarzamy wyłącznie w celu odpowiedzi na zapytanie, wyceny i realizacji zlecenia.</li>
+            <li>Nie przekazujemy ich podmiotom trzecim poza sytuacjami wymaganymi do realizacji zlecenia lub przepisami prawa.</li>
+          </ol>
+        </section>
+
+        <section id="s12">
+          <h2><i>§12</i> Postanowienia końcowe</h2>
+          <ol class="rules">
+            <li>Regulamin obowiązuje od dnia publikacji na stronie. Zmiany nie dotyczą zleceń, które już trwają.</li>
+            <li>W sprawach nieuregulowanych stosuje się przepisy prawa polskiego.</li>
+          </ol>
+        </section>
+      </article>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="index.html" class="logo" aria-label="brichdesign – strona główna"><svg viewBox="0 0 40 44" aria-hidden="true"><use href="#bd-mark"/></svg><span><span class="lb">brich</span><b>design</b></span></a>
+    <p><a href="mailto:hello@brichdesign.pl">hello@brichdesign.pl</a> · <a href="tel:+48513970699">+48 513 970 699</a> · Warszawa i zdalnie · <a href="index.html">Strona główna</a></p>
+    <p>© 2026 brichdesign</p>
+  </div>
+</footer>
+
+<script>
+// podświetlanie aktywnej pozycji w spisie treści
+(() => {
+  const links = [...document.querySelectorAll('#toc a')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { links.forEach(a => a.classList.remove('on')); const a = map.get(e.target.id); a && a.classList.add('on'); }
+  }), { rootMargin: '-20% 0px -70% 0px' });
+  map.forEach((a, id) => { const s = document.getElementById(id); s && io.observe(s); });
+})();
+</script>
+</body>
+</html>
