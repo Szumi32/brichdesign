@@ -1,6 +1,6 @@
 <?php
 /**
- * Odbiera zapytanie z formularza na stronie i wysyła je na hello@brichdesign.pl.
+ * Odbiera zapytanie z formularza na stronie i wysyła je na hello@birchdesign.pl.
  * Wymaga hostingu z PHP i funkcją mail() (home.pl ją ma). Na GitHub Pages (bez PHP) strona
  * automatycznie przełącza się na program pocztowy (mailto), więc formularz działa wszędzie.
  *
@@ -9,8 +9,8 @@
  */
 declare(strict_types=1);
 
-const TO_ADDRESS   = 'hello@brichdesign.pl';
-const FROM_ADDRESS = 'formularz@brichdesign.pl';
+const TO_ADDRESS   = 'hello@birchdesign.pl';
+const FROM_ADDRESS = 'formularz@birchdesign.pl';
 const MAX_BODY     = 20000;
 const RATE_LIMIT   = 5;      // zapytań
 const RATE_WINDOW  = 3600;   // sekund
@@ -89,16 +89,16 @@ if (count($hits) >= RATE_LIMIT) {
     reply(429, false, 'Za dużo zapytań. Spróbuj później albo napisz na ' . TO_ADDRESS . '.');
 }
 
-$body = "Nowe zapytanie ze strony brichdesign.pl\n"
+$body = "Nowe zapytanie ze strony birchdesign.pl\n"
       . "----------------------------------------\n"
       . "Imię: $name\nKontakt: $contact\n\n$text\n";
 
 $headers = [
-    'From: brichdesign.pl <' . FROM_ADDRESS . '>',
+    'From: birchdesign.pl <' . FROM_ADDRESS . '>',
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
-    'X-Mailer: brichdesign-form',
+    'X-Mailer: birchdesign-form',
 ];
 if (filter_var($contact, FILTER_VALIDATE_EMAIL)) {
     $headers[] = 'Reply-To: ' . $contact;   // odpowiedź trafia prosto do klienta
