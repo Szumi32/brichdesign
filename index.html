@@ -16,7 +16,7 @@
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600&family=Lexend+Giga:wght@300;400;500&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=Lexend+Giga:wght@300;400;500&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============ KOLORY (zmieniaj tutaj) ============ */
 :root {
@@ -1250,6 +1250,105 @@ h2.split.in .wd > span { transform: none; }
 .wp__t { display: none !important; }
 .corr__sky { background: #000; }
 @media (max-width: 900px) { .hero__tiles { height: 62svh; bottom: auto; } }
+/* ============ v24: hero z zimorodkiem (mgła, szałwia, szeryf) ============ */
+:root { --sage: #ccd7c8; --sage-ink: #16211a; --sage-deep: #2f6b4a; --f-s: "Instrument Serif", Georgia, "Times New Roman", serif; }
+.hero { background: var(--sage); color: var(--sage-ink); }
+.hero__shade, .hcard, .replay, .scroll-cue { display: none !important; }
+.kf { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+.kf__v { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; transform-origin: 70% 55%; animation: kfIn 2.8s cubic-bezier(.2, .7, .1, 1) both; }
+@keyframes kfIn { from { transform: scale(1.14); filter: blur(16px); opacity: .35; } }
+.kf__mist { position: absolute; inset: 0; background:
+  linear-gradient(90deg, rgba(210, 221, 206, .9) 0%, rgba(210, 221, 206, .66) 27%, rgba(210, 221, 206, 0) 54%),
+  linear-gradient(to bottom, rgba(214, 224, 210, .5) 0%, rgba(214, 224, 210, 0) 26%),
+  linear-gradient(to top, rgba(204, 215, 200, .9) 0%, rgba(204, 215, 200, 0) 24%); }
+.kf__word { position: absolute; left: 0; right: 0; top: clamp(64px, 8vh, 110px); margin: 0; text-align: center; white-space: nowrap;
+  font: 400 clamp(120px, 21vw, 380px)/.86 var(--f-s); letter-spacing: -.02em; color: transparent;
+  background: linear-gradient(180deg, rgba(36, 58, 42, .30) 8%, rgba(36, 58, 42, 0) 92%); -webkit-background-clip: text; background-clip: text;
+  animation: kfWord 2.6s cubic-bezier(.2, .7, .1, 1) .25s both; }
+@keyframes kfWord { from { opacity: 0; transform: translateY(28px); filter: blur(12px); } }
+.hero__content { align-items: center; }
+.hero__title { font: 400 clamp(46px, 5.6vw, 92px)/.96 var(--f-s); letter-spacing: -.015em; text-transform: none; color: var(--sage-ink); text-shadow: none; }
+.hero__title em { font-style: italic; color: var(--sage-deep); }
+.hero__title .hero-eyebrow { font-family: var(--f-g); color: rgba(22, 33, 26, .66); }
+.hero-eyebrow i { background: var(--sage-deep); box-shadow: 0 0 0 4px rgba(47, 107, 74, .14); }
+.hero__lead { color: rgba(22, 33, 26, .72); text-shadow: none; }
+.hero__lead strong { color: var(--sage-ink); font-weight: 600; }
+.hero .btn-primary { background: var(--sage-ink); color: #eef2ea; box-shadow: none; }
+.hero .btn-primary:hover { background: #26362c; box-shadow: none; }
+.hero .btn-glass { background: rgba(255, 255, 255, .34); color: var(--sage-ink); border-color: rgba(22, 33, 26, .16); }
+.hero .btn-glass:hover { background: rgba(255, 255, 255, .56); border-color: rgba(22, 33, 26, .3); }
+.hero__stats dt { color: rgba(22, 33, 26, .5); }
+.hero__stats dd { color: var(--sage-ink); }
+/* karty jak we wzorze: małe, ciemne, ze zrzutem strony */
+.kf-cards { position: absolute; z-index: 4; right: max(24px, calc((100% - 1200px) / 2)); bottom: clamp(24px, 4vh, 44px); display: flex; gap: 12px; animation: kfCard 1.1s cubic-bezier(.2, .7, .1, 1) 1.7s both; }
+.kf-card { width: 156px; display: grid; gap: 8px; padding: 8px 8px 12px; border-radius: 14px; background: rgba(18, 26, 21, .84); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); color: #eef2ea; text-decoration: none; box-shadow: 0 24px 50px -24px rgba(10, 20, 14, .6); }
+.kf-card small { display: flex; justify-content: space-between; padding: 2px 2px 0; font: 400 9px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: rgba(238, 242, 234, .55); }
+.kf-card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; border-radius: 8px; }
+.kf-card b { padding: 0 2px; font: 400 22px/1 var(--f-s); }
+.kf-card:hover { background: rgba(18, 26, 21, .92); transform: translateY(-2px); }
+@keyframes kfCard { from { opacity: 0; transform: translateY(16px); } }
+/* menu nad jasnym hero: ciemny tekst */
+.nav:not(.solid):not(.open) .logo, .nav:not(.solid):not(.open) .logo b, .nav:not(.solid):not(.open) .logo .lb { color: var(--sage-ink); }
+.nav:not(.solid):not(.open) .nav-links a { color: rgba(22, 33, 26, .72); }
+.nav:not(.solid):not(.open) .nav-links a:hover { color: var(--sage-ink); background: rgba(22, 33, 26, .06); }
+.nav:not(.solid):not(.open) .nav-cta { background: var(--sage-ink); color: #eef2ea; }
+.nav:not(.solid):not(.open) .burger { background: rgba(22, 33, 26, .06); border-color: rgba(22, 33, 26, .18); }
+.nav:not(.solid):not(.open) .burger span { background: var(--sage-ink); }
+@media (max-width: 900px) {
+  .kf { bottom: auto; height: 66svh; }
+  .kf__v { object-position: 72% 50%; }
+  .kf__mist { background: linear-gradient(to bottom, rgba(214, 224, 210, .45) 0%, rgba(214, 224, 210, 0) 30%, rgba(204, 215, 200, 0) 62%, var(--sage) 100%); }
+  .kf__word { top: 92px; font-size: 30vw; }
+  .kf-cards { display: none; }
+  .hero__content { padding: 54svh 0 34px; }
+  .hero__title { font-size: clamp(40px, 11.5vw, 60px); }
+}
+
+/* ============ v24: realizacje jako galeria ekranów w 3D ============ */
+.corr__sky { background: radial-gradient(55% 45% at 50% 46%, rgba(var(--gold-rgb), .10), transparent 70%), #050605; }
+.corr__vig { background: radial-gradient(100% 90% at 50% 46%, transparent 55%, rgba(0, 0, 0, .72) 100%); }
+.corr__world { opacity: 0; }
+.pjs { position: absolute; left: 0; top: 0; width: min(56vw, 920px, calc((100svh - 300px) * 1.55)); margin: 0; border-radius: 14px; overflow: hidden; background: #0d0f0e; cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(236, 232, 223, .12), 0 40px 90px -30px rgba(0, 0, 0, .9); will-change: transform, opacity; }
+.pjs.cur { box-shadow: 0 0 0 1px rgba(var(--gold-rgb), .38), 0 50px 110px -30px rgba(0, 0, 0, .95), 0 0 140px -40px rgba(var(--gold-rgb), .45); }
+.pjs__bar { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; background: #151816; border-bottom: 1px solid rgba(236, 232, 223, .08); }
+.pjs__bar i { width: 8px; height: 8px; border-radius: 50%; background: rgba(236, 232, 223, .18); }
+.pjs__bar em { margin-left: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 11px/1 var(--f-b); font-style: normal; color: rgba(236, 232, 223, .5); }
+.pjs img { display: block; width: 100%; height: auto; aspect-ratio: 1440 / 900; object-fit: cover; object-position: top; }
+.pjs::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--dim, 0); pointer-events: none; }
+.corr__dots button.on span { opacity: 0; translate: 8px 0; }   /* nazwa jest już pod ekranem; przy kresce tylko po najechaniu */
+.corr__dots button:hover span { opacity: 1; translate: 0 0; }
+@media (max-width: 760px) { .pjs { width: 84vw; border-radius: 10px; } .pjs__bar { height: 22px; } .pjs__bar i { width: 6px; height: 6px; } }
+
+/* ============ v24: nagłówek Kontakt ============ */
+.sec-word { display: none !important; }
+#kontakt .contact-head h2 { font: 400 clamp(42px, 5.2vw, 76px)/1.02 var(--f-s); letter-spacing: -.012em; text-transform: none; }
+#kontakt .contact-head h2 .grad { font-style: italic; color: var(--gold); background: none; padding: 0; }
+#kontakt .contact-head p { max-width: 40ch; font-size: 17px; line-height: 1.6; color: var(--muted); }
+#kontakt .eyebrow { letter-spacing: .18em; }
+
+/* ============ v24: ikony SVG zamiast znaków w przyciskach formularza ============ */
+.chip span::before { content: ""; width: 14px; height: 14px; flex: none; background: currentColor; opacity: .55;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E") center / contain no-repeat; }
+.chip input:checked + span::before { content: ""; opacity: 1; -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E"); mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E"); }
+.svc-list .ic svg, .tile svg { stroke-width: 1.75; }
+
+/* ============ v24: spokojne stany zaznaczenia (zamiast ramki z kory) ============ */
+.plans .plan:has(input:checked) { border-color: rgba(var(--gold-rgb), .55); box-shadow: 0 0 0 1px rgba(var(--gold-rgb), .22), 0 24px 50px -30px rgba(0, 0, 0, .8); }
+.addon:has(input:checked) { border-color: rgba(var(--gold-rgb), .42); background: rgba(var(--gold-rgb), .06); box-shadow: none; }
+.tile:has(input:checked) { border-color: rgba(var(--gold-rgb), .5); background: rgba(var(--gold-rgb), .06); box-shadow: none; }
+.tile:has(input:checked)::after { animation: none; }
+.st-nav button[aria-selected="true"], .show-list [role="tab"][aria-selected="true"] { border-color: rgba(var(--gold-rgb), .35); }
+.svc-list [role="tab"][aria-selected="true"] { border-color: rgba(236, 232, 223, .14); }
+.wsum dd.flash, .wiz.shake, .winput.wbad { animation: none; }
+
+/* ============ v24: mikrointerakcje. Krótko, płynnie, bez skakania ============ */
+.btn, .nav-cta, .plan, .addon, .tile, .chip span, .seg label, [role="tab"], .copy, .arch-item, .faq summary, .kf-card, .corr__open, .to-top {
+  transition: background-color .2s ease-in-out, border-color .2s ease-in-out, color .2s ease-in-out, opacity .2s ease-in-out, box-shadow .2s ease-in-out, transform .2s ease-in-out; }
+.btn:hover, .btn-primary:hover, .btn-dark:hover, .plan:hover { transform: none; }
+.btn:active, .nav-cta:active, .plan:active, .addon:active, .tile:active, .chip span:active, .seg label:active, [role="tab"]:active, .copy:active, .arch-item:active, .kf-card:active, .to-top:active { transform: scale(.98); }
+.btn .arr { transition: transform .2s ease-in-out; }
+.btn:hover .arr { transform: translateX(3px); }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"birchdesign","url":"https://birchdesign.pl/","logo":"https://birchdesign.pl/assets/logo.svg","image":"https://birchdesign.pl/assets/previews/karpik.webp","email":"hello@birchdesign.pl","telephone":"+48513970699","priceRange":"od 1999 zł","description":"Projektowanie stron internetowych, sklepów e-commerce i paneli zarządzania. Warszawa i zdalnie z całej Polski.","address":{"@type":"PostalAddress","addressLocality":"Warszawa","addressCountry":"PL"},"areaServed":[{"@type":"City","name":"Warszawa"},{"@type":"Country","name":"Polska"}],"knowsAbout":["projektowanie stron internetowych","sklepy internetowe","e-commerce","panele zarządzania","SEO"]}
@@ -1297,7 +1396,15 @@ h2.split.in .wd > span { transform: none; }
 <main id="top">
 <!-- ============ HERO ============ -->
 <section class="hero" data-hero aria-labelledby="heroTitle">
-  <canvas class="hero__tiles" id="heroTiles" aria-hidden="true"></canvas>
+  <!-- v24: zimorodek na gałęzi (Pexels, Mojahid Mottakin; licencja Pexels), mgła i wielki szeryfowy napis -->
+  <div class="kf" aria-hidden="true">
+    <video class="kf__v" autoplay muted loop playsinline preload="auto" poster="assets/hero/kingfisher.webp" disablepictureinpicture>
+      <source src="assets/hero/kingfisher.webm" type="video/webm">
+      <source src="assets/hero/kingfisher.mp4" type="video/mp4">
+    </video>
+    <div class="kf__mist"></div>
+    <p class="kf__word">Birch</p>
+  </div>
   <div class="hero__sky" aria-hidden="true"></div>
   <div class="hero__sun" aria-hidden="true"></div>
   <div class="hero__layer" data-layer="far" aria-hidden="true"></div>
@@ -1321,7 +1428,7 @@ h2.split.in .wd > span { transform: none; }
         <span class="hero-eyebrow fade" style="--d:.1s"><i></i>Projektowanie stron internetowych · Warszawa i cała Polska</span>
         <span class="ln"><span style="--i:0">Wyrośnij</span></span>
         <span class="ln"><span style="--i:1">ponad</span></span>
-        <span class="ln"><span style="--i:2">resztę.</span></span>
+        <span class="ln"><span style="--i:2"><em>resztę.</em></span></span>
       </h1>
       <p class="hero__lead fade" style="--d:.6s">Tworzymy szybkie, nowoczesne i nieszablonowe strony internetowe, dedykowane sklepy e-commerce oraz panele zarządzania. Stacjonujemy w Warszawie, a rozwiązania dostarczamy klientom z całej Polski. Wycena indywidualna, <strong>od 1 999 zł</strong>.</p>
       <div class="actions fade" style="--d:.75s">
@@ -1345,6 +1452,10 @@ h2.split.in .wd > span { transform: none; }
       <div><dt>Szablonów</dt><dd>0</dd></div>
     </dl>
   </div>
+  <div class="kf-cards">
+    <a class="kf-card" href="#realizacje" data-show="0"><small><span>Realizacja</span><span>01</span></small><img src="assets/hero/thumb-karpik.webp" alt="Strona Karpik: domki nad Jeziorem Białym" width="400" height="250" decoding="async"><b>Karpik</b></a>
+    <a class="kf-card" href="#realizacje" data-show="1"><small><span>Realizacja</span><span>02</span></small><img src="assets/hero/thumb-nocte.webp" alt="Strona NOCTE: maska do snu" width="400" height="250" decoding="async"><b>NOCTE</b></a>
+  </div>
   <button type="button" class="replay" id="replay">Powtórz wejście</button>
   <a href="#realizacje" class="scroll-cue" aria-label="Przewiń do realizacji"><span aria-hidden="true">Przewiń</span><i aria-hidden="true"></i></a>
 </section>
@@ -1354,8 +1465,6 @@ h2.split.in .wd > span { transform: none; }
     <div class="corr" id="corr" style="--n:7">
       <div class="corr__stage" id="corrStage">
         <div class="corr__sky" aria-hidden="true"></div>
-        <canvas class="corr__cv" id="corrCv" aria-hidden="true"></canvas>
-        <div class="corr__load" id="corrLoad" aria-hidden="true">Ładowanie</div>
         <div class="corr__world" id="corrWorld" aria-hidden="true"></div>
         <div class="corr__vig" aria-hidden="true"></div>
         <div class="corr__intro" id="corrIntro">
@@ -2064,12 +2173,14 @@ h2.split.in .wd > span { transform: none; }
     }
     SLABS.live = live;
   };
+  const kfV = $('.kf__v');
   const heroTitle = $('.hero__title'), heroFlash = $('.hero__flash'), meltD = $('#meltD'), meltT = $('#meltT'), heroWordL = $('#heroWord'), heroNight = $('#heroNight');
-  const meltOk = fine && !reduce && !/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const meltOk = false && fine && !reduce && !/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const heroFrame = () => {
     if (reduce) return;
     const hr = hero.getBoundingClientRect();
     if (hr.bottom < 0) return;
+    if (kfV) kfV.style.scale = (1 + pm.p * .14).toFixed(4);   // film lekko przybliża się przy przewijaniu
     pm.x = lerp(pm.x, pm.tx, .06); pm.y = lerp(pm.y, pm.ty, .06);
     pm.p = lerp(pm.p, clamp(-hr.top / hr.height), .18);
     const LT = {};
@@ -2226,99 +2337,72 @@ h2.split.in .wd > span { transform: none; }
   let cCur = -2;
 
 
-  // ---- v23: przejazd przez studio. Klatki z Blendera, przewijanie wybiera klatkę ----
-  const ST_N = 160, ST_PJ = [-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,-1,-1,-1,-1,-1,-1,-1];                 // liczba klatek i który projekt jest w kadrze w każdej klatce
-  const ST_SRC = k => `assets/realizacje/f${String(k).padStart(3, '0')}.webp`;
-  const ST_SIDE = i => i % 2 ? 1 : -1;                // projekty na zmianę: lewa, prawa strona przejścia
-  const stImgs = new Array(ST_N), stOk = new Array(ST_N).fill(false);
-  let stLoaded = 0, stStarted = false;
-  const stLoad = () => {
-    if (stStarted) return; stStarted = true;
-    // najpierw co 8. klatka (od razu da się przewijać), potem reszta
-    const order = []; for (const step of [8, 4, 2, 1]) for (let k = 0; k < ST_N; k += step) if (!order.includes(k)) order.push(k);
-    let next = 0, busy = 0;
-    const pump = () => {
-      while (busy < 6 && next < order.length) {
-        const k = order[next++], im = new Image(); busy++;
-        im.decoding = 'async';
-        im.onload = () => { stOk[k] = true; stLoaded++; busy--; pump(); if (stLoaded === ST_N) $('#corrLoad').classList.add('done'); };
-        im.onerror = () => { busy--; pump(); };
-        im.src = ST_SRC(k); stImgs[k] = im;
-      }
-    };
-    pump();
-  };
-  const near = k => { for (let d = 0; d < ST_N; d++) { if (stOk[k - d]) return k - d; if (stOk[k + d]) return k + d; } return -1; };
-  const cv = $('#corrCv'), ctx = cv.getContext('2d');
-  let cvW = 0, cvH = 0;
-  const corrBuild = () => {
-    const dpr = Math.min(2, devicePixelRatio || 1), rr = corrStage.getBoundingClientRect();
-    cvW = rr.width; cvH = rr.height; cv.width = Math.round(cvW * dpr); cv.height = Math.round(cvH * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.imageSmoothingQuality = 'high'; drawn = '';
-  };
-  // kropki z nazwami projektów
+  // ---- v24: galeria ekranów w 3D. Ostre zrzuty stron, ruch tylko na transformacjach (GPU), wygładzony ----
+  const NPJ = PROJECTS.length, PAD = .55;            // PAD: ile „miejsca” przed pierwszym i po ostatnim projekcie
+  cWorld.innerHTML = PROJECTS.map((p, i) => `<figure class="pjs" data-i="${i}"><span class="pjs__bar"><i></i><i></i><i></i><em>${p.u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/?(#top)?$/, '')}</em></span><img src="${p.img}" alt="" width="1440" height="900" loading="lazy" decoding="async"></figure>`).join('');
+  const scrs = $$('.pjs', cWorld);
   cDots.innerHTML = PROJECTS.map((p, i) => `<li><button type="button" data-i="${i}" aria-label="${p.n}"><span>${p.n}</span><i></i></button></li>`).join('');
   const corrSpan = () => Math.max(1, corr.offsetHeight - VH());
-  const stMid = i => { const ks = ST_PJ.map((v, k) => v === i ? k : -1).filter(k => k >= 0); return ks.length ? ks[Math.floor(ks.length / 2)] : 0; };
+  const fAt = p => p * (NPJ - 1 + 2 * PAD) - PAD;    // postęp przewijania -> „który projekt” (liczba ułamkowa)
   const corrGo = (i, smooth = true) => {
-    const top = corr.getBoundingClientRect().top + scrollY + stMid(i) / (ST_N - 1) * corrSpan();
-    stLoad();
-    if (!smooth) { scrollTo({ top, behavior: 'instant' }); return; }
-    scrollTo({ top: top - VH() * .6, behavior: 'instant' });
+    const top = corr.getBoundingClientRect().top + scrollY + (i + PAD) / (NPJ - 1 + 2 * PAD) * corrSpan();
+    if (!smooth || reduce) { scrollTo({ top, behavior: 'instant' }); return; }
+    if (Math.abs(top - scrollY) > VH() * 1.5) scrollTo({ top: top - Math.sign(top - scrollY) * VH() * .6, behavior: 'instant' });
     requestAnimationFrame(() => scrollTo({ top, behavior: 'smooth' }));
   };
   cDots.addEventListener('click', e => { const b = e.target.closest('button'); if (b) corrGo(+b.dataset.i); });
   const setProject = (i) => {
     if (i === cCur) return; cCur = i;
     const show = i >= 0;
-    cIntro.style.opacity = show ? '0' : '1'; cIntro.style.transform = show ? 'scale(.92)' : '';
+    cIntro.style.opacity = show ? '0' : '1'; cIntro.style.transform = show ? 'scale(.96)' : '';
     cPj.style.opacity = show ? '1' : '0';
-    cv.classList.toggle('link', show);
     $$('button', cDots).forEach((b, k) => b.classList.toggle('on', k === i));
     if (!show) return;
     const p = PROJECTS[i];
-    cName.innerHTML = p.n.split(' ').map(w => '<span class="w">' + [...w].map((ch, k) => `<span class="c" style="--i:${k}">${ch}</span>`).join('') + '</span>').join(' ');
-    cName.setAttribute('aria-label', p.n); cName.style.setProperty('--len', Math.max(6, p.n.length));
-    if (typeof scramble === 'function') { scramble(cCat, p.c, 520); scramble(cNo, `${String(i + 1).padStart(2, '0')} / ${String(PROJECTS.length).padStart(2, '0')}`, 420); }
-    else { cCat.textContent = p.c; cNo.textContent = `${String(i + 1).padStart(2, '0')} / ${String(PROJECTS.length).padStart(2, '0')}`; }
+    cName.textContent = p.n; cName.setAttribute('aria-label', p.n); cName.style.setProperty('--len', Math.max(6, p.n.length));
+    cCat.textContent = p.c;
+    cNo.textContent = `${String(i + 1).padStart(2, '0')} / ${String(NPJ).padStart(2, '0')}`;
     cDesc.textContent = p.d; cOpen.href = p.u; cOpen.setAttribute('aria-label', `Otwórz stronę ${p.n} w nowej karcie`);
   };
-  [cIntro, cPj].forEach(el => el.style.transition = 'opacity .5s var(--ease), transform .7s var(--ease)');
-  // kliknięcie w studio otwiera projekt, który jest teraz na monitorze
-  cv.addEventListener('click', () => { if (cCur >= 0) window.open(PROJECTS[cCur].u, '_blank', 'noopener'); });
-  const cam = { f: 0, mx: 0, my: 0, fx: .5 };
-  let drawn = '';
+  [cIntro, cPj].forEach(el => el.style.transition = 'opacity .45s ease-in-out, transform .6s ease-in-out');
+  // kliknięcie: środkowy ekran otwiera stronę, boczny przewija do siebie
+  cWorld.addEventListener('click', e => {
+    const f = e.target.closest('.pjs'); if (!f) return;
+    const i = +f.dataset.i;
+    if (i === cCur) window.open(PROJECTS[i].u, '_blank', 'noopener'); else corrGo(i);
+  });
+  const cam = { f: -PAD, mx: 0, my: 0 };
+  let corrKey = '';
   const corrFrame = () => {
     const r = corr.getBoundingClientRect(), vh = VH();
-    if (r.top < vh * 3) stLoad();                  // ładowanie klatek zaczyna się, zanim ktoś tu dojedzie
     if (r.bottom < 0 || r.top > vh) return;
-    if (!cvW) corrBuild();
     const p = clamp(-r.top / corrSpan());
-    cam.f = lerp(cam.f, p * (ST_N - 1), .14);
+    cam.f = lerp(cam.f, fAt(p), .1);
     cam.mx = lerp(cam.mx, CUR.on ? CUR.x / innerWidth - .5 : 0, .05);
     cam.my = lerp(cam.my, CUR.on ? CUR.y / innerHeight - .5 : 0, .05);
     cBar.style.transform = `scaleX(${p.toFixed(4)})`;
-    const pi = ST_PJ[Math.round(cam.f)];
-    // na telefonie (wąski ekran) kadr przesuwa się w stronę monitora z projektem
-    const narrow = cvW / cvH < 1.2;
-    cam.fx = lerp(cam.fx, narrow && pi >= 0 ? .5 + ST_SIDE(pi) * .19 : .5, .08);
-    const a = near(Math.round(cam.f));   // zawsze jedna, najbliższa klatka (mieszanie dwóch dawało podwójny obraz)
-    const key = `${a}|${cam.mx.toFixed(4)}|${cam.my.toFixed(4)}|${cam.fx.toFixed(4)}|${cvW}`;
-    if (a >= 0 && key !== drawn) {
-      drawn = key;
-      const im = stImgs[a], iw = im.naturalWidth, ih = im.naturalHeight;
-      const sc = Math.max(cvW / iw, cvH / ih) * 1.06, dw = iw * sc, dh = ih * sc;
-      const x = Math.min(0, Math.max(cvW - dw, cvW / 2 - dw * cam.fx - cam.mx * 40)), y = (cvH - dh) / 2 - cam.my * 22;
-      ctx.drawImage(im, x, y, dw, dh);
+    const key = `${cam.f.toFixed(4)}|${cam.mx.toFixed(3)}|${cam.my.toFixed(3)}|${innerWidth}`;
+    if (key !== corrKey) {
+      corrKey = key;
+      const gap = innerWidth < 760 ? 80 : 54;          // odstęp między ekranami (vw)
+      cWorld.style.opacity = clamp((cam.f + PAD) * 2.6).toFixed(3);
+      cWorld.style.transform = `rotateY(${(cam.mx * 5).toFixed(2)}deg) rotateX(${(-cam.my * 3).toFixed(2)}deg)`;
+      scrs.forEach((el, i) => {
+        const d = i - cam.f, a = Math.abs(d), sg = Math.sign(d);
+        const x = sg * (Math.min(a, 1) * gap + Math.max(0, a - 1) * gap * .5);
+        const z = -Math.min(a, 2.4) * 280, ry = -clamp(d, -1.2, 1.2) * 32;
+        el.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(2)}vw, 0, ${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg)`;
+        el.style.opacity = clamp(1.7 - a * .6).toFixed(3);
+        el.style.setProperty('--dim', clamp(a * .42, 0, .7).toFixed(3));
+        el.style.zIndex = String(100 - Math.round(a * 10));
+        el.classList.toggle('cur', a < .5);
+      });
     }
-    let idx = pi;
-    if (idx < 0 && cam.f > ST_N / 2) idx = PROJECTS.length - 1;   // na końcu zostaje ostatni projekt
-    setProject(idx);
+    setProject(cam.f < -.3 ? -1 : clamp(Math.round(cam.f), 0, NPJ - 1));
   };
   if (reduce) corr.classList.add('corr--flat');
   else {
-    corrBuild(); setProject(-1);
-    let crT; addEventListener('resize', () => { clearTimeout(crT); crT = setTimeout(() => { cvW = 0; }, 250); });
+    setProject(-1);
     const corrLoop = () => { corrFrame(); requestAnimationFrame(corrLoop); };
     requestAnimationFrame(corrLoop);
   }
@@ -2564,7 +2648,7 @@ h2.split.in .wd > span { transform: none; }
   });
   $('#w-copy').addEventListener('click', (e) => {
     const b = e.currentTarget;
-    const ok = () => { b.textContent = 'Skopiowano ✓'; };
+    const ok = () => { b.textContent = 'Skopiowano'; };
     const bad = () => { b.textContent = 'Nie udało się skopiować'; };
     try { navigator.clipboard.writeText(bodyText()).then(ok, bad); } catch (err) { bad(); }
   });
@@ -2618,7 +2702,7 @@ h2.split.in .wd > span { transform: none; }
   let videoMode = false;
   const hideVideo = () => { videoMode = false; };
   const HT = (() => {
-    const cv = $('#heroTiles'); if (!cv) return { play: f => f(), finish() {} };
+    const cv = $('#heroTiles'); if (!cv) return { play: f => setTimeout(f, 1400), finish() {} };   // v24: bez kostki, strona pojawia się po ostrzeniu filmu
     const ctx = cv.getContext('2d');
     const REVEAL = 2.75;          // sekunda wejścia, w której pojawia się strona
     let W = 0, H = 0, dpr = 1, ps = [], T0 = -1e9, cbf = null, built = '', mob = false, cube = { x: 0, y: 0, s: 100 }, pitch = 8;
@@ -2780,6 +2864,8 @@ h2.split.in .wd > span { transform: none; }
     requestAnimationFrame(() => requestAnimationFrame(tick));
     startVideo();
   };
+  // film gra tylko wtedy, gdy hero jest widoczne (oszczędza procesor i baterię)
+  if (kfV) new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { const p = kfV.play(); if (p) p.catch(() => {}); } else kfV.pause(); })).observe(hero);
   const restartAnims = sel => $$(sel).forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
   if (root.classList.contains('intro-on')) { scrollTo(0, 0); introStart(); }
   else { heroWordL.classList.add('on', 'now'); setGauge(1, true); hero.classList.add('is-revealed'); startVideo(); }
@@ -2816,6 +2902,7 @@ h2.split.in .wd > span { transform: none; }
     e.preventDefault();
     const goY = () => id === 'top' ? 0 : target.getBoundingClientRect().top + scrollY;
     const go = () => scrollTo({ top: goY(), behavior: 'instant' });
+    scrollTo({ top: goY(), behavior: reduce ? 'instant' : 'smooth' }); return;   // v24: zwykłe płynne przewinięcie, bez kurtyny i listków
     wiping = true;
     wpBuild();
     const down = goY() >= scrollY - 2, dir = down ? 1 : -1;
@@ -2855,28 +2942,9 @@ h2.split.in .wd > span { transform: none; }
     }, IN + maxD + HOLD);
   });
 
-  /* --- kliknięcia: fala światła, sprężynujący przycisk, listki --- */
-  const PRESS = 'a.btn, .btn, button, [role="tab"], .plan, .addon, .tile, .seg label, summary, .arch-item, .chip, .copy';
-  document.addEventListener('pointerdown', e => {
-    if (e.button || e.target.closest('#intro')) return;
-    const el = e.target.closest(PRESS + ', a, label, input, [data-hero]');
-    if (!el) return;
-    const ring = document.createElement('i'); ring.className = 'clk'; document.body.append(ring);
-    const dot = document.createElement('i'); dot.className = 'clk clk--dot'; document.body.append(dot);
-    const at = `translate(${e.clientX}px, ${e.clientY}px)`;
-    ring.animate([{ transform: at + ' scale(.15)', opacity: 1 }, { transform: at + ' scale(1.25)', opacity: 0 }], { duration: 700, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => ring.remove();
-    dot.animate([{ transform: at + ' scale(.4)', opacity: 1 }, { transform: at + ' scale(2.2)', opacity: 0 }], { duration: 420, easing: 'ease-out' }).onfinish = () => dot.remove();
-    const p = e.target.closest(PRESS);
-    if (p && p.offsetWidth < 900 && !p.closest('.nav-links')) p.animate([{ scale: 1 }, { scale: .93, offset: .25 }, { scale: 1.035, offset: .62 }, { scale: .995, offset: .85 }, { scale: 1 }], { duration: 560, easing: 'ease-out' });
-  }, { passive: true });
-
   /* --- przewijanie: słowa w tle, kłody, karty w 3D --- */
   const secs = $$('section.sec').filter(x => SECN[x.id] && x.id !== 'realizacje');
-  const words2 = secs.map((sec, i) => {
-    const w = document.createElement('div'); w.className = 'sec-word'; w.setAttribute('aria-hidden', 'true');
-    [...SECN[sec.id]].forEach(c => { const sp = document.createElement('span'); sp.textContent = c === ' ' ? '\u00a0' : c; sp._s = { y: 0, v: 0, r: 0, vr: 0 }; w.append(sp); });
-    sec.prepend(w); return { sec, w, dir: i % 2 ? 1 : -1 };
-  });
+  const words2 = [];   // v24: bez wielkich napisów w tle sekcji
   const logs = secs.slice(1).map((sec, i) => {
     const d = document.createElement('div'); d.className = 'log'; d.setAttribute('aria-hidden', 'true');
     d.innerHTML = '<i></i>' + [18, 47, 81].map((x, k) => `<b style="left:${x + i * 3}%;rotate:${-30 + k * 25}deg;background:${GOLD[(k + i) % GOLD.length]}"></b>`).join('');
@@ -2956,51 +3024,6 @@ h2.split.in .wd > span { transform: none; }
   // HUD: narożniki pokazują się po zjechaniu z hero
   const hud = $('#hud');
   addEventListener('scroll', () => hud.classList.toggle('show', scrollY > VH() * .5), { passive: true });
-
-  /* --- obramówka z kory owija zaznaczone kafelki (pakiety, dodatki, opcje formularza) --- */
-  let bkId = 0;
-  // kafelki z polem wyboru + zakładki (usługi, proces, realizacje) + przełączniki w formularzu
-  const bkCards = [...$$('.plans .plan, .addon, .tile, .seg label').filter(el => $('input', el)), ...$$('.svc-list [role="tab"], .st-nav [role="tab"], .show-list [role="tab"]')];
-  const bkOn = el => { const i = $('input', el); return i ? i.checked : el.getAttribute('aria-selected') === 'true'; };
-  const bkSize = (el) => {
-    const b = el._bk; if (!b) return;
-    const w = el.offsetWidth, h = el.offsetHeight, rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 14;
-    b.querySelectorAll('rect').forEach(r => { r.setAttribute('x', 1.5); r.setAttribute('y', 1.5); r.setAttribute('width', Math.max(0, w - 3)); r.setAttribute('height', Math.max(0, h - 3)); r.setAttribute('rx', Math.max(0, rad - 1.5)); });
-    const per = 2 * (w + h);
-    const dashes = []; let acc = 0; const rr = rng(bkId + w);
-    while (acc < per) { const on = 2 + rr() * 9, off = 7 + rr() * 30; dashes.push(on.toFixed(1), off.toFixed(1)); acc += on + off; }
-    b.querySelector('.bk-d').setAttribute('stroke-dasharray', dashes.join(' '));
-  };
-  bkCards.forEach(el => {
-    const id = 'bkm' + (bkId++);
-    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
-    el.insertAdjacentHTML('beforeend', `<svg class="bk" aria-hidden="true"><defs><mask id="${id}" maskUnits="userSpaceOnUse" x="-20" y="-20" width="4000" height="4000"><rect class="bk-m" pathLength="100"/></mask></defs><g mask="url(#${id})"><rect class="bk-b"/><rect class="bk-d"/></g></svg>`);
-    el._bk = el.lastElementChild;
-    bkSize(el);
-  });
-  const bkSync = () => bkCards.forEach(el => el._bk.classList.toggle('on', bkOn(el)));
-  document.addEventListener('change', e => { if (e.target.closest('.plans, .addon, .tile, .seg')) requestAnimationFrame(bkSync); });
-  new MutationObserver(() => requestAnimationFrame(bkSync)).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['aria-selected'] });
-  if ('ResizeObserver' in window) { const ro = new ResizeObserver(es => es.forEach(x => bkSize(x.target))); bkCards.forEach(el => ro.observe(el)); }
-  // zaznaczone na starcie owijają się, gdy kafelek wjedzie w widok
-  const bkIO = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { bkIO.unobserve(x.target); setTimeout(bkSync, 500); } }), { threshold: .4 });
-  bkCards.filter(bkOn).forEach(el => bkIO.observe(el));
-
-  /* --- listki z przycisków --- */
-  if (!reduce) document.addEventListener('click', e => {
-    const b = e.target.closest('.btn, .nav-cta, button, [role="tab"], .plan, .addon, .tile, .seg label, summary');
-    if (!b || !e.clientX) return;
-    for (let k = 0; k < 9; k++) {
-      const l = document.createElement('i'); l.className = 'burst-leaf'; l.style.background = GOLD[k % GOLD.length];
-      document.body.append(l);
-      const a = Math.PI * (1.05 + rnd() * .9), v = 50 + rnd() * 70, dx = Math.cos(a) * v, dy = Math.sin(a) * v, r0 = rnd() * 360, rs = (rnd() - .5) * 540;
-      l.animate([
-        { transform: `translate(${e.clientX}px, ${e.clientY}px) rotate(${r0}deg) scale(.4)`, opacity: 1 },
-        { transform: `translate(${e.clientX + dx}px, ${e.clientY + dy}px) rotate(${r0 + rs * .5}deg) scale(1)`, opacity: 1, offset: .35 },
-        { transform: `translate(${e.clientX + dx * 1.5}px, ${e.clientY + dy + 120}px) rotate(${r0 + rs}deg) scale(.8)`, opacity: 0 }
-      ], { duration: 1000 + rnd() * 500, easing: 'cubic-bezier(.2,.7,.4,1)' }).onfinish = () => l.remove();
-    }
-  });
 
   /* --- nagłówki: słowa wyrastają --- */
   const splitIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); splitIO.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
