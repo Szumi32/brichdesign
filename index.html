@@ -22,12 +22,12 @@
 :root {
   /* TŁO: --black, --bg-rgb, --bg2, --s1, --card, --card2, --green, --s4 (odcienie od najciemniejszego)
      1. główny: czerń   2. główny: biel kory   3. dodatkowy: akcent (miedź) – zmieniaj też ACCENT w skrypcie */
-  --black: #000000; --bg-rgb: 0, 0, 0; --bark: #ece8df; --gold: #d98a5f; --gold-rgb: 217, 138, 95;
+  --black: #000000; --bg-rgb: 0, 0, 0; --bark: #ece8df; --gold: #7ccf6b; --gold-rgb: 124, 207, 107;
   --bg: var(--black); --bg2: #0a0a0a; --s1: #0c0c0c; --card: #121212; --card2: #171717; --s4: #242424; --ink: var(--bark); --ink-rgb: 236, 232, 223;
   --muted: #a1a1a1; --line: rgba(236, 232, 223, .12); --line2: rgba(236, 232, 223, .24);
   --lime: var(--gold); --lime-rgb: var(--gold-rgb); --ivory: var(--bark);
   --green: #1b1b1b; --green-rgb: 27, 27, 27; --on: #000000;
-  --accent: var(--gold); --accent-rgb: var(--gold-rgb); --accent-dk: #b67450; --accent-lt: var(--gold); --soft: rgba(217, 138, 95, .12);
+  --accent: var(--gold); --accent-rgb: var(--gold-rgb); --accent-dk: #4f9a46; --accent-lt: var(--gold); --soft: rgba(124, 207, 107, .12);
   --navy: var(--s1); --ok: #7ddc9a; --forest: var(--s1); --leaf: var(--gold);
   --f-g: "Lexend Giga", "Lexend", system-ui, sans-serif;
   --f-d: "Lexend", system-ui, sans-serif;
@@ -42,6 +42,7 @@
 /* ============ PODSTAWY ============ */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+.js.wiping-off { scroll-behavior: auto; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.65 var(--f-b); letter-spacing: -.005em; -webkit-font-smoothing: antialiased; overflow-x: clip; }
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; }
@@ -78,7 +79,7 @@ h2 { font: 700 clamp(34px, 4.4vw, 54px)/1.08 var(--f-d); letter-spacing: -.03em;
 .btn .arr { display: inline-block; transition: transform .3s var(--ease); }
 .btn:hover .arr { transform: translateX(4px); }
 .btn-primary { background: var(--lime); color: var(--green); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08), 0 10px 22px -12px rgba(var(--lime-rgb), .9); }
-.btn-primary:hover { background: #bce543; transform: translateY(-1px); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08), 0 16px 30px -12px rgba(var(--lime-rgb), 1); }
+.btn-primary:hover { background: #a6e597; transform: translateY(-1px); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .08), 0 16px 30px -12px rgba(var(--lime-rgb), 1); }
 .btn-ghost { background: var(--card); color: var(--ink); border-color: var(--line); box-shadow: var(--sh-s); }
 .btn-ghost:hover { border-color: var(--line2); background: var(--bg2); }
 .btn-dark { background: var(--green); color: var(--ivory); }
@@ -136,7 +137,7 @@ h2 { font: 700 clamp(34px, 4.4vw, 54px)/1.08 var(--f-d); letter-spacing: -.03em;
 .hero__layer svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .hero__layer[data-layer="far"] { opacity: .55; }
 .hero__layer[data-layer="mid"] { opacity: .85; }
-.hero__fog { position: absolute; inset: 0; background: linear-gradient(to top, rgba(240, 170, 120, .38), rgba(240, 170, 120, 0) 55%); mix-blend-mode: screen; pointer-events: none; }
+.hero__fog { position: absolute; inset: 0; background: linear-gradient(to top, rgba(160, 230, 140, .38), rgba(160, 230, 140, 0) 55%); mix-blend-mode: screen; pointer-events: none; }
 .hero__ground { position: absolute; inset: auto 0 0 0; height: 24%; background: linear-gradient(to top, var(--black) 0%, rgba(var(--bg-rgb), .55) 45%, rgba(var(--bg-rgb), 0)); pointer-events: none; }
 .hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(var(--bg-rgb), .78) 0%, rgba(var(--bg-rgb), .38) 42%, rgba(var(--bg-rgb), 0) 70%), linear-gradient(to bottom, rgba(var(--bg-rgb), .5), transparent 22%); pointer-events: none; }
 .tr { transform-box: fill-box; transform-origin: 50% 100%; animation: grow 1.9s var(--ease) var(--d, 0s) backwards; }
@@ -156,10 +157,10 @@ h2 { font: 700 clamp(34px, 4.4vw, 54px)/1.08 var(--f-d); letter-spacing: -.03em;
 .hero__title { margin: 0; font: 300 clamp(36px, 6vw, 96px)/1.02 var(--f-g); letter-spacing: -.035em; text-transform: uppercase; text-shadow: 0 6px 40px rgba(0, 0, 0, .35); }
 .hero__title .ln { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
 .hero__title .ln > span { display: block; transform: translateY(110%); animation: lineUp 1.2s var(--ease) forwards; animation-delay: calc(.2s + var(--i) * .12s); }
-@keyframes lineUp { to { transform: none; } }
+@keyframes lineUp { to { transform: none; filter: blur(0); } }
 .fade { opacity: 0; transform: translateY(16px); animation: fadeUp .9s var(--ease) forwards; animation-delay: var(--d, .5s); }
-@keyframes fadeUp { to { opacity: 1; transform: none; } }
-@keyframes popIn { from { opacity: 0; transform: translateY(14px) scale(.95); } }
+@keyframes fadeUp { to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes popIn { from { opacity: 0; transform: translateY(14px) scale(.95); filter: blur(6px); } }
 @keyframes ping { 0% { transform: scale(.5); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
 @keyframes blink { 50% { opacity: .35; } }
 .hero__lead { max-width: 540px; margin: 0; font-size: clamp(16px, 1.2vw, 18.5px); color: rgba(236, 232, 223, .88); text-shadow: 0 2px 18px rgba(0, 0, 0, .45); }
@@ -220,7 +221,7 @@ h2 { font: 700 clamp(34px, 4.4vw, 54px)/1.08 var(--f-d); letter-spacing: -.03em;
   .values div { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; padding: 16px; }
   .values svg { grid-row: span 2; margin: 2px 0 0; }
 }
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 0px) /* dawniej: ogranicz ruch */ {
   .tr, .hero__crown, .leaf, .hero__sun, .scroll-cue i, .hc-on i { animation: none !important; }
   .hero__leaves { display: none; }
 }
@@ -243,7 +244,7 @@ h2 { font: 700 clamp(34px, 4.4vw, 54px)/1.08 var(--f-d); letter-spacing: -.03em;
 .sec-head.split { max-width: none; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 18px 56px; align-items: end; }
 .sec-head.split .lead { margin: 0; }
 @media (max-width: 860px) { .sec-head.split { grid-template-columns: minmax(0, 1fr); } }
-.show { --g: #c58b4a; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.show { --g: #6fbf5e; display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 22px; align-items: start; }
 .show-list { display: grid; gap: 8px; }
 .show-list button { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; padding: 13px 16px 15px; border-radius: 16px; border: 1px solid transparent; background: transparent; text-align: left; cursor: pointer; overflow: hidden; transition: background-color .25s, border-color .25s, box-shadow .25s; }
 .show-list button:hover { background: rgba(var(--ink-rgb), .04); }
@@ -816,7 +817,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 .arch-item:hover .arch-arrow { background: var(--gold); color: #000; box-shadow: none; transform: rotate(45deg); }
 @media (max-width: 860px) { .works-end { grid-template-columns: 1fr; } .works-end .works-cta { min-height: 0; } }
 
-/* logo: pień brzozy w bieli, pierścień „b” i słowo „design” w miedzi */
+/* logo: pień birch w bieli, pierścień „b” i słowo „design” w miedzi */
 .logo-mark { width: 31px; height: 34px; }
 .logo-mark svg { width: 31px; height: 34px; }
 .logo b, .nav:not(.solid):not(.open) .logo b { color: var(--gold); font-weight: 300; }
@@ -885,20 +886,395 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 @media (max-width: 860px) { .manifest { max-width: none; } .portrait { max-width: 360px; } }
 @media (max-width: 520px) { .portrait small { font-size: 9.5px; letter-spacing: .07em; padding: 12px 10px; white-space: nowrap; } }
 
+
+/* ============ v6: animacje w motywie lasu (ekran startowy, pień postępu, słoje, napisy) ============ */
+
+:root { --bark-a: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 300' preserveAspectRatio='none'%3E%3Cpath d='M39.1 6.0q14.2 -4.6 28.5 0q-14.2 3.2 -28.5 0z' fill='%2314110f' opacity='0.74'/%3E%3Cpath d='M27.3 34.9q10.0 -4.4 19.9 0q-10.0 3.1 -19.9 0z' fill='%2314110f' opacity='0.87'/%3E%3Cpath d='M53.6 35.9h5.6' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M37.5 68.7q18.1 -2.4 36.2 0q-18.1 1.7 -36.2 0z' fill='%2314110f' opacity='0.94'/%3E%3Cpath d='M21.9 98.3q9.5 -2.3 19.0 0q-9.5 1.6 -19.0 0z' fill='%2314110f' opacity='0.57'/%3E%3Cpath d='M46.9 99.3h5.2' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M18.5 124.5q14.0 -5.8 28.1 0q-14.0 4.1 -28.1 0z' fill='%2314110f' opacity='0.81'/%3E%3Cpath d='M42.7 155.1q14.3 -3.4 28.6 0q-14.3 2.4 -28.6 0z' fill='%2314110f' opacity='0.95'/%3E%3Cpath d='M7.5 186.6q12.0 -3.2 24.1 0q-12.0 2.2 -24.1 0z' fill='%2314110f' opacity='0.58'/%3E%3Cpath d='M33.5 211.4q20.5 -3.9 41.1 0q-20.5 2.7 -41.1 0z' fill='%2314110f' opacity='0.89'/%3E%3Cpath d='M80.3 212.4h11.4' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M-5.0 237.8q22.7 -3.9 45.4 0q-22.7 2.7 -45.4 0z' fill='%2314110f' opacity='0.80'/%3E%3Cpath d='M47.8 259.7q8.4 -3.6 16.8 0q-8.4 2.5 -16.8 0z' fill='%2314110f' opacity='0.85'/%3E%3Cpath d='M70.6 260.7h5.7' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M16.8 277.0q19.8 -3.0 39.5 0q-19.8 2.1 -39.5 0z' fill='%2314110f' opacity='0.73'/%3E%3Cpath d='M66.1 278.0h5.9' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3C/svg%3E"); --bark-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 300' preserveAspectRatio='none'%3E%3Cpath d='M39.1 6.0q14.2 -4.6 28.5 0q-14.2 3.2 -28.5 0z' fill='%2314110f' opacity='0.74'/%3E%3Cpath d='M27.3 34.9q10.0 -4.4 19.9 0q-10.0 3.1 -19.9 0z' fill='%2314110f' opacity='0.87'/%3E%3Cpath d='M53.6 35.9h5.6' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M37.5 68.7q18.1 -2.4 36.2 0q-18.1 1.7 -36.2 0z' fill='%2314110f' opacity='0.94'/%3E%3Cpath d='M21.9 98.3q9.5 -2.3 19.0 0q-9.5 1.6 -19.0 0z' fill='%2314110f' opacity='0.57'/%3E%3Cpath d='M46.9 99.3h5.2' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M18.5 124.5q14.0 -5.8 28.1 0q-14.0 4.1 -28.1 0z' fill='%2314110f' opacity='0.81'/%3E%3Cpath d='M42.7 155.1q14.3 -3.4 28.6 0q-14.3 2.4 -28.6 0z' fill='%2314110f' opacity='0.95'/%3E%3Cpath d='M7.5 186.6q12.0 -3.2 24.1 0q-12.0 2.2 -24.1 0z' fill='%2314110f' opacity='0.58'/%3E%3Cpath d='M33.5 211.4q20.5 -3.9 41.1 0q-20.5 2.7 -41.1 0z' fill='%2314110f' opacity='0.89'/%3E%3Cpath d='M80.3 212.4h11.4' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M-5.0 237.8q22.7 -3.9 45.4 0q-22.7 2.7 -45.4 0z' fill='%2314110f' opacity='0.80'/%3E%3Cpath d='M47.8 259.7q8.4 -3.6 16.8 0q-8.4 2.5 -16.8 0z' fill='%2314110f' opacity='0.85'/%3E%3Cpath d='M70.6 260.7h5.7' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M16.8 277.0q19.8 -3.0 39.5 0q-19.8 2.1 -39.5 0z' fill='%2314110f' opacity='0.73'/%3E%3Cpath d='M66.1 278.0h5.9' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3C/svg%3E"); }
+/* --- ekran ładowania: licznik 0–100, rosną pnie, potem paski z pniami odjeżdżają w górę --- */
+.intro { display: none; }
+.intro-on { overflow: hidden; }
+.intro-on .intro { position: fixed; inset: 0; z-index: 200; display: block; overflow: hidden; cursor: pointer; }
+.intro-on:not(.js) .intro { animation: introSafety .6s 5s forwards; } /* zabezpieczenie, gdyby skrypt się nie uruchomił */
+@keyframes introSafety { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+.intro-on .hero__content *, .intro-on .hero__content, .intro-on .nav, .intro-on .nav * { animation-play-state: paused !important; }
+/* --- wejście: kamera wjeżdża w las, wielki napis za pniami, strona pojawia się przy „uderzeniu” --- */
+.intro-on .nav, .intro-on .scroll-cue, .intro-on .hero-hint, .intro-on .replay, .intro-on .bark-nav, .intro-on .to-top { opacity: 0 !important; pointer-events: none; }
+.intro-on .hero { cursor: pointer; }
+.scroll-cue, .replay { transition: opacity .9s cubic-bezier(.2, .7, .1, 1) .9s; }
+.hero__wordl { position: absolute; inset: 0; pointer-events: none; transform-origin: 50% 25%; will-change: transform; }
+.hero__word { position: absolute; left: 50%; top: 9vh; translate: -50% 0; margin: 0; white-space: nowrap; font: 300 clamp(110px, 21vw, 400px)/.8 var(--f-g); letter-spacing: .02em; text-transform: uppercase;
+  color: rgba(255, 236, 222, .2); opacity: 0;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 40%, rgba(0, 0, 0, .3) 66%, transparent 88%); mask-image: linear-gradient(180deg, #000 0%, #000 40%, rgba(0, 0, 0, .3) 66%, transparent 88%);
+  transition: opacity 1.8s cubic-bezier(.2, .7, .1, 1), letter-spacing 2.6s cubic-bezier(.2, .7, .1, 1); }
+.hero__wordl.on .hero__word { opacity: 1; letter-spacing: -.01em; }
+.hero__wordl.now .hero__word { transition: none; }
+
+/* (v20) stara nakładka z filmem, nieużywana: film jest teraz w samym hero (.hero__vid) */
+.vintro { position: fixed; inset: 0; z-index: 190; background: #000; display: none; overflow: hidden; cursor: pointer; }
+.vintro-on .vintro { display: block; }
+.vintro video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* wielki napis ZA ptakiem: lighten zostawia jaśniejszy piksel, a ptak jest jaśniejszy od liter, więc leci przed nimi */
+.vintro__word { position: absolute; left: 0; right: 0; top: 13vh; margin: 0; text-align: center; white-space: nowrap; pointer-events: none;
+  font: 300 clamp(80px, 15vw, 280px)/.9 var(--f-g); letter-spacing: -.045em; color: #1d1714; mix-blend-mode: lighten;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 38%, rgba(0,0,0,.35) 62%, transparent 86%);
+          mask-image: linear-gradient(180deg, #000 0%, #000 38%, rgba(0,0,0,.35) 62%, transparent 86%);
+  opacity: 0; transform: translateY(20px); transition: opacity 2s var(--ease) .3s, transform 2s var(--ease) .3s; }
+.vintro__word i { font-family: Georgia, "Times New Roman", serif; font-weight: 400; letter-spacing: -.02em; color: #2a1c14; }
+.vintro.play .vintro__word { opacity: 1; transform: none; }
+.vintro__skip { position: absolute; right: clamp(16px, 4vw, 48px); bottom: clamp(16px, 4vh, 40px); font: 400 10px/1 var(--f-g); letter-spacing: .18em; text-transform: uppercase; color: rgba(236,232,223,.55); }
+@media (max-width: 760px) { .vintro__word { font-size: 20vw; top: 18vh; } }
+.hero__night { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: radial-gradient(70% 60% at 60% 66%, rgba(6, 5, 10, .55), #020203 78%); }
+.gauge { position: absolute; z-index: 5; left: 22px; top: 18vh; bottom: 24vh; width: 46px; display: none; flex-direction: column; align-items: center; gap: 12px; pointer-events: none;
+  font: 400 10px/1 var(--f-g); letter-spacing: .18em; text-transform: uppercase; color: rgba(236, 232, 223, .55); }
+@media (min-width: 1360px) { .gauge { display: flex; } }
+.gauge__lbl { writing-mode: vertical-rl; transform: rotate(180deg); }
+.gauge__track { position: relative; flex: 1; width: 10px; background: repeating-linear-gradient(to bottom, rgba(236, 232, 223, .32) 0 1px, transparent 1px 12px); }
+.gauge__mark { position: absolute; left: 50%; top: 0; width: 16px; height: 2px; margin: -1px 0 0 -8px; background: var(--bark); box-shadow: 0 0 10px rgba(255, 245, 230, .9), 0 0 22px rgba(255, 245, 230, .45); transition: background-color .4s, box-shadow .4s; }
+.gauge__num { font-variant-numeric: tabular-nums; color: var(--bark); letter-spacing: .06em; transition: color .4s; }
+.gauge.lock .gauge__num { color: var(--gold); }
+.gauge.lock .gauge__mark { background: var(--gold); box-shadow: 0 0 10px var(--gold), 0 0 24px rgba(var(--gold-rgb), .6); }
+.replay { position: absolute; z-index: 5; right: max(24px, calc((100% - 1200px) / 2)); bottom: calc(clamp(24px, 4vh, 44px) + 46px); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line2);
+  background: rgba(16, 14, 14, .42); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: rgba(236, 232, 223, .8); font: 400 10px/1 var(--f-g); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; }
+.replay:hover { color: var(--gold); border-color: rgba(var(--gold-rgb), .5); }
+@media (max-width: 900px) { .replay { display: none; } .hero__word { top: 12svh; font-size: 21vw; } }
+/* strona pojawia się z rozmycia */
+.fade { filter: blur(6px); }
+.hero__title .ln > span { filter: blur(6px); }
+.ld__cols { position: absolute; inset: 0; display: flex; }
+.ld__col { position: relative; flex: 1 1 0; height: 100%; background: #000; overflow: hidden; margin-right: -1px; }
+.ld__col::after { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 1px; background: rgba(236, 232, 223, .05); }
+.ld__tr { position: absolute; bottom: 0; left: var(--x); width: var(--w); height: var(--h); transform-origin: 50% 100%; transform: scaleY(0); border-radius: 3px 3px 0 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, .65), rgba(0, 0, 0, 0) 35%, rgba(255, 255, 255, .14) 62%, rgba(0, 0, 0, .55)), var(--bark-a) 0 0 / 150px 420px repeat, var(--bark-b) 70px 130px / 230px 640px repeat, #e6dfd2; opacity: var(--o); }
+.ld__tr i { position: absolute; width: 9px; height: 6px; border-radius: 0 100% 0 100%; background: var(--gold); opacity: 0; transform: scale(0); transition: opacity .4s, transform .6s var(--ease); }
+.ld__tr.leaf i { opacity: .95; transform: rotate(var(--r)) scale(1); }
+.ld__mid { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: clamp(10px, 2vh, 18px); pointer-events: none; text-align: center; }
+.ld__mid::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(80vw, 760px); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle, rgba(0, 0, 0, .92) 30%, rgba(0, 0, 0, 0) 70%); z-index: -1; }
+.ld__logo { width: clamp(38px, 4vw, 52px); opacity: 0; translate: 0 10px; transition: opacity .6s, translate .8s var(--ease); }
+.ld__logo svg { width: 100%; height: auto; display: block; }
+.intro.run .ld__logo { opacity: 1; translate: 0 0; }
+.ld__num { display: flex; align-items: flex-start; font: 200 clamp(96px, 21vw, 300px)/.86 var(--f-g); letter-spacing: -.07em; color: var(--bark); font-variant-numeric: tabular-nums; }
+.ld__num small { font-size: .22em; letter-spacing: 0; margin: .3em 0 0 .25em; color: var(--gold); font-weight: 300; }
+.ld__bar { position: relative; width: min(64vw, 420px); height: 2px; background: rgba(236, 232, 223, .12); overflow: hidden; }
+.ld__bar i { position: absolute; inset: 0; background: linear-gradient(90deg, var(--gold), #c9f0bd); transform-origin: 0 50%; transform: scaleX(0); box-shadow: 0 0 18px var(--gold); }
+.ld__word { min-height: 1em; font: 400 11px/1 var(--f-g); letter-spacing: .3em; text-transform: uppercase; color: rgba(236, 232, 223, .62); }
+.ld__c { position: absolute; font: 400 10px/1.4 var(--f-g); letter-spacing: .18em; text-transform: uppercase; color: rgba(236, 232, 223, .42); pointer-events: none; }
+.ld__c b { font-weight: 400; color: var(--gold); }
+.ld__tl { left: clamp(16px, 3vw, 40px); top: clamp(16px, 3vw, 36px); color: var(--bark); letter-spacing: .08em; text-transform: none; font-size: 15px; }
+.ld__tl b { color: var(--gold); }
+.ld__tr2 { right: clamp(16px, 3vw, 40px); top: clamp(18px, 3vw, 38px); }
+.ld__bl { left: clamp(16px, 3vw, 40px); bottom: calc(clamp(16px, 3vw, 36px) + env(safe-area-inset-bottom, 0px)); }
+.ld__br { right: clamp(16px, 3vw, 40px); bottom: calc(clamp(16px, 3vw, 36px) + env(safe-area-inset-bottom, 0px)); }
+.ld__mark { display: flex; font: 200 clamp(46px, 10.5vw, 168px)/1 var(--f-g); letter-spacing: -.065em; color: var(--bark); }
+.ld__mark .w { display: inline-block; overflow: hidden; padding: 0 .02em .12em; margin-bottom: -.12em; }
+.ld__mark .g { color: var(--gold); }
+.ld__mark .c { display: inline-block; }
+.intro:not(.run) .ld__mark { visibility: hidden; }
+.intro.run .ld__mark .c { animation: ldUp 1s cubic-bezier(.22, 1, .36, 1) both; animation-delay: calc(.08s + var(--i) * .055s); }
+@keyframes ldUp { from { transform: translateY(110%) rotate(12deg); } }
+.ld__mark::after { content: ""; position: absolute; }
+.intro .ld__word { margin-top: 6px; }
+.ld__num, .ld__bar { display: none; }
+.intro.out .ld__mid { transition: opacity .45s ease, transform .7s cubic-bezier(.7, 0, .3, 1), filter .5s; opacity: 0; transform: scale(1.35); filter: blur(10px); }
+.intro.out .ld__c { transition: opacity .3s; opacity: 0; }
+.intro.out .ld__col { transition: transform 1s cubic-bezier(.76, 0, .24, 1) var(--d); transform: translateY(-102%); }
+.intro.out { background: transparent; pointer-events: none; }
+@media (max-width: 700px) { .ld__br, .ld__tr2 { display: none; } }
+.hero.arrive .hero__layer { animation: heroArrive 1.6s cubic-bezier(.22, 1, .36, 1) both; }
+.hero.arrive .hero__sky { animation: heroArriveSky 1.6s cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes heroArrive { from { scale: 1.45; opacity: .2; } }
+@keyframes heroArriveSky { from { scale: 1.2; filter: brightness(.4); } }
+.hero.arrive .hero__title .ln > span { animation-delay: calc(.55s + var(--i) * .12s) !important; }
+
+/* --- przejście między sekcjami: kurtyna z pni spada falą od miejsca kliknięcia, nazwa sekcji na środku --- */
+.wipe { position: fixed; inset: 0; z-index: 150; pointer-events: none; visibility: hidden; }
+.wipe.go { visibility: visible; pointer-events: auto; }
+.wp__cols { position: absolute; inset: 0; display: flex; }
+.wp__col { position: relative; flex: 1 1 0; height: 100%; background: #050505; overflow: hidden; margin-right: -1px; transform: translateY(102%); }
+.wp__col::after { content: ""; position: absolute; top: 0; bottom: 0; right: 0; width: 1px; background: rgba(236, 232, 223, .06); }
+.wp__tr { position: absolute; top: -2%; bottom: -2%; left: var(--x); width: var(--w); opacity: var(--o);
+  background: linear-gradient(90deg, rgba(0, 0, 0, .65), rgba(0, 0, 0, 0) 35%, rgba(255, 255, 255, .14) 62%, rgba(0, 0, 0, .55)), var(--bark-a) 0 0 / 150px 420px repeat, var(--bark-b) 70px 130px / 230px 640px repeat, #e6dfd2; }
+.wp__t { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; pointer-events: none; }
+.wp__t::before { content: ""; position: absolute; left: 50%; top: 50%; width: min(90vw, 900px); height: min(60vh, 520px); translate: -50% -50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .9), rgba(0, 0, 0, .5) 60%, transparent); z-index: -1; }
+.wp__k { display: flex; gap: 14px; align-items: center; font: 400 11px/1 var(--f-g); letter-spacing: .24em; text-transform: uppercase; color: rgba(236, 232, 223, .6); opacity: 0; }
+.wp__k b { font-weight: 400; color: var(--gold); }
+.wp__name { font: 200 clamp(52px, 11vw, 190px)/1 var(--f-g); letter-spacing: -.065em; text-transform: uppercase; color: var(--bark); white-space: nowrap; }
+.wp__name .w { display: inline-block; overflow: hidden; padding: 0 .02em .1em; margin-bottom: -.1em; }
+.wp__name .c { display: inline-block; transform: translateY(110%); }
+.wp__line { width: min(50vw, 320px); height: 1px; background: var(--gold); transform: scaleX(0); box-shadow: 0 0 16px var(--gold); }
+.wp__leaves { position: absolute; inset: 0; }
+/* fala po kliknięciu */
+.clk { position: fixed; z-index: 170; left: 0; top: 0; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; pointer-events: none;
+  border: 1.5px solid var(--gold); box-shadow: 0 0 26px rgba(var(--gold-rgb), .55), inset 0 0 20px rgba(var(--gold-rgb), .35); }
+.clk--dot { width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 0; background: radial-gradient(circle, rgba(225, 255, 215, .95), rgba(124, 207, 107, .6) 45%, transparent 70%); box-shadow: none; }
+
+/* --- przewijanie: wielkie słowo w tle sekcji, kłoda między sekcjami, karty wjeżdżają w 3D --- */
+section.sec { overflow-x: clip; }
+.sec-word { position: absolute; z-index: 0; top: clamp(18px, 3vw, 46px); left: 0; white-space: nowrap; pointer-events: none; user-select: none;
+  font: 300 clamp(84px, 16vw, 250px)/1 var(--f-g); letter-spacing: -.05em; text-transform: uppercase; color: transparent; -webkit-text-stroke: 1px rgba(236, 232, 223, .075); will-change: transform; }
+section.sec > .wrap { z-index: 1; }
+.log { position: relative; height: 22px; overflow: hidden; pointer-events: none; }
+.log i { position: absolute; left: -12%; width: 124%; top: 6px; height: 10px; border-radius: 999px; opacity: .55; will-change: transform;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 60' preserveAspectRatio='none'%3E%3Cpath d='M4.0 32.0q-4.4 8.3 0 16.5q3.1 -8.3 0 -16.5z' fill='%2314110f' opacity='0.61'/%3E%3Cpath d='M18.2 40.7q-3.1 7.4 0 14.7q2.2 -7.4 0 -14.7z' fill='%2314110f' opacity='0.83'/%3E%3Cpath d='M44.2 3.7q-4.4 9.0 0 18.0q3.1 -9.0 0 -18.0z' fill='%2314110f' opacity='0.73'/%3E%3Cpath d='M61.5 36.5q-2.4 12.2 0 24.3q1.7 -12.2 0 -24.3z' fill='%2314110f' opacity='0.58'/%3E%3Cpath d='M89.2 42.8q-3.5 7.0 0 14.1q2.5 -7.0 0 -14.1z' fill='%2314110f' opacity='0.56'/%3E%3Cpath d='M104.4 0.5q-3.9 12.2 0 24.5q2.7 -12.2 0 -24.5z' fill='%2314110f' opacity='0.94'/%3E%3Cpath d='M137.4 3.8q-3.6 5.0 0 10.0q2.5 -5.0 0 -10.0z' fill='%2314110f' opacity='0.68'/%3E%3Cpath d='M163.8 -1.1q-4.5 5.5 0 10.9q3.1 -5.5 0 -10.9z' fill='%2314110f' opacity='0.62'/%3E%3Cpath d='M194.1 28.7q-3.6 7.6 0 15.2q2.5 -7.6 0 -15.2z' fill='%2314110f' opacity='0.74'/%3E%3Cpath d='M215.8 53.0q-4.6 4.3 0 8.5q3.2 -4.3 0 -8.5z' fill='%2314110f' opacity='0.94'/%3E%3Cpath d='M243.1 34.2q-3.4 7.2 0 14.4q2.4 -7.2 0 -14.4z' fill='%2314110f' opacity='0.82'/%3E%3Cpath d='M259.4 25.0q-3.4 6.1 0 12.2q2.4 -6.1 0 -12.2z' fill='%2314110f' opacity='0.87'/%3E%3Cpath d='M283.4 21.3q-4.9 4.3 0 8.5q3.4 -4.3 0 -8.5z' fill='%2314110f' opacity='0.76'/%3E%3C/svg%3E") 0 0 / 520px 100% repeat-x, linear-gradient(#cfc8bc, #f3eee5 45%, #b9b1a5); box-shadow: 0 6px 18px rgba(0, 0, 0, .6); }
+.log b { position: absolute; top: 0; width: 12px; height: 8px; border-radius: 0 100% 0 100%; background: var(--gold); opacity: .9; }
+.js .rv { transition: opacity .8s var(--ease) var(--d, 0s), translate .9s var(--ease) var(--d, 0s), rotate 1.1s var(--ease) var(--d, 0s), scale 1.1s var(--ease) var(--d, 0s),
+  transform .35s var(--ease), box-shadow .35s var(--ease), border-color .3s, background-color .3s; transform-origin: 50% 100%; }
+.js .rv:not(.in) { rotate: x 22deg; scale: .94; }
+.js h2.split.rv:not(.in) { rotate: none; scale: none; }
+@media (max-width: 0px) /* dawniej: ogranicz ruch */ { .js .rv:not(.in) { rotate: none; scale: none; } .sec-word, .log i { transform: none !important; } }
+
+/* --- HUD i dekodowane napisy (styl „techniczny”, jak na stronach studiów 3D) --- */
+.hud { display: none; }
+@media (min-width: 1100px) {
+  .hud { display: block; position: fixed; inset: 0; z-index: 54; pointer-events: none; opacity: 0; transition: opacity .8s ease; }
+  .hud.show { opacity: 1; }
+  .hud i { position: absolute; width: 14px; height: 14px; border: 0 solid rgba(236, 232, 223, .35); }
+  .hud i:nth-child(1) { top: 86px; left: 14px; border-width: 1px 0 0 1px; }
+  .hud i:nth-child(2) { top: 86px; right: 14px; border-width: 1px 1px 0 0; }
+  .hud i:nth-child(3) { bottom: 14px; left: 14px; border-width: 0 0 1px 1px; }
+  .hud i:nth-child(4) { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+  .hud__l, .hud__r { position: absolute; bottom: 20px; display: flex; gap: 18px; font: 400 10px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: rgba(236, 232, 223, .45); font-variant-numeric: tabular-nums; }
+  .hud__l { left: 56px; }
+  .hud__r { right: 84px; }
+  .hud b { font-weight: 400; color: var(--bark); }
+  .hud__r b:last-child { color: var(--gold); }
+}
+.scr { font-variant-numeric: tabular-nums; }
+
+/* --- jak w igloo: świat płynie za kursorem, kora pni odpada płytkami i odsłania miedziany środek --- */
+.hero__layer svg.hero__crown { left: -12%; width: 124%; }
+.sl { transform-box: fill-box; transform-origin: 100% 50%; }
+.sl.r { transform-origin: 0% 50%; }
+.sl-e { fill: none; stroke: var(--gold); stroke-width: 2.4; stroke-opacity: var(--e, 0); stroke-linejoin: round; }
+.sec-word span { display: inline-block; will-change: transform; transition: -webkit-text-stroke-color .2s; }
+.hero-hint { position: absolute; z-index: 5; right: clamp(20px, 4vw, 56px); top: 104px; display: none; align-items: center; gap: 10px; font: 400 10px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: rgba(236, 232, 223, .55); pointer-events: none; transition: opacity .6s; }
+.hero-hint i { width: 22px; height: 22px; border: 1px solid rgba(236, 232, 223, .35); border-radius: 50%; position: relative; }
+.hero-hint i::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; background: var(--gold); animation: hintPulse 1.6s ease-in-out infinite; }
+@keyframes hintPulse { 50% { transform: scale(.5); opacity: .5; } }
+@media (hover: hover) and (pointer: fine) and (min-width: 1100px) { .hero-hint { display: flex; } }
+.hero-hint.gone { opacity: 0; }
+@media (max-width: 0px) /* dawniej: ogranicz ruch */ { .hero-hint { display: none !important; } }
+
+/* --- przelot przez las: błysk i rozpływający się napis --- */
+.melt-defs { position: absolute; width: 0; height: 0; }
+.hero__flash { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0; mix-blend-mode: screen;
+  background: radial-gradient(60% 50% at 58% 60%, rgba(255, 236, 214, .95), rgba(150, 230, 130, .55) 35%, rgba(124, 207, 107, 0) 72%); }
+.hero__title { will-change: filter; }
+
+/* --- realizacje: korytarz 3D w lesie, projekty lecą po bokach, nazwa na środku --- */
+section.sec--corr { padding-top: 0; }
+.corr { position: relative; height: calc(var(--n) * 80vh + 140vh); }
+.corr__stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; perspective: 1000px; perspective-origin: 50% 46%; background: #000; isolation: isolate; }
+.corr__sky { position: absolute; inset: 0; background: radial-gradient(42% 34% at 50% 46%, rgba(124, 207, 107, .26), rgba(124, 207, 107, .06) 45%, transparent 70%), radial-gradient(120% 60% at 50% 100%, rgba(14, 42, 20, .5), transparent 60%), #000; }
+.corr__world { position: absolute; left: 50%; top: 46%; width: 0; height: 0; transform-style: preserve-3d; will-change: transform; }
+.corr__world > * { position: absolute; left: 0; top: 0; backface-visibility: hidden; will-change: transform, opacity; }
+.corr__vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(90% 80% at 50% 46%, transparent 45%, rgba(0, 0, 0, .75) 100%), linear-gradient(to bottom, rgba(0, 0, 0, .65), transparent 18%, transparent 80%, rgba(0, 0, 0, .8)); z-index: 1; }
+.ctr { width: var(--w); height: 3200px; margin: -1900px 0 0 calc(var(--w) / -2); border-radius: 4px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0) 32%, rgba(255, 255, 255, .16) 62%, rgba(0, 0, 0, .6)), var(--bark-a) 0 0 / 150px 420px repeat, var(--bark-b) 70px 130px / 230px 640px repeat, #e3dccf; }
+.cleaf { width: 14px; height: 10px; margin: -5px 0 0 -7px; border-radius: 0 100% 0 100%; }
+.cfl { width: 5000px; height: 9000px; margin: -4500px 0 0 -2500px; background: radial-gradient(closest-side, rgba(124, 207, 107, .16), rgba(124, 207, 107, .04) 55%, transparent); }
+.cc { display: block; color: inherit; text-decoration: none; cursor: pointer; }
+.cc__in { display: block; translate: 0 0; animation: ccBob 7s ease-in-out infinite alternate; animation-delay: var(--bd, 0s); transition: scale .45s var(--ease), box-shadow .45s var(--ease); }
+@keyframes ccBob { to { translate: 0 -18px; } }
+.cc:hover .cc__in, .cc:focus-visible .cc__in { scale: 1.06; }
+.cc--web { width: var(--cw); margin: calc(var(--cw) * -.34) 0 0 calc(var(--cw) / -2); }
+.cc--web .cc__in { border-radius: 14px; overflow: hidden; background: #0d0d0d; box-shadow: 0 50px 120px -30px rgba(0, 0, 0, .9), 0 0 0 1px rgba(236, 232, 223, .1), 0 0 80px -20px rgba(var(--gold-rgb), .45); }
+.cc__bar { display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; background: #151515; font: 400 11px/1 var(--f-b); color: rgba(236, 232, 223, .55); }
+.cc__bar i { width: 8px; height: 8px; border-radius: 50%; background: #333; }
+.cc__bar i:first-child { background: var(--gold); }
+.cc__bar span { margin-left: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc__bar em { margin-left: auto; font-style: normal; color: var(--gold); opacity: 0; transition: opacity .3s; }
+.cc:hover .cc__bar em { opacity: 1; }
+.cc--web img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: 50% 0; }
+.cc--ph { width: var(--pw); margin: calc(var(--pw) * -1.05) 0 0 calc(var(--pw) / -2); }
+.cc--ph .cc__in { border-radius: calc(var(--pw) * .16); padding: calc(var(--pw) * .035); background: linear-gradient(145deg, #2a2a2a, #0b0b0b); box-shadow: 0 50px 100px -30px rgba(0, 0, 0, .9), 0 0 0 1px rgba(236, 232, 223, .14), 0 0 70px -20px rgba(var(--gold-rgb), .4); }
+.cc--ph img { display: block; width: 100%; aspect-ratio: 9 / 19; object-fit: cover; object-position: 22% 0; border-radius: calc(var(--pw) * .13); }
+.cc__tag { position: absolute; left: 0; top: calc(100% + 14px); font: 400 10px/1.3 var(--f-g); letter-spacing: .16em; text-transform: uppercase; color: rgba(236, 232, 223, .55); white-space: nowrap; }
+.cc__tag b { color: var(--gold); font-weight: 400; margin-right: 8px; }
+.corr__intro, .corr__pj { position: absolute; z-index: 2; left: 50%; top: 46%; translate: -50% -50%; width: min(92vw, 980px); display: grid; justify-items: center; text-align: center; pointer-events: none; }
+.corr__intro .eyebrow { justify-content: center; }
+.corr__intro::before, .corr__pj::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: 130%; height: 170%; translate: -50% -50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .78), rgba(0, 0, 0, .45) 55%, transparent); pointer-events: none; }
+.corr__h { margin: 14px 0 0; font: 300 clamp(38px, 6.4vw, 104px)/1.02 var(--f-g); letter-spacing: -.045em; text-transform: uppercase; text-shadow: 0 10px 60px rgba(0, 0, 0, .8); }
+.corr__lead { max-width: 460px; margin: 18px 0 0; color: rgba(236, 232, 223, .7); }
+.corr__cue { margin-top: 26px; width: 22px; height: 36px; border: 1px solid rgba(236, 232, 223, .35); border-radius: 12px; position: relative; }
+.corr__cue i { position: absolute; left: 50%; top: 7px; width: 3px; height: 7px; margin-left: -1.5px; border-radius: 2px; background: var(--gold); animation: cue 1.6s ease-in-out infinite; }
+@keyframes cue { 60% { translate: 0 10px; opacity: 0; } 61% { translate: 0 0; opacity: 0; } }
+.corr__pj { opacity: 0; }
+.corr__k { display: flex; gap: 14px; align-items: center; font: 400 11px/1 var(--f-g); letter-spacing: .2em; text-transform: uppercase; color: rgba(236, 232, 223, .62); }
+.corr__k em { font: italic 400 15px/1 Georgia, "Times New Roman", serif; letter-spacing: .01em; text-transform: none; color: var(--bark); }
+.corr__k span { color: var(--gold); }
+.corr__name { margin: 12px 0 0; font: 300 min(clamp(44px, 9.5vw, 168px), calc(118vw / var(--len, 6)))/.95 var(--f-g); letter-spacing: -.06em; text-transform: uppercase; text-shadow: 0 10px 60px rgba(0, 0, 0, .85); white-space: nowrap; }
+.corr__name .w { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em .08em; margin-bottom: -.08em; }
+.corr__name .c { display: inline-block; animation: chUp .9s var(--ease) both; animation-delay: calc(var(--i) * .035s); }
+@keyframes chUp { from { transform: translateY(105%) rotate(10deg); opacity: 0; } }
+.corr__cat { margin: 10px 0 0; font: 400 11px/1 var(--f-g); letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.corr__desc { max-width: 440px; margin: 14px 0 0; font-size: 15px; color: rgba(236, 232, 223, .72); text-shadow: 0 2px 14px rgba(0, 0, 0, .9); min-height: 3em; }
+.corr__open { margin-top: 18px; pointer-events: auto; }
+.corr__dots { position: absolute; z-index: 3; right: clamp(14px, 3vw, 44px); top: 50%; translate: 0 -50%; display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.corr__dots button { display: flex; align-items: center; gap: 10px; justify-content: flex-end; padding: 0; border: 0; background: none; cursor: pointer; font: 400 10px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: rgba(236, 232, 223, .4); transition: color .3s; }
+.corr__dots button i { width: 18px; height: 1px; background: currentColor; transition: width .4s var(--ease); }
+.corr__dots button span { opacity: 0; translate: 8px 0; transition: opacity .3s, translate .4s var(--ease); white-space: nowrap; }
+.corr__dots button:hover span, .corr__dots button.on span { opacity: 1; translate: 0 0; }
+.corr__dots button.on { color: var(--gold); }
+.corr__dots button.on i { width: 40px; }
+.corr__bar { position: absolute; z-index: 3; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); width: min(40vw, 260px); height: 2px; translate: -50% 0; background: rgba(236, 232, 223, .14); }
+.corr__bar i { position: absolute; inset: 0; background: var(--gold); transform-origin: 0 50%; transform: scaleX(0); }
+.corr__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 860px) {
+  .corr { height: calc(var(--n) * 70vh + 120vh); }
+  .corr__stage { perspective: 640px; }
+  .corr__pj { top: auto; bottom: calc(50px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; }
+  .corr__desc { display: none; }
+  .corr__name { font-size: min(clamp(34px, 11vw, 64px), calc(118vw / var(--len, 6))); }
+  .corr__dots { display: none; }
+  .cc__tag { display: none; }
+}
+/* bez animacji (ogranicz ruch) albo bez JS: zwykła siatka projektów */
+.corr--flat, html:not(.js) .corr { height: auto; }
+.corr--flat .corr__stage, html:not(.js) .corr__stage { display: none; }
+.corr--flat .corr__sr, html:not(.js) .corr__sr { position: static; width: auto; height: auto; clip: auto; white-space: normal; overflow: visible;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; width: min(1200px, 100% - 48px); margin: 0 auto; padding: 100px 0 20px; list-style: none; }
+.corr--flat .corr__sr li, html:not(.js) .corr__sr li { display: grid; gap: 8px; }
+.corr--flat .corr__sr img, html:not(.js) .corr__sr img { order: -1; width: 100%; height: auto; border-radius: 12px; }
+.corr--flat .corr__sr a, html:not(.js) .corr__sr a { color: inherit; font: 400 18px var(--f-d); text-decoration: none; }
+.corr--flat .corr__sr p, html:not(.js) .corr__sr p { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* realizacje: napis mały na dole, żeby nie zasłaniał stron */
+.corr__pj { top: auto; bottom: clamp(44px, 8vh, 84px); translate: -50% 0; width: min(92vw, 620px); }
+.corr__pj::before { width: 120%; height: 150%; }
+.corr__name { margin-top: 8px; font-size: min(clamp(30px, 4vw, 60px), calc(70vw / var(--len, 6))) !important; letter-spacing: -.04em; }
+.corr__desc { display: none; }
+.corr__cat { margin-top: 8px; }
+.corr__open { margin-top: 14px; padding: 10px 18px; font-size: 14px; }
+.corr__h { font-size: clamp(32px, 4.6vw, 74px); }
+@media (max-width: 860px) { .corr__pj { bottom: calc(44px + env(safe-area-inset-bottom, 0px)); } .corr__name { font-size: min(clamp(26px, 8vw, 40px), calc(80vw / var(--len, 6))) !important; } }
+
+/* --- obramówka z kory owija zaznaczony kafelek od lewego górnego rogu --- */
+.bk { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 2; filter: drop-shadow(0 0 8px rgba(var(--gold-rgb), .35)); }
+.bk .bk-m { fill: none; stroke: #fff; stroke-width: 10; stroke-dasharray: 100 100; stroke-dashoffset: 100; transition: stroke-dashoffset .45s cubic-bezier(.55, 0, .45, 1); }
+.bk.on .bk-m { stroke-dashoffset: 0; transition: stroke-dashoffset 1.15s cubic-bezier(.65, 0, .25, 1); }
+.bk .bk-b { fill: none; stroke: #ece8df; stroke-width: 3.4; }
+.bk .bk-d { fill: none; stroke: #16120f; stroke-width: 3.6; }
+.bk .bk-tip { fill: var(--gold); opacity: 0; }
+.plans .plan:has(input:checked), .addon:has(input:checked), .tile:has(input:checked) { border-color: transparent; }
+.st-nav button[aria-selected="true"], .svc-list [role="tab"][aria-selected="true"], .show-list [role="tab"][aria-selected="true"] { border-color: transparent; }
+.seg label .bk { filter: none; }
+.addon:has(input:checked) { box-shadow: none; }
+
+/* --- pień postępu po lewej (duże ekrany) --- */
+.bark-nav { display: none; }
+@media (min-width: 1320px) {
+  .progress-bar { display: none; }
+  .bark-nav { position: fixed; z-index: 55; left: 26px; top: 110px; bottom: 40px; width: 10px; display: block; opacity: 0; transform: translateX(-12px); transition: opacity .6s, transform .8s var(--ease); pointer-events: none; }
+  .bark-nav.show { opacity: 1; transform: none; pointer-events: auto; }
+  .bark-nav::before { content: ""; position: absolute; left: 4px; top: 0; bottom: 0; width: 2px; border-radius: 2px; background: rgba(236, 232, 223, .08); }
+  .bark-nav__fill { position: absolute; inset: 0; border-radius: 999px; --bh: 120px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 300' preserveAspectRatio='none'%3E%3Cpath d='M39.1 6.0q14.2 -4.6 28.5 0q-14.2 3.2 -28.5 0z' fill='%2314110f' opacity='0.74'/%3E%3Cpath d='M27.3 34.9q10.0 -4.4 19.9 0q-10.0 3.1 -19.9 0z' fill='%2314110f' opacity='0.87'/%3E%3Cpath d='M53.6 35.9h5.6' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M37.5 68.7q18.1 -2.4 36.2 0q-18.1 1.7 -36.2 0z' fill='%2314110f' opacity='0.94'/%3E%3Cpath d='M21.9 98.3q9.5 -2.3 19.0 0q-9.5 1.6 -19.0 0z' fill='%2314110f' opacity='0.57'/%3E%3Cpath d='M46.9 99.3h5.2' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M18.5 124.5q14.0 -5.8 28.1 0q-14.0 4.1 -28.1 0z' fill='%2314110f' opacity='0.81'/%3E%3Cpath d='M42.7 155.1q14.3 -3.4 28.6 0q-14.3 2.4 -28.6 0z' fill='%2314110f' opacity='0.95'/%3E%3Cpath d='M7.5 186.6q12.0 -3.2 24.1 0q-12.0 2.2 -24.1 0z' fill='%2314110f' opacity='0.58'/%3E%3Cpath d='M33.5 211.4q20.5 -3.9 41.1 0q-20.5 2.7 -41.1 0z' fill='%2314110f' opacity='0.89'/%3E%3Cpath d='M80.3 212.4h11.4' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M-5.0 237.8q22.7 -3.9 45.4 0q-22.7 2.7 -45.4 0z' fill='%2314110f' opacity='0.80'/%3E%3Cpath d='M47.8 259.7q8.4 -3.6 16.8 0q-8.4 2.5 -16.8 0z' fill='%2314110f' opacity='0.85'/%3E%3Cpath d='M70.6 260.7h5.7' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3Cpath d='M16.8 277.0q19.8 -3.0 39.5 0q-19.8 2.1 -39.5 0z' fill='%2314110f' opacity='0.73'/%3E%3Cpath d='M66.1 278.0h5.9' stroke='%2314110f' stroke-width='1.3' opacity='.6'/%3E%3C/svg%3E") 0 0 / 100% var(--bh, 300px) repeat-y, linear-gradient(90deg, #8d857b 0%, #e6e0d5 22%, #f6f1e8 52%, #ded6ca 78%, #9a9186 100%);
+    clip-path: inset(0 0 calc(100% - var(--bp, 0) * 100%) 0 round 999px); box-shadow: 0 0 22px rgba(236, 232, 223, .12); }
+  .bark-leaf { position: absolute; left: 9px; top: var(--y); width: 18px; height: 12px; margin-top: -10px; display: block; text-decoration: none; }
+  .bark-leaf::before { content: ""; position: absolute; left: 0; top: 8px; width: 7px; height: 1.5px; border-radius: 2px; background: #4a5d47; rotate: -24deg; transform-origin: 0 50%; transform: scaleX(0); transition: transform .4s var(--ease); }
+  .bark-leaf i { position: absolute; left: 5px; top: -2px; width: 16px; height: 11px; border-radius: 0 100% 0 100%; background: var(--gold); rotate: -28deg; transform-origin: 0 100%; transform: scale(0); transition: transform .7s cubic-bezier(.34, 1.56, .64, 1) .1s, background-color .3s; }
+  .bark-leaf::after { content: ""; position: absolute; left: -1px; top: 6px; width: 5px; height: 5px; border-radius: 50%; background: rgba(var(--gold-rgb), .45); transition: opacity .3s; }
+  .bark-leaf.on::before { transform: scaleX(1); }
+  .bark-leaf.on i { transform: scale(1); animation: leafSway 4s ease-in-out infinite alternate; }
+  .bark-leaf.on::after { opacity: 0; }
+  @keyframes leafSway { from { rotate: -36deg; } to { rotate: -16deg; } }
+  .bark-leaf span { position: absolute; left: 28px; top: -3px; white-space: nowrap; padding: 6px 10px; border-radius: 8px; background: rgba(12, 12, 12, .9); box-shadow: inset 0 0 0 1px var(--line2); font: 400 10px/1 var(--f-g); letter-spacing: .12em; text-transform: uppercase; color: var(--bark); opacity: 0; transform: translateX(-6px); transition: opacity .25s, transform .35s var(--ease); pointer-events: none; }
+  .bark-leaf:hover span, .bark-leaf:focus-visible span { opacity: 1; transform: none; }
+  .bark-leaf:hover i { background: #a6e597; }
+  .bark-leaf:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 4px; }
+}
+
+/* --- nagłówki: słowa wyrastają z dołu --- */
+.js h2.split.rv { opacity: 1; translate: none; }
+h2.split .wd { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .14em; margin-bottom: -.14em; }
+h2.split .wd > span { display: inline-block; transform: translateY(108%) rotate(4deg); transform-origin: 0 100%; transition: transform 1s cubic-bezier(.22, 1, .36, 1) calc(var(--i) * 70ms); }
+h2.split.in .wd > span { transform: none; }
+
+/* --- etykiety sekcji: gałązka z listkiem rośnie --- */
+.eyebrow::before { width: 30px; height: 12px; border-radius: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 12'%3E%3Cpath d='M1 9.2C8 8.6 14 8.2 21 6.6' stroke='%237ccf6b' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M20.5 6.8C21 2.6 24.6.6 29 1c-.4 4.4-4 6.6-8.5 5.8z' fill='%237ccf6b'/%3E%3Cpath d='M11 8.3l3.6-3.4' stroke='%237ccf6b' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / contain; }
+.js .eyebrow::before { clip-path: inset(0 100% 0 0); transition: clip-path 1.1s var(--ease) .2s; }
+.js .eyebrow.in::before { clip-path: inset(0 0 0 0); }
+
+/* --- proces: słoje drzewa, każdy krok dokłada słoje --- */
+.st-num.rings { position: relative; display: grid; place-items: center; width: clamp(96px, 9vw, 124px); aspect-ratio: 1; align-self: start; font: 300 clamp(20px, 1.9vw, 26px)/1 var(--f-g); letter-spacing: -.04em; color: var(--bark); -webkit-text-stroke: 0; }
+.st-num.rings svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.st-num.rings .rg-spin { transform-origin: 50px 50px; animation: ringSpin 70s linear infinite; }
+@keyframes ringSpin { to { transform: rotate(360deg); } }
+.st-num.rings .ring { transform-origin: 50px 50px; }
+.st-pane.on .st-num.rings .ring { animation: ringGrow .8s cubic-bezier(.22, 1, .36, 1) calc(.1s + var(--i) * 65ms) backwards; }
+@keyframes ringGrow { from { transform: scale(.15); opacity: 0; } }
+.st-num.rings > span { position: relative; text-shadow: 0 0 14px #000, 0 0 4px #000; }
+@media (max-width: 860px) { .st-num.rings { width: 84px; font-size: 19px; } }
+
+/* --- listki z przycisków --- */
+.burst-leaf { position: fixed; z-index: 120; left: 0; top: 0; width: 10px; height: 7px; margin: -3px 0 0 -5px; border-radius: 0 100% 0 100%; pointer-events: none; }
+
+@media (max-width: 0px) /* dawniej: ogranicz ruch */ {
+  .cur.open .cur__half--l, .cur.open .cur__half--r { animation: none; opacity: 0; transition: opacity .6s; }
+  .cur__logo, .cur__top { transition-duration: .3s !important; transition-delay: 0s !important; }
+  h2.split .wd > span { transform: none; transition: none; }
+  .js .eyebrow::before { clip-path: none; }
+  .st-num.rings .rg-spin, .st-pane.on .st-num.rings .ring, .bark-leaf.on i { animation: none !important; }
+}
+
+/* ============ v20: hero na czystej czerni (od v22 bez filmu, kwadraciki na canvasie) ============ */
+.hero { background: #000; }
+.hero__sky, .hero__sun, .hero__layer, .hero__fog, .hero__wordl, .hero__leaves, .hero__ground, .hero__night, .gauge, .hero__flash, .hero-hint, .vintro { display: none !important; }
+/* czytelność: czerń z lewej i od dołu, środek zostaje dla kostki z kwadracików */
+.hero__shade { z-index: 1; background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, .78) 22%, rgba(0, 0, 0, 0) 42%), linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0) 20%); }
+.hero::after { display: none; }
+.hero__content { align-items: center; padding: 170px 0 150px; }
+.hero__copy { max-width: 470px; gap: 20px; }
+.hero__title { font-size: clamp(30px, 3.3vw, 54px); line-height: 1.04; text-shadow: none; }
+.hero__lead { max-width: 440px; font-size: 15px; text-shadow: none; }
+.hcard { width: min(250px, 20vw); }
+.hero__stats dd { white-space: nowrap; }
+.hero__stats { bottom: clamp(22px, 3.6vh, 40px); right: auto; gap: 26px; }
+.hero__stats > div { min-width: 0; }
+.hero__stats dd { font-size: clamp(18px, 1.5vw, 24px); }
+@media (max-width: 900px) {
+  .hero { height: auto; min-height: 100svh; max-height: none; }
+  .hero__shade { background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 38svh, #000 60svh); }
+  .hero__content { display: flex; flex-direction: column; align-items: stretch; min-height: 0; padding: 50svh 0 34px; }
+  .hero__title { font-size: clamp(28px, 8.4vw, 44px); }
+}
+
+/* ============ v22: kwadraciki (hero i tunel realizacji) ============ */
+.hero__tiles { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; display: block; }
+.hero__shade { transition: opacity 1.2s ease; }
+.intro-on .hero__shade { opacity: 0; }
+.corr__cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.corr__cv.link { cursor: pointer; }
+.corr__load { position: absolute; left: 50%; top: 96px; translate: -50% 0; z-index: 3; font: 400 10px/1 var(--f-g); letter-spacing: .2em; text-transform: uppercase; color: rgba(236, 232, 223, .45); transition: opacity .6s; pointer-events: none; }
+.corr__load.done { opacity: 0; }
+/* v23: przejście z menu bez wielkiego napisu sekcji (sama kurtyna) */
+.wp__t { display: none !important; }
+.corr__sky { background: #000; }
+@media (max-width: 900px) { .hero__tiles { height: 62svh; bottom: auto; } }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"ProfessionalService","name":"birchdesign","url":"https://birchdesign.pl/","logo":"https://birchdesign.pl/assets/logo.svg","image":"https://birchdesign.pl/assets/previews/karpik.webp","email":"hello@birchdesign.pl","telephone":"+48513970699","priceRange":"od 1999 zł","description":"Projektowanie stron internetowych, sklepów e-commerce i paneli zarządzania. Warszawa i zdalnie z całej Polski.","address":{"@type":"PostalAddress","addressLocality":"Warszawa","addressCountry":"PL"},"areaServed":[{"@type":"City","name":"Warszawa"},{"@type":"Country","name":"Polska"}],"knowsAbout":["projektowanie stron internetowych","sklepy internetowe","e-commerce","panele zarządzania","SEO"]}
 </script>
+<script>
+/* EKRAN STARTOWY: pokazuje się przy każdym wejściu na stronę; pomija go tylko link prosto do sekcji (np. #kontakt) */
+(function () { try { if (!/^#(top|realizacje|show|uslugi|proces|o-nas|cennik|faq|kontakt)$/.test(location.hash)) { document.documentElement.classList.add('intro-on'); setTimeout(function () { document.documentElement.classList.remove('intro-on'); }, 9500); if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } } catch (e) {} })();
+</script>
 </head>
 <body>
-<!-- Znak birchdesign: litera „b” = biały pień brzozy (dwa znaczenia kory) + miedziany pierścień -->
+<!-- Znak birchdesign: litera „b” = biały pień birch (dwa znaczenia kory) + miedziany pierścień -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="bd-mark" viewBox="6 2 40 44">
-    <circle cx="31" cy="31" r="10" fill="none" stroke="var(--leaf, #d98a5f)" stroke-width="6"/>
+    <circle cx="31" cy="31" r="10" fill="none" stroke="var(--leaf, #7ccf6b)" stroke-width="6"/>
     <path fill="currentColor" fill-rule="evenodd" d="M8.5 9.5a5.5 5.5 0 0 1 11 0v29a5.5 5.5 0 0 1-11 0z M12.4 14.5h3.2a1.4 1.4 0 0 1 0 2.8h-3.2a1.4 1.4 0 0 1 0-2.8z M12.4 23h1.7a1.4 1.4 0 0 1 0 2.8h-1.7a1.4 1.4 0 0 1 0-2.8z"/>
   </symbol>
 </svg>
+<!-- HUD: narożniki i odczyty na brzegach ekranu (duże ekrany) -->
+<div class="hud" id="hud" aria-hidden="true"><i></i><i></i><i></i><i></i>
+  <div class="hud__l"><span>52.2297° N</span><span>21.0122° E</span><span>Warszawa</span></div>
+</div>
+<!-- PRZEJŚCIE MIĘDZY SEKCJAMI -->
+<div class="wipe" id="wipe" aria-hidden="true"><div class="wp__cols" id="wpCols"></div><div class="wp__t"><div class="wp__k"><span>Przechodzisz do</span><b id="wpNo">01</b></div><div class="wp__name" id="wipeName"></div><i class="wp__line"></i></div><div class="wp__leaves"></div></div>
 <div class="progress-bar" aria-hidden="true"></div>
+<nav class="bark-nav" id="barkNav" aria-label="Sekcje strony"><i class="bark-nav__fill" aria-hidden="true"></i></nav>
 <button class="to-top" id="toTop" type="button" aria-label="Wróć na górę">↑</button>
 
 <header class="nav" id="nav">
@@ -921,16 +1297,23 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
 <main id="top">
 <!-- ============ HERO ============ -->
 <section class="hero" data-hero aria-labelledby="heroTitle">
+  <canvas class="hero__tiles" id="heroTiles" aria-hidden="true"></canvas>
   <div class="hero__sky" aria-hidden="true"></div>
   <div class="hero__sun" aria-hidden="true"></div>
   <div class="hero__layer" data-layer="far" aria-hidden="true"></div>
   <div class="hero__fog" aria-hidden="true"></div>
   <div class="hero__layer" data-layer="mid" aria-hidden="true"></div>
+  <div class="hero__wordl" id="heroWord" aria-hidden="true"><p class="hero__word">Birch</p></div>
   <div class="hero__leaves" id="leaves" aria-hidden="true"></div>
   <div class="hero__layer" data-layer="near" aria-hidden="true"></div>
   <div class="hero__ground" aria-hidden="true"></div>
   <div class="hero__shade" aria-hidden="true"></div>
+  <div class="hero__night" id="heroNight" aria-hidden="true"></div>
+  <div class="gauge" id="gauge" aria-hidden="true"><span class="gauge__lbl">Wysokość</span><div class="gauge__track"><i class="gauge__mark" id="gaugeMark"></i></div><span class="gauge__num" id="gaugeNum">000m</span></div>
+  <div class="hero__flash" aria-hidden="true"></div>
   <div class="hero__veil" aria-hidden="true"></div>
+  <svg class="melt-defs" width="0" height="0" aria-hidden="true" focusable="false"><filter id="melt" x="-10%" y="-20%" width="120%" height="140%"><feTurbulence id="meltT" type="fractalNoise" baseFrequency="0.006 0.035" numOctaves="2" seed="4" result="n"/><feDisplacementMap id="meltD" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+  <div class="hero-hint" id="heroHint" aria-hidden="true"><i></i>Rusz kursorem</div>
 
   <div class="hero__content">
     <div class="hero__copy">
@@ -962,105 +1345,38 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
       <div><dt>Szablonów</dt><dd>0</dd></div>
     </dl>
   </div>
+  <button type="button" class="replay" id="replay">Powtórz wejście</button>
   <a href="#realizacje" class="scroll-cue" aria-label="Przewiń do realizacji"><span aria-hidden="true">Przewiń</span><i aria-hidden="true"></i></a>
 </section>
 
-<div class="strip" aria-label="W każdym projekcie">
-  <div class="wrap rv">
-    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Projekt od zera, bez szablonów</span>
-    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Wersja na telefon</span>
-    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>SEO lokalne i Google</span>
-    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pomoc z domeną i hostingiem</span>
-    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Opieka po starcie</span>
-  
-    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Projekt od zera, bez szablonów</span>
-    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Wersja na telefon</span>
-    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>SEO lokalne i Google</span>
-    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pomoc z domeną i hostingiem</span>
-    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Opieka po starcie</span>
-  </div>
-</div>
-
 <!-- ============ REALIZACJE (prawdziwe projekty) ============ -->
-<section class="sec" id="realizacje">
+<section class="sec sec--corr" id="realizacje">
+    <div class="corr" id="corr" style="--n:7">
+      <div class="corr__stage" id="corrStage">
+        <div class="corr__sky" aria-hidden="true"></div>
+        <canvas class="corr__cv" id="corrCv" aria-hidden="true"></canvas>
+        <div class="corr__load" id="corrLoad" aria-hidden="true">Ładowanie</div>
+        <div class="corr__world" id="corrWorld" aria-hidden="true"></div>
+        <div class="corr__vig" aria-hidden="true"></div>
+        <div class="corr__intro" id="corrIntro">
+          <span class="eyebrow">Realizacje</span>
+          <h2 class="corr__h">Strony, które już<br>żyją w sieci</h2>
+          <p class="corr__lead">Przewijaj, a projekty same przylecą. Kliknij ekran, żeby otworzyć działającą stronę.</p>
+          <span class="corr__cue" aria-hidden="true"><i></i></span>
+        </div>
+        <div class="corr__pj" id="corrPj">
+          <small class="corr__k"><em>Wybrane realizacje</em><span id="corrNo">01 / 07</span></small>
+          <h3 class="corr__name" id="corrName" aria-live="polite">Karpik</h3>
+          <p class="corr__cat" id="corrCat">Turystyka · rezerwacje</p>
+          <p class="corr__desc" id="corrDesc"></p>
+          <a class="btn btn-primary corr__open" id="corrOpen" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
+        </div>
+        <ol class="corr__dots" id="corrDots" aria-label="Przejdź do projektu"></ol>
+        <div class="corr__bar" aria-hidden="true"><i id="corrBar"></i></div>
+      </div>
+      <ul class="corr__sr" id="corrList"><li><a href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener"><b>Karpik</b> · Turystyka · rezerwacje</a><p>Domki nad Jeziorem Białym: cennik, kalendarz terminów i asystent odpowiadający gościom.</p><img src="assets/previews/karpik.webp" alt="Zrzut strony Karpik" width="1440" height="900" loading="lazy"></li><li><a href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener"><b>NOCTE</b> · Produkt · startup</a><p>Koncepcja inteligentnej maski do snu. Czarne studio, produkt w świetle i konfigurator.</p><img src="assets/previews/nocte.webp" alt="Zrzut strony NOCTE" width="1440" height="900" loading="lazy"></li><li><a href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener"><b>PureDrive</b> · Usługi lokalne</a><p>Ręczna myjnia i detailing w garażu Galerii Wileńskiej: oferta, opinie i dojazd.</p><img src="assets/previews/puredrive.webp" alt="Zrzut strony PureDrive" width="1440" height="900" loading="lazy"></li><li><a href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener"><b>Barańska Stomatolog</b> · Medycyna</a><p>Gabinet stomatologiczny w Piasecznie: logo, oferta usług, FAQ i umawianie wizyt.</p><img src="assets/previews/baranska.webp" alt="Zrzut strony Barańska Stomatolog" width="1440" height="900" loading="lazy"></li><li><a href="https://szumi32.github.io/solum/" target="_blank" rel="noopener"><b>SOLUM</b> · E-commerce</a><p>Sklep z bransoletkami z kamieni naturalnych: jasny, spokojny, skupiony na produkcie.</p><img src="assets/previews/solum.webp" alt="Zrzut strony SOLUM" width="1440" height="900" loading="lazy"></li><li><a href="https://www.furiarp.eu/#top" target="_blank" rel="noopener"><b>Furia RolePlay</b> · Gaming · portal</a><p>Portal serwera RP: sklep, ranking, podania, regulamin i panel administracji.</p><img src="assets/previews/furiarp.webp" alt="Zrzut strony Furia RolePlay" width="1440" height="900" loading="lazy"></li><li><a href="https://www.vkcup.pl/" target="_blank" rel="noopener"><b>VK Cup</b> · Archiwum · Battle Royale</a><p>Strona turnieju i serwera Battle Royale. Starszy projekt, nadal działa online.</p><img src="assets/previews/vkcup.webp" alt="Zrzut strony VK Cup" width="1440" height="900" loading="lazy"></li></ul>
+    </div>
   <div class="wrap">
-    <div class="sec-head split">
-      <div><span class="eyebrow rv">Realizacje</span><h2 class="rv">Strony, które już żyją w sieci</h2></div>
-      <p class="lead rv">Wybierz projekt, żeby go podejrzeć. Kliknij zrzut, a otworzy się działająca strona w nowej karcie.</p>
-    </div>
-    <div class="show rv" id="show">
-      <div class="show-list" role="tablist" aria-label="Realizacje">
-        <button type="button" role="tab" id="pj-t0" aria-controls="pj-p0" aria-selected="true" data-g="#c58b4a"><span class="n">01</span><span class="t"><b>Karpik</b><small>Turystyka · rezerwacje</small></span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" id="pj-t1" aria-controls="pj-p1" aria-selected="false" tabindex="-1" data-g="#4a5fc4"><span class="n">02</span><span class="t"><b>NOCTE</b><small>Produkt · startup</small></span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" id="pj-t2" aria-controls="pj-p2" aria-selected="false" tabindex="-1" data-g="#ff8a1e"><span class="n">03</span><span class="t"><b>PureDrive</b><small>Usługi lokalne</small></span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" id="pj-t3" aria-controls="pj-p3" aria-selected="false" tabindex="-1" data-g="#e8845a"><span class="n">04</span><span class="t"><b>Barańska</b><small>Medycyna</small></span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" id="pj-t4" aria-controls="pj-p4" aria-selected="false" tabindex="-1" data-g="#d6c7a4"><span class="n">05</span><span class="t"><b>SOLUM</b><small>E-commerce</small></span><i aria-hidden="true"></i></button>
-        <button type="button" role="tab" id="pj-t5" aria-controls="pj-p5" aria-selected="false" tabindex="-1" data-g="#d11a35"><span class="n">06</span><span class="t"><b>Furia RolePlay</b><small>Gaming · portal</small></span><i aria-hidden="true"></i></button>
-      </div>
-      <div class="show-stage" id="showStage">
-        <span class="glow" aria-hidden="true"></span>
-        <article class="pj on" role="tabpanel" id="pj-p0" aria-labelledby="pj-t0">
-          <a class="device" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener" aria-label="Otwórz stronę Karpik w nowej karcie">
-            <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/karpik</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="Karpik"><img src="assets/previews/karpik.webp" alt="Projekt strony internetowej z rezerwacjami dla domków nad Jeziorem Białym" width="1440" height="900" loading="lazy"></div>
-          </a>
-          <div class="pj-info">
-            <div><small>01 / 06 · Turystyka · rezerwacje</small><h3>Karpik</h3><p>Domki nad Jeziorem Białym: cennik, kalendarz terminów i asystent odpowiadający gościom.</p><p class="pj-case"><b>Cel:</b> pokazać domki i ułatwić rezerwację pobytu. <b>Rozwiązanie:</b> cennik, kalendarz terminów, asystent odpowiadający gościom i panel właściciela.</p><ul class="pj-tags"><li>Rezerwacje</li><li>Kalendarz terminów</li><li>Asystent czatu</li></ul></div>
-            <a class="btn btn-primary" href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
-          </div>
-        </article>
-        <article class="pj" role="tabpanel" id="pj-p1" aria-labelledby="pj-t1" hidden>
-          <a class="device" href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener" aria-label="Otwórz stronę NOCTE w nowej karcie">
-            <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/nocte</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="NOCTE"><img src="assets/previews/nocte.webp" alt="Projekt nowoczesnej strony produktowej z ciemnym motywem dla maski do snu NOCTE" width="1440" height="900" loading="lazy"></div>
-          </a>
-          <div class="pj-info">
-            <div><small>02 / 06 · Produkt · startup</small><h3>NOCTE</h3><p>Koncepcja inteligentnej maski do snu. Czarne studio, produkt w świetle i konfigurator.</p><p class="pj-case"><b>Cel:</b> przedstawić nowy produkt i zainteresować nim odwiedzających. <b>Rozwiązanie:</b> strona w ciemnym stylu z animacjami i konfiguratorem maski.</p><ul class="pj-tags"><li>Strona produktu</li><li>Konfigurator</li><li>Animacje</li></ul></div>
-            <a class="btn btn-primary" href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
-          </div>
-        </article>
-        <article class="pj" role="tabpanel" id="pj-p2" aria-labelledby="pj-t2" hidden>
-          <a class="device" href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener" aria-label="Otwórz stronę PureDrive w nowej karcie">
-            <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/puredrive</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="PureDrive"><img src="assets/previews/puredrive.webp" alt="Projekt strony www dla ręcznej myjni samochodowej i auto detailingu w Warszawie" width="1440" height="900" loading="lazy"></div>
-          </a>
-          <div class="pj-info">
-            <div><small>03 / 06 · Usługi lokalne</small><h3>PureDrive</h3><p>Ręczna myjnia i detailing w garażu Galerii Wileńskiej: oferta, opinie klientów, karta lojalnościowa i dojazd.</p><p class="pj-case"><b>Cel:</b> pokazać ofertę myjni i ułatwić umówienie terminu. <b>Rozwiązanie:</b> oferta, opinie klientów, karta lojalnościowa i dojazd do garażu Galerii Wileńskiej.</p><ul class="pj-tags"><li>Oferta</li><li>Opinie</li><li>Karta lojalnościowa</li></ul></div>
-            <a class="btn btn-primary" href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
-          </div>
-        </article>
-        <article class="pj" role="tabpanel" id="pj-p3" aria-labelledby="pj-t3" hidden>
-          <a class="device" href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener" aria-label="Otwórz stronę Barańska Stomatolog w nowej karcie">
-            <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/baranska-stomatolog</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="Barańska Stomatolog"><img src="assets/previews/baranska.webp" alt="Projekt nowoczesnej strony www dla gabinetu stomatologicznego w Piasecznie" width="1440" height="900" loading="lazy"></div>
-          </a>
-          <div class="pj-info">
-            <div><small>04 / 06 · Medycyna</small><h3>Barańska Stomatolog</h3><p>Gabinet stomatologiczny w Piasecznie: logo, oferta usług, FAQ i umawianie wizyt.</p><p class="pj-case"><b>Cel:</b> nowoczesny wizerunek gabinetu i łatwe umawianie wizyt. <b>Rozwiązanie:</b> logo, paleta z kolorów gabinetu, oferta usług, FAQ i przycisk umówienia wizyty.</p><ul class="pj-tags"><li>Logo</li><li>Oferta usług</li><li>Umawianie wizyt</li></ul></div>
-            <a class="btn btn-primary" href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
-          </div>
-        </article>
-        <article class="pj" role="tabpanel" id="pj-p4" aria-labelledby="pj-t4" hidden>
-          <a class="device" href="https://szumi32.github.io/solum/" target="_blank" rel="noopener" aria-label="Otwórz stronę SOLUM w nowej karcie">
-            <div class="dbar"><i></i><i></i><i></i><span>szumi32.github.io/solum</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="SOLUM"><img src="assets/previews/solum.webp" alt="Projekt sklepu internetowego z biżuterią z kamieni naturalnych SOLUM" width="1440" height="900" loading="lazy"></div>
-          </a>
-          <div class="pj-info">
-            <div><small>05 / 06 · E-commerce</small><h3>SOLUM</h3><p>Sklep z bransoletkami i breloczkami z kamieni naturalnych: jasny, spokojny, skupiony na produkcie.</p><p class="pj-case"><b>Cel:</b> sprzedawać ręcznie robioną biżuterię online. <b>Rozwiązanie:</b> katalog 25 produktów, koszyk i spokojna, skupiona na produkcie szata graficzna.</p><ul class="pj-tags"><li>Sklep</li><li>Katalog</li><li>Koszyk</li></ul></div>
-            <a class="btn btn-primary" href="https://szumi32.github.io/solum/" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
-          </div>
-        </article>
-        <article class="pj" role="tabpanel" id="pj-p5" aria-labelledby="pj-t5" hidden>
-          <a class="device" href="https://www.furiarp.eu/#top" target="_blank" rel="noopener" aria-label="Otwórz stronę Furia RolePlay w nowej karcie">
-            <div class="dbar"><i></i><i></i><i></i><span>furiarp.eu</span><em>Otwórz ↗</em></div>
-            <div class="screen" data-name="Furia RolePlay"><img src="assets/previews/furiarp.webp" alt="Projekt portalu i sklepu dla serwera gry roleplay Furia RolePlay" width="1440" height="900" loading="lazy"></div>
-          </a>
-          <div class="pj-info">
-            <div><small>06 / 06 · Gaming · portal</small><h3>Furia RolePlay</h3><p>Portal serwera RP: sklep, ranking, podania, regulamin i panel administracji.</p><p class="pj-case"><b>Cel:</b> jedno miejsce dla graczy serwera RP. <b>Rozwiązanie:</b> portal ze sklepem, rankingiem, podaniami, regulaminem i panelem administracji.</p><ul class="pj-tags"><li>Portal</li><li>Sklep i ranking</li><li>Panel admina</li></ul></div>
-            <a class="btn btn-primary" href="https://www.furiarp.eu/#top" target="_blank" rel="noopener">Otwórz stronę <span class="arr">↗</span></a>
-          </div>
-        </article>
-      </div>
-    </div>
     <div class="works-end rv">
       <div class="works-cta">
         <h3>Twoja firma może być następna na tej liście.</h3>
@@ -1081,6 +1397,22 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     </div>
   </div>
 </section>
+
+<div class="strip" aria-label="W każdym projekcie">
+  <div class="wrap rv">
+    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Projekt od zera, bez szablonów</span>
+    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Wersja na telefon</span>
+    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>SEO lokalne i Google</span>
+    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pomoc z domeną i hostingiem</span>
+    <span><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Opieka po starcie</span>
+  
+    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Projekt od zera, bez szablonów</span>
+    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Wersja na telefon</span>
+    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>SEO lokalne i Google</span>
+    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Pomoc z domeną i hostingiem</span>
+    <span class="dup" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Opieka po starcie</span>
+  </div>
+</div>
 
 <!-- ============ USŁUGI ============ -->
 <section class="sec alt" id="uslugi">
@@ -1105,35 +1437,35 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
           <h3>Strona wizytówka</h3>
           <p>Jedna przewijana strona: kim jesteś, co robisz i jak Cię znaleźć. Idealna dla gabinetu, salonu albo warsztatu, który chce dobrze wyglądać w sieci.</p>
           <ul class="pane-list"><li>Projekt pod Twoją firmę, bez szablonu</li><li>Wersja na telefon</li><li>Formularz kontaktowy i mapa dojazdu</li><li>Podstawowe SEO i Google</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>od 1 999 zł</b></div><div><small>Czas</small><b>do 72 godzin</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="2">PureDrive</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-start">Policz w kalkulatorze <span class="arr">→</span></a></div>
+          <div class="pane-meta"><div><small>Cena</small><b>od 1 999 zł</b></div><div><small>Czas</small><b>do 72 godzin</b></div><div><small>Przykład</small><b><a href="https://szumi32.github.io/puredrive/" target="_blank" rel="noopener" aria-label="Otwórz stronę PureDrive w nowej karcie">PureDrive ↗</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-start">Policz w kalkulatorze <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p1" aria-labelledby="svc-t1" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><rect x="4" y="7" width="22" height="16" rx="2"/><rect x="18" y="21" width="22" height="16" rx="2"/><path d="M8 12h10M22 27h12"/></svg></span><span class="pane-tag">Najczęściej wybierana</span></div>
           <h3>Strona firmowa</h3>
           <p>Kilka podstron: oferta, galeria, cennik, opinie i formularz. Wszystko, czego klient szuka, zanim do Ciebie zadzwoni.</p>
           <ul class="pane-list"><li>Do 6 podstron</li><li>Galeria, cennik i opinie</li><li>Google Moja Firma i SEO lokalne</li><li>Panel do własnej modyfikacji (+699 zł)</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>od 3 490 zł</b></div><div><small>Czas</small><b>do 5 dni roboczych</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="3">Barańska</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-firma">Policz w kalkulatorze <span class="arr">→</span></a></div>
+          <div class="pane-meta"><div><small>Cena</small><b>od 3 490 zł</b></div><div><small>Czas</small><b>do 5 dni roboczych</b></div><div><small>Przykład</small><b><a href="https://szumi32.github.io/baranska-stomatolog/" target="_blank" rel="noopener" aria-label="Otwórz stronę Barańska w nowej karcie">Barańska ↗</a></b></div><a class="btn btn-dark" href="#cennik" data-plan="plan-firma">Policz w kalkulatorze <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p2" aria-labelledby="svc-t2" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M6 10h5l4 18h19l4-13H13"/><circle cx="18" cy="34" r="2.5"/><circle cx="31" cy="34" r="2.5"/></svg></span><span class="pane-tag">Sprzedaż online</span></div>
           <h3>Sklep internetowy</h3>
           <p>Produkty, koszyk, płatności i dostawy. Prosty w obsłudze, także z telefonu, więc dodasz nowy produkt w kilka minut.</p>
           <ul class="pane-list"><li>Do 50 produktów na start, kolejne 50: +699 zł</li><li>Płatności online</li><li>Dostawy i paczkomaty</li><li>Panel do dodawania produktów</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>+2 490 zł do pakietu</b></div><div><small>Czas</small><b>ustalamy w wycenie</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="4">SOLUM</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-shop">Dodaj do wyceny <span class="arr">→</span></a></div>
+          <div class="pane-meta"><div><small>Cena</small><b>+2 490 zł do pakietu</b></div><div><small>Czas</small><b>ustalamy w wycenie</b></div><div><small>Przykład</small><b><a href="https://szumi32.github.io/solum/" target="_blank" rel="noopener" aria-label="Otwórz stronę SOLUM w nowej karcie">SOLUM ↗</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-shop">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p3" aria-labelledby="svc-t3" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><rect x="6" y="9" width="32" height="28" rx="3"/><path d="M6 17h32M14 5v8M30 5v8M13 24h5M21 24h5M13 30h5"/></svg></span><span class="pane-tag">Klient umawia się sam</span></div>
           <h3>Rezerwacje online</h3>
           <p>Kalendarz wolnych terminów, formularz rezerwacji i potwierdzenia e-mail. Klienci rezerwują o każdej porze, a Ty nie odbierasz telefonów w trakcie pracy.</p>
           <ul class="pane-list"><li>Kalendarz wolnych terminów</li><li>Potwierdzenia i przypomnienia</li><li>Panel do zarządzania wizytami</li><li>Asystent czatu na życzenie</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>+990 zł do pakietu</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="0">Karpik</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-book">Dodaj do wyceny <span class="arr">→</span></a></div>
+          <div class="pane-meta"><div><small>Cena</small><b>+990 zł do pakietu</b></div><div><small>Przykład</small><b><a href="https://szumi32.github.io/karpik/" target="_blank" rel="noopener" aria-label="Otwórz stronę Karpik w nowej karcie">Karpik ↗</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-book">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p4" aria-labelledby="svc-t4" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M6 34c6 0 6-24 12-24s6 24 12 24 6-12 8-12"/><circle cx="18" cy="10" r="2"/></svg></span><span class="pane-tag">Efekt „wow”</span></div>
           <h3>Animacje i modele 3D</h3>
           <p>Płynne wejścia sekcji, sceny przypinane przy przewijaniu i ruch, który prowadzi wzrok tam, gdzie chcesz. Bez spowalniania strony.</p>
           <ul class="pane-list"><li>Animacje przy przewijaniu</li><li>Efekty po najechaniu</li><li>Płynnie także na telefonie</li><li>Modele 3D wbudowane w stronę</li></ul>
-          <div class="pane-meta"><div><small>Cena</small><b>+399 zł do pakietu</b></div><div><small>Czas</small><b>w Premium do 2 tygodni</b></div><div><small>Przykład</small><b><a href="#realizacje" data-show="1">NOCTE</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-3d">Dodaj do wyceny <span class="arr">→</span></a></div>
+          <div class="pane-meta"><div><small>Cena</small><b>+399 zł do pakietu</b></div><div><small>Czas</small><b>w Premium do 2 tygodni</b></div><div><small>Przykład</small><b><a href="https://szumi32.github.io/nocte/" target="_blank" rel="noopener" aria-label="Otwórz stronę NOCTE w nowej karcie">NOCTE ↗</a></b></div><a class="btn btn-dark" href="#cennik" data-addon="ad-3d">Dodaj do wyceny <span class="arr">→</span></a></div>
         </article>
         <article class="svc-pane" role="tabpanel" id="svc-p5" aria-labelledby="svc-t5" hidden>
           <div class="pane-top"><span class="pane-ic"><svg viewBox="0 0 44 44"><path d="M22 5l14 6v10c0 9-6 15-14 18C14 36 8 30 8 21V11z"/><path d="M16 22l4 4 8-9"/></svg></span><span class="pane-tag">Po starcie</span></div>
@@ -1479,7 +1811,8 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const VH = () => innerHeight;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // strona celowo pokazuje pełne animacje także przy systemowym „ogranicz ruch” (decyzja właściciela)
+  const reduce = false;
 
   /* ---------- nawigacja ---------- */
   const nav = $('#nav'), burger = $('#burger'), hero = $('[data-hero]');
@@ -1495,6 +1828,8 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   const f = n => Math.round(n * 10) / 10;
   const LEAF = 'M0 -9C5 -5 7 2 4.5 7C3 9.5 -3 9.5 -4.5 7C-7 2 -5 -5 0 -9Z';
   const bez = (t, a, b, c, d) => { const u = 1 - t; return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d; };
+  // płytki kory na pniach z przodu: dane do efektu przy kursorze
+  const SLABS = { trees: [], list: [] };
   function birchLayer(host, o) {
     const W = 1600, H = 1000, r = rng(o.seed);
     const R = (a, b) => a + (b - a) * r();
@@ -1522,7 +1857,21 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
       }
       const at = yy => { const k = Math.min(n - 1, Math.max(0, Math.floor(-yy / seg))), a = C[k], b = C[k + 1], t = (-yy - k * seg) / seg; return { cx: a[0] + (b[0] - a[0]) * t, w: a[2] + (b[2] - a[2]) * t }; };
       let g = `<g class="tr" style="--d:${(o.d + rnd() * .6).toFixed(2)}s"><g transform="translate(${f(x)} ${H + 8}) rotate(${f(lean)})">`;
-      g += `<path d="M${Lf.join('L')}L${Rt.reverse().join('L')}Z" fill="url(#bk-${o.id})"/>`;
+      const trunkD = `M${Lf.join('L')}L${[...Rt].reverse().join('L')}Z`;
+      let buckets = null, seamAt = null, ti = 0;
+      if (o.slabs) {
+        g += '\u0000';
+        ti = SLABS.trees.push({ x, lean, H, L: o.id }) - 1;
+        buckets = [];
+        const sf = [];
+        for (let k = 0; k < n; k++) { sf.push((k % 2 ? .36 : .64) + R(-.07, .07)); buckets.push([[], []]); }
+        seamAt = yy => { const k = Math.min(n - 1, Math.max(0, Math.floor(-yy / seg))); const { cx, w } = at(yy); return { k, sx: cx - w / 2 + w * sf[k] }; };
+        buckets.sf = sf;
+      } else g += `<path d="${trunkD}" fill="url(#bk-${o.id})"/>`;
+      const addMark = (str, mx, my) => {
+        if (!buckets) { g += str; return; }
+        const { k, sx } = seamAt(my); buckets[k][mx < sx ? 0 : 1].push(str);
+      };
       const hb = tw * R(1.4, 2.4), b0 = C[0], bw = b0[2];
       let bd = `M${f(b0[0] - bw / 2)} 8L${f(b0[0] - bw / 2)} ${f(-hb * .5)}`;
       for (let i = 1; i <= 7; i++) bd += `L${f(b0[0] - bw / 2 + bw * i / 7)} ${f(-hb * R(.25, 1))}`;
@@ -1533,10 +1882,33 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
         for (let c = 0; c < cl; c++) {
           const { cx, w } = at(my), mw = w * R(.3, 1), mx = cx - w / 2 + (w - mw) * r();
           const mh = Math.max(o.minH, w * R(.06, .15)), sl = R(-.5, .5) * mh;
-          g += `<path d="M${f(mx)} ${f(my)}Q${f(mx + mw / 2)} ${f(my - mh * 1.15)} ${f(mx + mw)} ${f(my + sl)}Q${f(mx + mw / 2)} ${f(my + mh * .85)} ${f(mx)} ${f(my)}Z" fill="${r() < .82 ? o.dash : o.dash2}"/>`;
+          addMark(`<path d="M${f(mx)} ${f(my)}Q${f(mx + mw / 2)} ${f(my - mh * 1.15)} ${f(mx + mw)} ${f(my + sl)}Q${f(mx + mw / 2)} ${f(my + mh * .85)} ${f(mx)} ${f(my)}Z" fill="${r() < .82 ? o.dash : o.dash2}"/>`, mx + mw / 2, my);
           my -= mh * R(1.4, 2.6) + 3;
         }
         my -= at(my).w * R(.45, 1.9) * dens + 8;
+      }
+      if (buckets) {
+        // środek pnia w kolorze akcentu (widać go, gdy płytka kory odskoczy)
+        const xs = [...Lf, ...Rt].map(p => +p.split(' ')[0]), x0 = Math.min(...xs), x1 = Math.max(...xs);
+        const gid = `bk-${o.id}-${ti}`, cid = `bc-${o.id}-${ti}`;
+        let h = `<defs><linearGradient id="${gid}" gradientUnits="userSpaceOnUse" x1="${f(x0)}" x2="${f(x1)}" y1="0" y2="0"><stop offset="0" stop-color="${o.edge}"/><stop offset=".32" stop-color="${o.mid}"/><stop offset=".74" stop-color="${o.lit}"/><stop offset="1" stop-color="${o.rim}"/></linearGradient>`
+          + `<linearGradient id="${cid}" gradientUnits="userSpaceOnUse" x1="${f(x0)}" x2="${f(x1)}" y1="0" y2="0"><stop offset="0" stop-color="${shade(ACCENT, -.62)}"/><stop offset=".45" stop-color="${shade(ACCENT, -.25)}"/><stop offset=".7" stop-color="${ACCENT}"/><stop offset="1" stop-color="${shade(ACCENT, -.5)}"/></linearGradient></defs>`;
+        h += `<path d="${trunkD}" fill="url(#${cid})"/>`;
+        const P = s2 => s2.split(' ').map(Number), Lp = Lf.map(P), Rp = Rt.map(P);
+        const lerpP = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+        const pt = q => f(q[0]) + ' ' + f(q[1]);
+        for (let k = 0; k < n; k++) {
+          const t = buckets.sf[k], sB = lerpP(Lp[k], Rp[k], t), sT = lerpP(Lp[k + 1], Rp[k + 1], t);
+          const up = q => [q[0], q[1] - 1.4];
+          const quads = [[Lp[k], [sB[0] + .8, sB[1]], up([sT[0] + .8, sT[1]]), up(Lp[k + 1])], [sB, Rp[k], up(Rp[k + 1]), up(sT)]];
+          quads.forEach((q, side) => {
+            const d = `M${q.map(pt).join('L')}Z`;
+            h += `<g class="sl ${side ? 'r' : 'l'}"><path d="${d}" fill="url(#${gid})"/>${buckets[k][side].join('')}<path class="sl-e" d="${d}"/></g>`;
+            const cxl = (q[0][0] + q[1][0] + q[2][0] + q[3][0]) / 4, cyl = (q[0][1] + q[1][1] + q[2][1] + q[3][1]) / 4;
+            SLABS.list.push({ ti, lx: cxl, ly: cyl, side: side ? 1 : -1, w: Math.abs(q[1][0] - q[0][0]), rnd: r() - .5 });
+          });
+        }
+        g = g.replace('\u0000', h);
       }
       if (o.peel) for (let i = 0; i < 4; i++) {
         const yy = -R(150, 800), side = r() < .5 ? -1 : 1, { cx, w } = at(yy), ex = cx + side * w / 2;
@@ -1578,7 +1950,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   }
   // WYGLĄD LASU: count = liczba drzew, w = grubość pni, branchP = szansa na gałązki z liśćmi, droop/canopy = korona u góry
   // KOLOR AKCENTU: ten sam co --gold w KOLORY; listki w lesie i konfetti biorą odcienie z niego
-  const ACCENT = '#d98a5f';
+  const ACCENT = '#7ccf6b';
   const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
   const shade = (h, t) => '#' + hexRgb(h).map(v => Math.round(t > 0 ? v + (255 - v) * t : v * (1 + t)).toString(16).padStart(2, '0')).join('');
   const leafPal = c => [shade(c, .22), c, shade(c, -.16), shade(c, .42), shade(c, .1), shade(c, -.34)];
@@ -1588,11 +1960,11 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     far: { id: 'far', d: 0, seed: 14, count: 20, w: [6, 13], lean: 1.4, cluster: .25, minH: 1.5, branchP: 0, bl: 0, tws: 1, ls: .5, ds: .5, droop: 9, canopy: 34, grass: 0, gs: 1, fallen: 0,
       edge: '#8a7a86', mid: '#e3cdca', lit: '#f0dccb', rim: '#c79c8e', dash: 'rgba(48,34,50,.72)', dash2: 'rgba(80,62,78,.5)', twig: 'rgba(60,44,60,.7)', leaves: HAZE, grassCol: '#1a1424' },
     mid: { id: 'mid', d: .2, seed: 29, count: 9, w: [20, 38], lean: 2.4, cluster: .35, gap: [.16, .56], minH: 2.8, branchP: .9, bl: 150, tws: 2, ls: .8, ds: .9, droop: 12, canopy: 40, grass: 12, gs: .5, fallen: 14,
-      edge: '#7d726f', mid: '#ece0d4', lit: '#f7e8d4', rim: '#d3a98a', dash: 'rgba(18,14,13,.88)', dash2: 'rgba(62,50,46,.62)', twig: '#2a211b', leaves: GOLD, grassCol: '#0d0b0a' },
+      edge: '#7d726f', mid: '#ece0d4', lit: '#f7e8d4', rim: '#d3a98a', dash: 'rgba(18,14,13,.88)', dash2: 'rgba(62,50,46,.62)', twig: '#2a211b', leaves: GOLD, grassCol: '#0d0b0a', slabs: true },
     near: { id: 'near', d: .45, seed: 53, count: 4, w: [74, 118], lean: 1.4, cluster: 0, gap: [.12, .76], minH: 7, branchP: .8, bl: 260, tws: 4, ls: 1.3, ds: 1.6, droop: 6, canopy: 20, grass: 14, gs: 1, fallen: 16,
-      edge: '#5f5a55', mid: '#efe9df', lit: '#f8efe0', rim: '#d9b393', dash: '#0e0b09', dash2: 'rgba(48,38,32,.78)', twig: '#241b16', leaves: GOLD, grassCol: '#090908', peel: true },
+      edge: '#5f5a55', mid: '#efe9df', lit: '#f8efe0', rim: '#d9b393', dash: '#0e0b09', dash2: 'rgba(48,38,32,.78)', twig: '#241b16', leaves: GOLD, grassCol: '#090908', peel: true, slabs: true },
   };
-  $$('.hero__layer').forEach(el => birchLayer(el, FOREST[el.dataset.layer]));
+  // (v20) las w hero zastąpił film z ptakiem: warstwy drzew nie są budowane
   // spadające listki w kolorze akcentu (LICZBA LISTKÓW: 12)
   const leavesEl = $('#leaves');
   if (!reduce) for (let k = 0; k < 12; k++) {
@@ -1603,24 +1975,123 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
   // las reaguje na kursor, a przy przewijaniu „wjeżdżamy” w niego (bez przypinania strony)
   const heroVeil = $('.hero__veil');
   const fLayers = $$('.hero__layer'), heroIn = $('.hero__content'), heroFadeEls = $$('.hero__copy, .hcard, .hero__stats'), heroSun = $('.hero__sun');
-  const DEPTH = { far: [8, .12], mid: [20, .4], near: [42, 1.1] }; // [ruch za kursorem w px, przybliżenie przy przewinięciu]
+  // [ruch za kursorem w px, przybliżenie przy przewinięciu]; im bliżej, tym mocniej płynie (jak kamera w igloo)
+  const DEPTH = { far: [24, .3], mid: [62, 1], near: [150, 2.6] };
   const pm = { x: 0, y: 0, tx: 0, ty: 0, p: 0 };
-  if (fine && !reduce) {
-    hero.addEventListener('pointermove', e => { pm.tx = e.clientX / innerWidth - .5; pm.ty = e.clientY / innerHeight - .5; });
-    hero.addEventListener('pointerleave', () => { pm.tx = 0; pm.ty = 0; });
+  // WEJŚCIE: IN.k = 1 na starcie (kamera nisko i blisko), 0 po „uderzeniu”; ID = [przesunięcie w dół, przybliżenie] warstw
+  const IN = { k: 0 }, ID = { far: [.05, .1], mid: [.12, .32], near: [.26, .85] };
+  const CUR = { x: -9999, y: -9999, on: false };
+  if (!reduce) {
+    addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      CUR.x = e.clientX; CUR.y = e.clientY; CUR.on = true;
+      pm.tx = e.clientX / innerWidth - .5; pm.ty = e.clientY / innerHeight - .5;
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => { CUR.on = false; pm.tx = 0; pm.ty = 0; });
+    document.documentElement.addEventListener('mouseleave', () => { CUR.on = false; pm.tx = 0; pm.ty = 0; });
   }
+  // płytki kory: siła przy kursorze (PROMIEŃ_KORY) i fala po kliknięciu
+  const PROMIEN_KORY = 190;
+  const slabEls = $$('.hero .sl');
+  SLABS.list.forEach((sl, i) => {
+    const t = SLABS.trees[sl.ti], a = t.lean * Math.PI / 180;
+    sl.el = slabEls[i]; sl.L = t.L; sl.sx = t.x + sl.lx * Math.cos(a) - sl.ly * Math.sin(a); sl.sy = t.H + 8 + sl.lx * Math.sin(a) + sl.ly * Math.cos(a);
+    sl.x = sl.y = sl.r = sl.e = sl.vx = sl.vy = sl.vr = 0; sl.live = false;
+  });
+  const waves = [];
+  const heroHint = $('#heroHint');
+  if (!reduce) hero.addEventListener('pointerdown', e => {
+    if (root.classList.contains('intro-on') || e.target.closest('a, button, input, .hcard')) return;
+    waves.push({ x: e.clientX, y: e.clientY, t: performance.now() });
+    if (waves.length > 3) waves.shift();
+    heroHint && heroHint.classList.add('gone');
+    // listki wylatują z miejsca uderzenia
+    for (let k = 0; k < 12; k++) {
+      const l = document.createElement('i'); l.className = 'burst-leaf'; l.style.background = GOLD[k % GOLD.length];
+      document.body.append(l);
+      const a = rnd() * Math.PI * 2, v = 60 + rnd() * 110, dx = Math.cos(a) * v, dy = Math.sin(a) * v, r0 = rnd() * 360, rs = (rnd() - .5) * 600;
+      l.animate([
+        { transform: `translate(${e.clientX}px, ${e.clientY}px) rotate(${r0}deg) scale(.4)`, opacity: 1 },
+        { transform: `translate(${e.clientX + dx}px, ${e.clientY + dy}px) rotate(${r0 + rs * .5}deg) scale(1.1)`, opacity: 1, offset: .35 },
+        { transform: `translate(${e.clientX + dx * 1.4}px, ${e.clientY + dy + 160}px) rotate(${r0 + rs}deg) scale(.8)`, opacity: 0 }
+      ], { duration: 1100 + rnd() * 600, easing: 'cubic-bezier(.2,.7,.4,1)' }).onfinish = () => l.remove();
+    }
+  });
+  let hintT = 0;
+  const slabFrame = (hr, LT) => {
+    if (!slabEls.length) return;
+    const now = performance.now();
+    while (waves.length && now - waves[0].t > 1300) waves.shift();
+    const Wb = hr.width, Hb = hr.height, sc = Math.max(Wb / 1600, Hb / 1000), ox = (Wb - 1600 * sc) / 2, oy = Hb - 1000 * sc;
+    const Ox = Wb * .62, Oy = Hb * .7, R = PROMIEN_KORY;
+    const near = CUR.on && CUR.y < hr.bottom && !root.classList.contains('intro-on');
+    if (!near && !waves.length && !SLABS.live) return;
+    if (near && heroHint && !hintT) hintT = setTimeout(() => heroHint.classList.add('gone'), 6000);
+    let live = 0;
+    for (const sl of SLABS.list) {
+      const [sNear, txN, tyN] = LT[sl.L], k = 1 / (sc * sNear);
+      const bx = ox + sl.sx * sc, by = oy + sl.sy * sc;
+      const X = hr.left + Ox + (bx - Ox) * sNear + txN, Y = hr.top + Oy + (by - Oy) * sNear + tyN;
+      let fx = 0, fy = 0, fr = 0, e = 0;
+      if (near) {
+        const dx = X - CUR.x, dy = Y - CUR.y, d = Math.hypot(dx, dy);
+        if (d < R) {
+          const q = 1 - d / R, s3 = q * q * (3 - 2 * q);
+          fx += sl.side * s3 * (sl.w * .32 + 10) * sc * k; fy += (dy / R) * s3 * 26 * k - s3 * 6 * k;
+          fr += sl.side * s3 * (5 + sl.rnd * 8); e = Math.max(e, s3);
+        }
+      }
+      for (const w of waves) {
+        const age = (now - w.t) / 1000, ring = age * 1300, d = Math.hypot(X - w.x, Y - w.y);
+        const g = Math.exp(-Math.pow((d - ring) / 110, 2)) * Math.max(0, 1 - age / 1.1) * Math.max(0, 1 - d / 900);
+        if (g > .01) { fx += sl.side * g * (sl.w * .9 + 30) * sc * k; fy += ((Y - w.y) / Math.max(60, d)) * g * 60 * k; fr += sl.side * g * (14 + sl.rnd * 20); e = Math.max(e, g); }
+      }
+      if (!sl.live && !fx && !fy && !fr) continue;
+      // sprężyna: płytka odskakuje i wraca z lekkim drganiem
+      sl.vx = (sl.vx + (fx - sl.x) * .18) * .72; sl.x += sl.vx;
+      sl.vy = (sl.vy + (fy - sl.y) * .18) * .72; sl.y += sl.vy;
+      sl.vr = (sl.vr + (fr - sl.r) * .18) * .72; sl.r += sl.vr;
+      sl.e += (e - sl.e) * .2;
+      const moving = Math.abs(sl.x) + Math.abs(sl.y) + Math.abs(sl.r) + Math.abs(sl.vx) + Math.abs(sl.vy) + sl.e > .02;
+      if (moving) {
+        sl.el.style.transform = `translate(${sl.x.toFixed(2)}px, ${sl.y.toFixed(2)}px) rotate(${sl.r.toFixed(2)}deg)`;
+        sl.el.style.setProperty('--e', sl.e.toFixed(3));
+        sl.live = true; live++;
+      } else if (sl.live) {
+        sl.el.style.transform = ''; sl.el.style.removeProperty('--e');
+        sl.x = sl.y = sl.r = sl.vx = sl.vy = sl.vr = sl.e = 0; sl.live = false;
+      }
+    }
+    SLABS.live = live;
+  };
+  const heroTitle = $('.hero__title'), heroFlash = $('.hero__flash'), meltD = $('#meltD'), meltT = $('#meltT'), heroWordL = $('#heroWord'), heroNight = $('#heroNight');
+  const meltOk = fine && !reduce && !/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
   const heroFrame = () => {
     if (reduce) return;
     const hr = hero.getBoundingClientRect();
     if (hr.bottom < 0) return;
     pm.x = lerp(pm.x, pm.tx, .06); pm.y = lerp(pm.y, pm.ty, .06);
     pm.p = lerp(pm.p, clamp(-hr.top / hr.height), .18);
+    const LT = {};
     fLayers.forEach(L => {
-      const k = DEPTH[L.dataset.layer];
-      L.style.transform = `translate3d(${(-pm.x * k[0]).toFixed(2)}px, ${(-pm.y * k[0] * .4).toFixed(2)}px, 0) scale(${(1 + pm.p * k[1]).toFixed(4)})`;
+      const k = DEPTH[L.dataset.layer], d = ID[L.dataset.layer], tx = -pm.x * k[0], ty = -pm.y * k[0] * .4 + IN.k * hr.height * d[0], sc = 1 + pm.p * k[1] + IN.k * d[1];
+      L.style.transform = `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${sc.toFixed(4)})`;
+      LT[L.dataset.layer] = [sc, tx, ty];
     });
+    heroWordL.style.transform = `translate3d(${(-pm.x * 95).toFixed(2)}px, ${(-pm.y * 30 + IN.k * hr.height * .16).toFixed(1)}px, 0) scale(${(1 + pm.p * 1.5 + IN.k * .4).toFixed(4)})`;
+    heroNight.style.opacity = (IN.k * IN.k * .95).toFixed(3);
     heroSun.style.scale = (1 + pm.p * .4).toFixed(3);
-    heroIn.style.transform = `translate3d(0, ${(pm.p * -90).toFixed(1)}px, 0)`;
+    heroSun.style.translate = `${(-pm.x * 30).toFixed(1)}px ${(-pm.y * 18).toFixed(1)}px`;
+    heroIn.style.transform = `translate3d(${(pm.x * 14).toFixed(1)}px, ${(pm.p * -90 + pm.y * 8).toFixed(1)}px, 0)`;
+    slabFrame(hr, LT);
+    // przelot: napis rozpływa się jak w wodzie, błysk światła, a las rozjeżdża się na boki
+    const mp = clamp((pm.p - .02) / .5);
+    if (meltOk) {
+      if (mp > .001) { meltD.setAttribute('scale', (mp * mp * 260).toFixed(1)); meltT.setAttribute('baseFrequency', `${(.006 + mp * .01).toFixed(4)} ${(.035 - mp * .02).toFixed(4)}`); if (!heroTitle._m) { heroTitle.style.filter = 'url(#melt)'; heroTitle._m = 1; } }
+      else if (heroTitle._m) { heroTitle.style.filter = ''; heroTitle._m = 0; meltD.setAttribute('scale', '0'); }
+    }
+    heroTitle.style.letterSpacing = mp > .001 ? `${(-.035 + mp * .12).toFixed(3)}em` : '';
+    heroFlash.style.opacity = (Math.max(0, 1 - Math.abs(pm.p - .42) / .22) * .75).toFixed(3);
     const op = (1 - Math.max(0, pm.p - .1) * 1.6).toFixed(3);
     heroFadeEls.forEach(el => { el.style.opacity = op; });
     // las „tonie” w czerni, więc dół hero płynnie przechodzi w następną sekcję (bez ostrej krawędzi)
@@ -1740,54 +2211,123 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     if (list.scrollWidth > list.clientWidth) list.scrollTo({ left: t.offsetLeft - 16, behavior: 'smooth' });
   });
 
-  /* ---------- realizacje: pokaz projektów ---------- */
-  const show = $('#show'), showStage = $('#showStage'), SHOW_MS = 7000;
-  show.style.setProperty('--dur', SHOW_MS + 'ms');
-  const sTabs = $$('.show-list [role="tab"]');
-  let shTimer = null, shVisible = false, shHover = false;
-  const sh = makeTabs($('.show-list'), (i) => {
-    show.style.setProperty('--g', sTabs[i].dataset.g);
-    const list = $('.show-list');
-    if (list.scrollWidth > list.clientWidth + 2) list.scrollBy({ left: sTabs[i].getBoundingClientRect().left - list.getBoundingClientRect().left - 4, behavior: 'smooth' });
-    shSchedule();
-  });
-  function shSchedule() {
-    clearTimeout(shTimer);
-    const paused = !shVisible || shHover || reduce;
-    show.classList.toggle('paused', paused);
-    if (paused) return;
-    shTimer = setTimeout(() => sh.select((sh.current() + 1) % sh.count), SHOW_MS);
+  /* ---------- realizacje: korytarz 3D (projekty lecą po bokach, nazwa na środku) ---------- */
+  const PROJECTS = [
+    { n: 'Karpik', c: 'Turystyka · rezerwacje', u: 'https://szumi32.github.io/karpik/', img: 'assets/previews/karpik.webp', d: 'Domki nad Jeziorem Białym: cennik, kalendarz terminów i asystent odpowiadający gościom.' },
+    { n: 'NOCTE', c: 'Produkt · startup', u: 'https://szumi32.github.io/nocte/', img: 'assets/previews/nocte.webp', d: 'Koncepcja inteligentnej maski do snu. Czarne studio, produkt w świetle i konfigurator.' },
+    { n: 'PureDrive', c: 'Usługi lokalne', u: 'https://szumi32.github.io/puredrive/', img: 'assets/previews/puredrive.webp', d: 'Ręczna myjnia i detailing w garażu Galerii Wileńskiej: oferta, opinie i dojazd.' },
+    { n: 'Barańska Stomatolog', c: 'Medycyna', u: 'https://szumi32.github.io/baranska-stomatolog/', img: 'assets/previews/baranska.webp', d: 'Gabinet stomatologiczny w Piasecznie: logo, oferta usług, FAQ i umawianie wizyt.' },
+    { n: 'SOLUM', c: 'E-commerce', u: 'https://szumi32.github.io/solum/', img: 'assets/previews/solum.webp', d: 'Sklep z bransoletkami z kamieni naturalnych: jasny, spokojny, skupiony na produkcie.' },
+    { n: 'Furia RolePlay', c: 'Gaming · portal', u: 'https://www.furiarp.eu/#top', img: 'assets/previews/furiarp.webp', d: 'Portal serwera RP: sklep, ranking, podania, regulamin i panel administracji.' },
+    { n: 'VK Cup', c: 'Archiwum · Battle Royale', u: 'https://www.vkcup.pl/', img: 'assets/previews/vkcup.webp', d: 'Strona turnieju i serwera Battle Royale. Starszy projekt, nadal działa online.' }
+  ];
+  const corr = $('#corr'), corrStage = $('#corrStage'), cWorld = $('#corrWorld');
+  const cIntro = $('#corrIntro'), cPj = $('#corrPj'), cName = $('#corrName'), cCat = $('#corrCat'), cDesc = $('#corrDesc'), cNo = $('#corrNo'), cOpen = $('#corrOpen'), cBar = $('#corrBar'), cDots = $('#corrDots');
+  let cCur = -2;
+
+
+  // ---- v23: przejazd przez studio. Klatki z Blendera, przewijanie wybiera klatkę ----
+  const ST_N = 160, ST_PJ = [-1,-1,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,-1,-1,-1,-1,-1,-1,-1];                 // liczba klatek i który projekt jest w kadrze w każdej klatce
+  const ST_SRC = k => `assets/realizacje/f${String(k).padStart(3, '0')}.webp`;
+  const ST_SIDE = i => i % 2 ? 1 : -1;                // projekty na zmianę: lewa, prawa strona przejścia
+  const stImgs = new Array(ST_N), stOk = new Array(ST_N).fill(false);
+  let stLoaded = 0, stStarted = false;
+  const stLoad = () => {
+    if (stStarted) return; stStarted = true;
+    // najpierw co 8. klatka (od razu da się przewijać), potem reszta
+    const order = []; for (const step of [8, 4, 2, 1]) for (let k = 0; k < ST_N; k += step) if (!order.includes(k)) order.push(k);
+    let next = 0, busy = 0;
+    const pump = () => {
+      while (busy < 6 && next < order.length) {
+        const k = order[next++], im = new Image(); busy++;
+        im.decoding = 'async';
+        im.onload = () => { stOk[k] = true; stLoaded++; busy--; pump(); if (stLoaded === ST_N) $('#corrLoad').classList.add('done'); };
+        im.onerror = () => { busy--; pump(); };
+        im.src = ST_SRC(k); stImgs[k] = im;
+      }
+    };
+    pump();
+  };
+  const near = k => { for (let d = 0; d < ST_N; d++) { if (stOk[k - d]) return k - d; if (stOk[k + d]) return k + d; } return -1; };
+  const cv = $('#corrCv'), ctx = cv.getContext('2d');
+  let cvW = 0, cvH = 0;
+  const corrBuild = () => {
+    const dpr = Math.min(2, devicePixelRatio || 1), rr = corrStage.getBoundingClientRect();
+    cvW = rr.width; cvH = rr.height; cv.width = Math.round(cvW * dpr); cv.height = Math.round(cvH * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.imageSmoothingQuality = 'high'; drawn = '';
+  };
+  // kropki z nazwami projektów
+  cDots.innerHTML = PROJECTS.map((p, i) => `<li><button type="button" data-i="${i}" aria-label="${p.n}"><span>${p.n}</span><i></i></button></li>`).join('');
+  const corrSpan = () => Math.max(1, corr.offsetHeight - VH());
+  const stMid = i => { const ks = ST_PJ.map((v, k) => v === i ? k : -1).filter(k => k >= 0); return ks.length ? ks[Math.floor(ks.length / 2)] : 0; };
+  const corrGo = (i, smooth = true) => {
+    const top = corr.getBoundingClientRect().top + scrollY + stMid(i) / (ST_N - 1) * corrSpan();
+    stLoad();
+    if (!smooth) { scrollTo({ top, behavior: 'instant' }); return; }
+    scrollTo({ top: top - VH() * .6, behavior: 'instant' });
+    requestAnimationFrame(() => scrollTo({ top, behavior: 'smooth' }));
+  };
+  cDots.addEventListener('click', e => { const b = e.target.closest('button'); if (b) corrGo(+b.dataset.i); });
+  const setProject = (i) => {
+    if (i === cCur) return; cCur = i;
+    const show = i >= 0;
+    cIntro.style.opacity = show ? '0' : '1'; cIntro.style.transform = show ? 'scale(.92)' : '';
+    cPj.style.opacity = show ? '1' : '0';
+    cv.classList.toggle('link', show);
+    $$('button', cDots).forEach((b, k) => b.classList.toggle('on', k === i));
+    if (!show) return;
+    const p = PROJECTS[i];
+    cName.innerHTML = p.n.split(' ').map(w => '<span class="w">' + [...w].map((ch, k) => `<span class="c" style="--i:${k}">${ch}</span>`).join('') + '</span>').join(' ');
+    cName.setAttribute('aria-label', p.n); cName.style.setProperty('--len', Math.max(6, p.n.length));
+    if (typeof scramble === 'function') { scramble(cCat, p.c, 520); scramble(cNo, `${String(i + 1).padStart(2, '0')} / ${String(PROJECTS.length).padStart(2, '0')}`, 420); }
+    else { cCat.textContent = p.c; cNo.textContent = `${String(i + 1).padStart(2, '0')} / ${String(PROJECTS.length).padStart(2, '0')}`; }
+    cDesc.textContent = p.d; cOpen.href = p.u; cOpen.setAttribute('aria-label', `Otwórz stronę ${p.n} w nowej karcie`);
+  };
+  [cIntro, cPj].forEach(el => el.style.transition = 'opacity .5s var(--ease), transform .7s var(--ease)');
+  // kliknięcie w studio otwiera projekt, który jest teraz na monitorze
+  cv.addEventListener('click', () => { if (cCur >= 0) window.open(PROJECTS[cCur].u, '_blank', 'noopener'); });
+  const cam = { f: 0, mx: 0, my: 0, fx: .5 };
+  let drawn = '';
+  const corrFrame = () => {
+    const r = corr.getBoundingClientRect(), vh = VH();
+    if (r.top < vh * 3) stLoad();                  // ładowanie klatek zaczyna się, zanim ktoś tu dojedzie
+    if (r.bottom < 0 || r.top > vh) return;
+    if (!cvW) corrBuild();
+    const p = clamp(-r.top / corrSpan());
+    cam.f = lerp(cam.f, p * (ST_N - 1), .14);
+    cam.mx = lerp(cam.mx, CUR.on ? CUR.x / innerWidth - .5 : 0, .05);
+    cam.my = lerp(cam.my, CUR.on ? CUR.y / innerHeight - .5 : 0, .05);
+    cBar.style.transform = `scaleX(${p.toFixed(4)})`;
+    const pi = ST_PJ[Math.round(cam.f)];
+    // na telefonie (wąski ekran) kadr przesuwa się w stronę monitora z projektem
+    const narrow = cvW / cvH < 1.2;
+    cam.fx = lerp(cam.fx, narrow && pi >= 0 ? .5 + ST_SIDE(pi) * .19 : .5, .08);
+    const a = near(Math.round(cam.f));   // zawsze jedna, najbliższa klatka (mieszanie dwóch dawało podwójny obraz)
+    const key = `${a}|${cam.mx.toFixed(4)}|${cam.my.toFixed(4)}|${cam.fx.toFixed(4)}|${cvW}`;
+    if (a >= 0 && key !== drawn) {
+      drawn = key;
+      const im = stImgs[a], iw = im.naturalWidth, ih = im.naturalHeight;
+      const sc = Math.max(cvW / iw, cvH / ih) * 1.06, dw = iw * sc, dh = ih * sc;
+      const x = Math.min(0, Math.max(cvW - dw, cvW / 2 - dw * cam.fx - cam.mx * 40)), y = (cvH - dh) / 2 - cam.my * 22;
+      ctx.drawImage(im, x, y, dw, dh);
+    }
+    let idx = pi;
+    if (idx < 0 && cam.f > ST_N / 2) idx = PROJECTS.length - 1;   // na końcu zostaje ostatni projekt
+    setProject(idx);
+  };
+  if (reduce) corr.classList.add('corr--flat');
+  else {
+    corrBuild(); setProject(-1);
+    let crT; addEventListener('resize', () => { clearTimeout(crT); crT = setTimeout(() => { cvW = 0; }, 250); });
+    const corrLoop = () => { corrFrame(); requestAnimationFrame(corrLoop); };
+    requestAnimationFrame(corrLoop);
   }
-  new IntersectionObserver(es => { shVisible = es[0].isIntersecting; shSchedule(); }, { threshold: .3 }).observe(show);
-  show.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { shHover = true; shSchedule(); } });
-  show.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { shHover = false; shSchedule(); } });
-  show.addEventListener('focusin', () => { shHover = true; shSchedule(); });
-  show.addEventListener('focusout', () => { shHover = false; shSchedule(); });
-  // ekran lekko się przechyla za kursorem
-  if (fine && !reduce) {
-    showStage.addEventListener('pointermove', e => {
-      const r = showStage.getBoundingClientRect();
-      showStage.style.setProperty('--mx', clamp((e.clientX - r.left) / r.width - .5, -.5, .5).toFixed(3));
-      showStage.style.setProperty('--my', clamp((e.clientY - r.top) / r.height - .5, -.5, .5).toFixed(3));
-    });
-    showStage.addEventListener('pointerleave', () => { showStage.style.setProperty('--mx', 0); showStage.style.setProperty('--my', 0); });
-  }
-  // przesunięcie palcem na telefonie
-  let swX = null, swY = null, swiped = false;
-  showStage.addEventListener('pointerdown', e => { swiped = false; if (e.pointerType !== 'mouse') { swX = e.clientX; swY = e.clientY; } });
-  showStage.addEventListener('pointerup', e => {
-    if (swX === null) return;
-    const dx = e.clientX - swX, dy = e.clientY - swY; swX = null;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) { swiped = true; sh.select((sh.current() + (dx < 0 ? 1 : -1) + sh.count) % sh.count); }
-  });
-  showStage.addEventListener('click', e => { if (swiped && e.target.closest('.device')) { e.preventDefault(); swiped = false; } });
-  // prawdziwe zrzuty z assets/previews/ (jeśli są) zastępują makiety
-  $$('.screen > img').forEach(img => {
-    const ok = () => { if (img.naturalWidth) img.classList.add('ok'); else img.remove(); };
-    if (img.complete) ok(); else { img.addEventListener('load', ok); img.addEventListener('error', () => img.remove()); }
-  });
-  // linki „Przykład” w usługach i karta w hero otwierają projekt w pokazie
-  $$('[data-show], #hcList a[data-go]').forEach(a => a.addEventListener('click', () => sh.select(+(a.dataset.show || a.dataset.go))));
+  // linki „Przykład” w usługach i karta w hero lecą do projektu w korytarzu
+  $$('[data-show], #hcList a[data-go]').forEach(a => a.addEventListener('click', e => {
+    if (reduce) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    corrGo(+(a.dataset.show || a.dataset.go));
+  }));
 
   $$('.svc-pane [data-plan], .svc-pane [data-addon]').forEach(a => a.addEventListener('click', () => {
     if (a.dataset.plan) { const r = $('#' + a.dataset.plan); r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); }
@@ -2053,6 +2593,502 @@ footer { background: var(--bg); border-top: 1px solid var(--line); }
     };
     requestAnimationFrame(tick);
   }
+
+  /* ============ v6: animacje w motywie lasu ============ */
+
+  /* --- wejście: kamera wjeżdża w las, wielki napis za pniami, strona pojawia się przy „uderzeniu” --- */
+  const REVEAL_AT = 4.2; // sekundy do „uderzenia”: wtedy pęka kora i pojawia się cała strona
+  const GAUGE_MAX = 25;  // metry na liczniku wysokości po lewej (tyle ma wysokie drzewo)
+  const gauge = $('#gauge'), gMark = $('#gaugeMark'), gNum = $('#gaugeNum'), replayBtn = $('#replay');
+  const setGauge = (p, lock) => { gMark.style.top = (p * 100).toFixed(2) + '%'; gNum.textContent = String(Math.round(p * GAUGE_MAX)).padStart(3, '0') + 'm'; gauge.classList.toggle('lock', !!lock); };
+  const burstAt = (x, y, n) => {
+    for (let k = 0; k < n; k++) {
+      const l = document.createElement('i'); l.className = 'burst-leaf'; l.style.background = GOLD[k % GOLD.length]; l.style.width = '13px'; l.style.height = '9px';
+      document.body.append(l);
+      const a = rnd() * Math.PI * 2, v = 90 + rnd() * 260, dx = Math.cos(a) * v, dy = Math.sin(a) * v, r0 = rnd() * 360, rs = (rnd() - .5) * 800;
+      l.animate([
+        { transform: `translate(${x}px, ${y}px) rotate(${r0}deg) scale(.4)`, opacity: 1 },
+        { transform: `translate(${x + dx}px, ${y + dy}px) rotate(${r0 + rs * .5}deg) scale(1.15)`, opacity: 1, offset: .35 },
+        { transform: `translate(${x + dx * 1.3}px, ${y + dy + 220}px) rotate(${r0 + rs}deg) scale(.8)`, opacity: 0 }
+      ], { duration: 1400 + rnd() * 700, easing: 'cubic-bezier(.2,.7,.4,1)' }).onfinish = () => l.remove();
+    }
+  };
+  let introOn = false, introDone = true, introT0 = 0, introTimer = 0;
+  // --- v22: wejście z kwadracików (zamiast filmu). Nazwy videoMode/toEnd/startVideo zostały, żeby reszta działała jak wcześniej ---
+  let videoMode = false;
+  const hideVideo = () => { videoMode = false; };
+  const HT = (() => {
+    const cv = $('#heroTiles'); if (!cv) return { play: f => f(), finish() {} };
+    const ctx = cv.getContext('2d');
+    const REVEAL = 2.75;          // sekunda wejścia, w której pojawia się strona
+    let W = 0, H = 0, dpr = 1, ps = [], T0 = -1e9, cbf = null, built = '', mob = false, cube = { x: 0, y: 0, s: 100 }, pitch = 8;
+    let mx = -1e4, my = -1e4, rY = 0, rX = .5;
+    const fontG = (getComputedStyle(document.documentElement).getPropertyValue('--f-g') || 'sans-serif').trim();
+    const build = () => {
+      const r = cv.getBoundingClientRect(); if (!r.width) return;
+      W = r.width; H = r.height; mob = innerWidth <= 900; dpr = Math.min(2, devicePixelRatio || 1);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); built = W + 'x' + H;
+      const R = rng(5), RR = (a, b) => a + (b - a) * R();
+      // 1) napis: rysujemy go w małej rozdzielczości (1 piksel = 1 kafelek) i bierzemy zapalone piksele
+      pitch = mob ? Math.max(5, W / 64) : Math.max(7, Math.min(12, W / 150));
+      const ow = Math.ceil(W / pitch), oh = Math.ceil(H / pitch), oc = document.createElement('canvas'); oc.width = ow; oc.height = oh;
+      const o = oc.getContext('2d'), f1 = `400 100px ${fontG}`, f2 = `italic 400 100px Georgia, "Times New Roman", serif`;
+      o.font = f1; const w1 = o.measureText('birch').width; o.font = f2; const w2 = o.measureText('design').width;
+      const fs = 100 * (ow * (mob ? .92 : .84)) / (w1 + w2), x0 = ow / 2 - (w1 + w2) * fs / 200, yc = oh * (mob ? .42 : .47);
+      o.fillStyle = '#fff'; o.textBaseline = 'middle';
+      o.font = `400 ${fs}px ${fontG}`; o.fillText('birch', x0, yc);
+      o.font = `italic 400 ${fs}px Georgia, "Times New Roman", serif`; o.fillText('design', x0 + w1 * fs / 100, yc);
+      const px = o.getImageData(0, 0, ow, oh).data, word = [];
+      for (let j = 0; j < oh; j++) for (let i = 0; i < ow; i++) if (px[(j * ow + i) * 4 + 3] > 110) word.push({ x: (i + .5) * pitch, y: (j + .5) * pitch, d: i < x0 + w1 * fs / 100 ? 0 : 1 });
+      // 2) kostka: kafelki na sześciu ściankach
+      const n = mob ? 7 : 9, cubeT = [];
+      const faces = [[[1, 0, 0], [0, 1, 0], [0, 0, 1]], [[-1, 0, 0], [0, 1, 0], [0, 0, -1]], [[0, 1, 0], [1, 0, 0], [0, 0, 1]], [[0, -1, 0], [1, 0, 0], [0, 0, -1]], [[0, 0, 1], [1, 0, 0], [0, 1, 0]], [[0, 0, -1], [1, 0, 0], [0, -1, 0]]];
+      for (const [nn, u, v] of faces) for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) {
+        const A = (a + .5) / n * 2 - 1, B = (b + .5) / n * 2 - 1;
+        cubeT.push({ p: [nn[0] + u[0] * A + v[0] * B, nn[1] + u[1] * A + v[1] * B, nn[2] + u[2] * A + v[2] * B], u, v, n: nn, h: .8 / n });
+      }
+      cube = mob ? { x: W * .5, y: H * .45, s: Math.min(W * .24, H * .27) } : { x: W * .565, y: H * .53, s: Math.min(W * .1, H * .2) };
+      if (!mob) {   // kostka dokładnie między tekstem a kartą
+        const cp = $('.hero__copy'), hc = $('.hcard');
+        if (cp && hc) { const a = cp.getBoundingClientRect().right - r.left, b = hc.getBoundingClientRect().left - r.left; if (b - a > 160) cube = { x: (a + b) / 2, y: H * .53, s: Math.min((b - a) / 2 / 1.8, H * .2) }; }
+      }
+      // 3) cząstki: każda ma miejsce w napisie albo w kostce (albo w pyle wokół kostki)
+      const N = Math.max(word.length, cubeT.length);
+      for (let i = word.length - 1; i > 0; i--) { const k = Math.floor(R() * (i + 1)); [word[i], word[k]] = [word[k], word[i]]; }
+      ps = [];
+      for (let i = 0; i < N; i++) {
+        const w = word[i] || null, c = cubeT[i] || null;
+        let dust = null;
+        if (!c) { const th = RR(0, 6.283), ph = Math.acos(RR(-1, 1)), rr = RR(1.7, 2.8); dust = [Math.sin(ph) * Math.cos(th) * rr, Math.cos(ph) * rr * .8, Math.sin(ph) * Math.sin(th) * rr]; }
+        const r0 = R(), col = r0 < .1 ? [238, 248, 232] : r0 < .2 ? [79, 154, 70] : [124, 207, 107];
+        ps.push({ w, c, dust, col, d0: R() * .5, d1: R() * .45 + (w ? w.x / W * .25 : .2), ph: R() * 6.283, ox: 0, oy: 0, vx: 0, vy: 0,
+          sx: W / 2 + (w ? w.x - W / 2 : RR(-W, W) * .5) * .06 + RR(-30, 30), sy: H * .47 + (w ? w.y - H * .47 : RR(-H, H) * .5) * .06 + RR(-20, 20) });
+      }
+    };
+    addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; }, { passive: true });
+    addEventListener('pointerleave', () => { mx = my = -1e4; });
+    document.addEventListener('mouseleave', () => { mx = my = -1e4; });
+    let rT; addEventListener('resize', () => { clearTimeout(rT); rT = setTimeout(() => { built = ''; }, 200); });
+    const L = [-.45, -.62, -.64];
+    const ease = p => p * p * (3 - 2 * p), cub = p => 1 - Math.pow(1 - p, 3);
+    const C = [[0, 0], [0, 0], [0, 0], [0, 0]], Wq = [[0, 0], [0, 0], [0, 0], [0, 0]];
+    const tick = now => {
+      requestAnimationFrame(tick);
+      const hr = hero.getBoundingClientRect();
+      if (hr.bottom < 0 || document.hidden) return;
+      if (!built || built !== cv.getBoundingClientRect().width + 'x' + cv.getBoundingClientRect().height) build();
+      if (!ps.length) return;
+      const tt = (now - T0) / 1000, t = now / 1000;
+      if (cbf && tt >= REVEAL) { const f = cbf; cbf = null; f(); }
+      // obrót kostki: sam się kręci, kursor go przechyla
+      const mxn = mx > -1e3 ? mx / W - .5 : 0, myn = my > -1e3 ? my / H - .5 : 0;
+      rY += ((t * .32 + mxn * 1.1) - rY) * .06; rX += ((.52 + myn * .7) - rX) * .06;
+      const cy_ = Math.cos(rY), sy_ = Math.sin(rY), cx_ = Math.cos(rX), sx_ = Math.sin(rX);
+      const rot = v => { const x = v[0] * cy_ + v[2] * sy_, z = -v[0] * sy_ + v[2] * cy_; return [x, v[1] * cx_ - z * sx_, v[1] * sx_ + z * cx_]; };
+      const F = 4.2, pj = (v, o) => { const k = cube.s * F / (F + v[2]); o[0] = cube.x + v[0] * k; o[1] = cube.y + v[1] * k; return k; };
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H);
+      const list = [];
+      for (const p of ps) {
+        // fazy: wlot w napis (0–1.4 s), napis (do 2.1 s), przelot w kostkę (2.1–3.4 s)
+        const fly = cub(clamp((tt - p.d0) / .95)), mor = ease(clamp((tt - 2.05 - p.d1) / .9));
+        let alpha = 1, bri = 1, depth = 0, front = true;
+        // stan „kostka”
+        let kc = 0;
+        if (p.c) {
+          const br = 1 + .05 * Math.sin(t * 2.2 + p.c.p[0] * 2 + p.c.p[1] * 3);
+          const ctr = rot([p.c.p[0] * br, p.c.p[1] * br, p.c.p[2] * br]), nr = rot(p.c.n), u = rot(p.c.u), v = rot(p.c.v), h = p.c.h;
+          for (let k = 0; k < 4; k++) { const su = k === 0 || k === 3 ? -h : h, sv = k < 2 ? -h : h; pj([ctr[0] + u[0] * su + v[0] * sv, ctr[1] + u[1] * su + v[1] * sv, ctr[2] + u[2] * su + v[2] * sv], C[k]); }
+          front = nr[2] < 0; depth = ctr[2];
+          const lam = Math.max(0, -(nr[0] * L[0] + nr[1] * L[1] + nr[2] * L[2]));
+          bri = front ? .5 + .75 * lam : .3; kc = front ? 1 : .2;
+        } else {
+          const v = rot(p.dust), k = pj(v, C[0]), h = 1.4 + k * .006;
+          C[1][0] = C[0][0] + h; C[1][1] = C[0][1]; C[2][0] = C[0][0] + h; C[2][1] = C[0][1] + h; C[3][0] = C[0][0]; C[3][1] = C[0][1] + h;
+          depth = v[2]; kc = .35 + .25 * Math.sin(t * 1.5 + p.ph); bri = .8;
+        }
+        // stan „napis”
+        if (mor < 1) {
+          const tx = p.w ? p.w.x : p.sx, ty = p.w ? p.w.y : p.sy, x = p.sx + (tx - p.sx) * fly, y = p.sy + (ty - p.sy) * fly;
+          const h = pitch * .42 * (.25 + .75 * fly);
+          Wq[0][0] = x - h; Wq[0][1] = y - h; Wq[1][0] = x + h; Wq[1][1] = y - h; Wq[2][0] = x + h; Wq[2][1] = y + h; Wq[3][0] = x - h; Wq[3][1] = y + h;
+          const wave = Math.max(0, Math.sin((p.w ? p.w.x : 0) * .012 - tt * 5)) ** 6;
+          const wa = p.w ? fly : 0, wb = .75 + .6 * wave;
+          for (let k = 0; k < 4; k++) { C[k][0] = Wq[k][0] + (C[k][0] - Wq[k][0]) * mor; C[k][1] = Wq[k][1] + (C[k][1] - Wq[k][1]) * mor; }
+          alpha = wa + (kc - wa) * mor; bri = wb + (bri - wb) * mor; if (mor < .5) front = true;
+        } else alpha = kc;
+        if (alpha < .01) continue;
+        // kursor rozpycha kafelki, sprężyna ściąga je z powrotem
+        const cxp = (C[0][0] + C[2][0]) / 2 + p.ox, cyp = (C[0][1] + C[2][1]) / 2 + p.oy, dx = cxp - mx, dy = cyp - my, dd = Math.hypot(dx, dy), RAD = mob ? 80 : 130;
+        if (dd < RAD && dd > .1) { const f = (1 - dd / RAD) ** 2 * 7; p.vx += dx / dd * f; p.vy += dy / dd * f; }
+        p.vx = (p.vx - p.ox * .045) * .86; p.vy = (p.vy - p.oy * .045) * .86; p.ox += p.vx; p.oy += p.vy;
+        list.push([depth, front, alpha, bri, p.col, C[0][0] + p.ox, C[0][1] + p.oy, C[1][0] + p.ox, C[1][1] + p.oy, C[2][0] + p.ox, C[2][1] + p.oy, C[3][0] + p.ox, C[3][1] + p.oy]);
+      }
+      list.sort((a, b) => b[0] - a[0]);
+      for (const q of list) {
+        const [, , a, b, c] = q;
+        ctx.globalAlpha = Math.min(1, a);
+        ctx.fillStyle = `rgb(${Math.min(255, c[0] * b) | 0},${Math.min(255, c[1] * b) | 0},${Math.min(255, c[2] * b) | 0})`;
+        ctx.beginPath(); ctx.moveTo(q[5], q[6]); ctx.lineTo(q[7], q[8]); ctx.lineTo(q[9], q[10]); ctx.lineTo(q[11], q[12]); ctx.closePath(); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    };
+    requestAnimationFrame(tick);
+    return {
+      play(f) { built = ''; T0 = performance.now(); cbf = f; },
+      finish() { T0 = -1e9; cbf = null; }
+    };
+  })();
+  const toEnd = () => HT.finish();
+  const startVideo = () => {
+    if (introDone) { HT.finish(); return; }
+    videoMode = true;
+    const go = () => { if (!introDone) HT.play(() => reveal()); };
+    // napis potrzebuje fontu: czekamy na niego najwyżej 0.7 s
+    let done = false; const once = () => { if (!done) { done = true; go(); } };
+    try { document.fonts.load('400 100px "Lexend Giga"').then(once, once); } catch (e) { once(); }
+    setTimeout(once, 700);
+  };
+  const SKIP = ['click', 'keydown', 'wheel', 'touchstart'];
+  const reveal = e => {
+    if (introDone) return; introDone = true; introOn = false;
+    if (e && e.type && videoMode) toEnd();   // klik/scroll w trakcie wejścia: od razu kostka
+    hideVideo();
+    SKIP.forEach(ev => removeEventListener(ev, reveal));
+    clearTimeout(introTimer);
+    IN.k = 0; setGauge(1, true);
+    heroWordL.classList.add('on');
+    root.classList.remove('intro-on');
+    hero.classList.add('is-revealed');
+    // „uderzenie”: ekran drga, kora pęka falą, błysk i listki
+    nav.animate([{ opacity: 0, transform: 'translateY(-14px)', filter: 'blur(6px)' }, { opacity: 1, transform: 'none', filter: 'blur(0)' }], { duration: 900, easing: 'cubic-bezier(.2,.7,.1,1)' });
+  };
+  const introStart = () => {
+    introDone = false; introOn = true; introT0 = 0; IN.k = 1;
+    hero.classList.remove('is-revealed'); heroWordL.classList.remove('on', 'now');
+    root.classList.add('intro-on');
+    setGauge(0, false);
+    SKIP.forEach(ev => addEventListener(ev, reveal, { passive: true }));
+    clearTimeout(introTimer); introTimer = setTimeout(reveal, 9000);
+    const tick = (now) => {
+      if (!introOn) return;
+      if (!introT0) { introT0 = now; setTimeout(() => introOn && heroWordL.classList.add('on'), 300); }
+      const p = clamp((now - introT0) / 1000 / REVEAL_AT), e = 1 - Math.pow(1 - p, 3);
+      IN.k = 1 - e; setGauge(p, false);
+      if (p >= 1 && !videoMode) reveal(); else requestAnimationFrame(tick); // przy kwadracikach czekamy, aż ułożą się w kostkę
+    };
+    // start dopiero, gdy strona jest widoczna (podgląd w tle albo ukryta karta nie „zjada” animacji)
+    requestAnimationFrame(() => requestAnimationFrame(tick));
+    startVideo();
+  };
+  const restartAnims = sel => $$(sel).forEach(el => { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; });
+  if (root.classList.contains('intro-on')) { scrollTo(0, 0); introStart(); }
+  else { heroWordL.classList.add('on', 'now'); setGauge(1, true); hero.classList.add('is-revealed'); startVideo(); }
+  replayBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    scrollTo({ top: 0, behavior: 'instant' });
+    restartAnims('.hero .tr, .hero__crown, .hero .fade, .hero__title .ln > span, .hcard, .hero__stats');
+    introStart();
+  });
+
+  /* --- przejście między sekcjami: kurtyna z pni spada falą od miejsca kliknięcia --- */
+  const wipe = $('#wipe'), wpCols = $('#wpCols'), wipeName = $('#wipeName'), wpNo = $('#wpNo'), wpK = $('.wp__k'), wpLine = $('.wp__line'), wpLeaves = $('.wp__leaves');
+  const SECN = { top: 'Start', realizacje: 'Realizacje', show: 'Realizacje', uslugi: 'Usługi', proces: 'Proces', 'o-nas': 'O nas', cennik: 'Cennik', faq: 'Pytania', kontakt: 'Kontakt' };
+  const SECO = ['top', 'realizacje', 'uslugi', 'proces', 'o-nas', 'cennik', 'faq', 'kontakt'];
+  let wiping = false, wpBuilt = 0;
+  const wpBuild = () => {
+    const N = innerWidth < 700 ? 6 : 12, wr = rng(77), WR = (a, b) => a + (b - a) * wr();
+    if (wpBuilt === N) return; wpBuilt = N;
+    let h = '';
+    for (let i = 0; i < N; i++) {
+      h += '<div class="wp__col">';
+      const n = wr() < .5 ? 2 : 1;
+      for (let k = 0; k < n; k++) h += `<span class="wp__tr" style="--x:${WR(6, 72).toFixed(1)}%;--w:${(k ? WR(5, 12) : WR(14, 36)).toFixed(1)}px;--o:${(k ? WR(.2, .4) : WR(.5, .9)).toFixed(2)}"></span>`;
+      h += '</div>';
+    }
+    wpCols.innerHTML = h;
+  };
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const id = a.getAttribute('href').slice(1);
+    const target = id === 'top' ? document.body : document.getElementById(id);
+    if (!target || !SECN[id] || wiping) return;
+    e.preventDefault();
+    const goY = () => id === 'top' ? 0 : target.getBoundingClientRect().top + scrollY;
+    const go = () => scrollTo({ top: goY(), behavior: 'instant' });
+    wiping = true;
+    wpBuild();
+    const down = goY() >= scrollY - 2, dir = down ? 1 : -1;
+    const cx = e.clientX || innerWidth / 2, cy = e.clientY || innerHeight / 2;
+    const cols = [...wpCols.children], cw = innerWidth / cols.length;
+    const delay = i => Math.abs((i + .5) * cw - cx) / innerWidth * 260;
+    // nazwa sekcji litera po literze
+    const name = SECN[id];
+    let ci = 0;
+    wipeName.innerHTML = name.split(' ').map(w => '<span class="w">' + [...w].map(ch => `<span class="c" style="--i:${ci++}">${ch}</span>`).join('') + '</span>').join(' ');
+    wpNo.textContent = String(Math.max(1, SECO.indexOf(id) + 1)).padStart(2, '0') + ' / ' + String(SECO.length).padStart(2, '0');
+    wipe.classList.add('go');
+    const IN = 620, HOLD = 380, OUT = 760, maxD = 260;
+    cols.forEach((c, i) => c.animate([{ transform: `translateY(${dir * 102}%)` }, { transform: 'translateY(0%)' }], { duration: IN, delay: delay(i), easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+    $$('.c', wipeName).forEach((c, k) => c.animate([{ transform: 'translateY(110%) rotate(12deg)' }, { transform: 'translateY(0) rotate(0)' }], { duration: 760, delay: IN * .55 + k * 40, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' }));
+    wpK.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: IN * .6, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' });
+    wpLine.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: IN + HOLD, delay: IN * .5, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' });
+    // listki wylatują z miejsca kliknięcia
+    for (let k = 0; k < 16; k++) {
+      const l = document.createElement('i'); l.className = 'burst-leaf'; l.style.background = GOLD[k % GOLD.length]; l.style.width = '14px'; l.style.height = '10px'; l.style.position = 'absolute';
+      wpLeaves.append(l);
+      const ang = rnd() * Math.PI * 2, v = 120 + rnd() * 320, dx = Math.cos(ang) * v, dy = Math.sin(ang) * v;
+      l.animate([{ transform: `translate(${cx}px, ${cy}px) rotate(0deg) scale(.4)`, opacity: 1 }, { transform: `translate(${cx + dx}px, ${cy + dy + 160}px) rotate(${(rnd() - .5) * 900}deg) scale(1.2)`, opacity: 0 }],
+        { duration: 1100 + rnd() * 600, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }).onfinish = () => l.remove();
+    }
+    setTimeout(go, IN + maxD + 30);
+    setTimeout(() => {
+      go();
+      const tx = $('.wp__t', wipe);
+      tx.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: `translateY(${-dir * 40}px) scale(.96)` }], { duration: 320, easing: 'ease-in', fill: 'forwards' });
+      cols.forEach((c, i) => c.animate([{ transform: 'translateY(0%)' }, { transform: `translateY(${-dir * 102}%)` }], { duration: OUT, delay: delay(i) * .8, easing: 'cubic-bezier(.76,0,.24,1)', fill: 'forwards' }));
+      setTimeout(() => {
+        wipe.classList.remove('go'); wiping = false;
+        tx.getAnimations().forEach(x => x.cancel()); wpK.getAnimations().forEach(x => x.cancel()); wpLine.getAnimations().forEach(x => x.cancel());
+        cols.forEach(c => c.getAnimations().forEach(x => x.cancel()));
+      }, OUT + maxD + 60);
+    }, IN + maxD + HOLD);
+  });
+
+  /* --- kliknięcia: fala światła, sprężynujący przycisk, listki --- */
+  const PRESS = 'a.btn, .btn, button, [role="tab"], .plan, .addon, .tile, .seg label, summary, .arch-item, .chip, .copy';
+  document.addEventListener('pointerdown', e => {
+    if (e.button || e.target.closest('#intro')) return;
+    const el = e.target.closest(PRESS + ', a, label, input, [data-hero]');
+    if (!el) return;
+    const ring = document.createElement('i'); ring.className = 'clk'; document.body.append(ring);
+    const dot = document.createElement('i'); dot.className = 'clk clk--dot'; document.body.append(dot);
+    const at = `translate(${e.clientX}px, ${e.clientY}px)`;
+    ring.animate([{ transform: at + ' scale(.15)', opacity: 1 }, { transform: at + ' scale(1.25)', opacity: 0 }], { duration: 700, easing: 'cubic-bezier(.2,.7,.3,1)' }).onfinish = () => ring.remove();
+    dot.animate([{ transform: at + ' scale(.4)', opacity: 1 }, { transform: at + ' scale(2.2)', opacity: 0 }], { duration: 420, easing: 'ease-out' }).onfinish = () => dot.remove();
+    const p = e.target.closest(PRESS);
+    if (p && p.offsetWidth < 900 && !p.closest('.nav-links')) p.animate([{ scale: 1 }, { scale: .93, offset: .25 }, { scale: 1.035, offset: .62 }, { scale: .995, offset: .85 }, { scale: 1 }], { duration: 560, easing: 'ease-out' });
+  }, { passive: true });
+
+  /* --- przewijanie: słowa w tle, kłody, karty w 3D --- */
+  const secs = $$('section.sec').filter(x => SECN[x.id] && x.id !== 'realizacje');
+  const words2 = secs.map((sec, i) => {
+    const w = document.createElement('div'); w.className = 'sec-word'; w.setAttribute('aria-hidden', 'true');
+    [...SECN[sec.id]].forEach(c => { const sp = document.createElement('span'); sp.textContent = c === ' ' ? '\u00a0' : c; sp._s = { y: 0, v: 0, r: 0, vr: 0 }; w.append(sp); });
+    sec.prepend(w); return { sec, w, dir: i % 2 ? 1 : -1 };
+  });
+  const logs = secs.slice(1).map((sec, i) => {
+    const d = document.createElement('div'); d.className = 'log'; d.setAttribute('aria-hidden', 'true');
+    d.innerHTML = '<i></i>' + [18, 47, 81].map((x, k) => `<b style="left:${x + i * 3}%;rotate:${-30 + k * 25}deg;background:${GOLD[(k + i) % GOLD.length]}"></b>`).join('');
+    sec.before(d); return { d, i: d.firstElementChild, dir: i % 2 ? 1 : -1 };
+  });
+  // grupy kart: kolejne wjeżdżają po sobie
+  $$('.rv').forEach(el => {
+    const sib = [...el.parentElement.children].filter(c => c.classList.contains('rv'));
+    if (sib.length > 1 && !el.style.getPropertyValue('--d')) el.style.setProperty('--d', (sib.indexOf(el) * .08).toFixed(2) + 's');
+    if (!['SECTION', 'BODY', 'MAIN'].includes(el.parentElement.tagName)) el.parentElement.style.perspective = '1400px';
+  });
+  const loop3 = () => {
+    if (!reduce) {
+      const vh = VH();
+      words2.forEach(o => {
+        const r = o.sec.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        const p = clamp((vh - r.top) / (vh + r.height));
+        o.w.style.transform = `translate3d(${(o.dir < 0 ? 6 - p * 40 : -34 + p * 40).toFixed(2)}%, 0, 0)`;
+        // litery przy kursorze podskakują i zapalają się w kolorze akcentu
+        const wr = o.w.getBoundingClientRect(), hot = CUR.on && CUR.y > wr.top - 120 && CUR.y < wr.bottom + 120;
+        if (!o.sp) o.sp = [...o.w.children];
+        o.sp.forEach(sp => {
+          const st = sp._s;
+          let ty = 0, tr = 0, e = 0;
+          if (hot) {
+            const cx = wr.left + sp.offsetLeft + sp.offsetWidth / 2, cy = wr.top + wr.height / 2, d = Math.hypot(cx - CUR.x, (cy - CUR.y) * 1.4);
+            if (d < 260) { const q = 1 - d / 260; e = q * q * (3 - 2 * q); ty = -e * wr.height * .28; tr = (cx < CUR.x ? -1 : 1) * e * 9; }
+          }
+          st.v = (st.v + (ty - st.y) * .16) * .74; st.y += st.v;
+          st.vr = (st.vr + (tr - st.r) * .16) * .74; st.r += st.vr;
+          if (Math.abs(st.y) + Math.abs(st.v) + Math.abs(st.r) > .05 || st.e) {
+            sp.style.transform = `translate3d(0, ${st.y.toFixed(1)}px, 0) rotate(${st.r.toFixed(2)}deg)`;
+            const on = e > .15; if (on !== !!st.e) { st.e = on; sp.style.webkitTextStrokeColor = on ? 'rgba(124, 207, 107, .55)' : ''; }
+          } else if (sp.style.transform) sp.style.transform = '';
+        });
+      });
+      logs.forEach(o => {
+        const r = o.d.getBoundingClientRect();
+        if (r.bottom < -50 || r.top > vh + 50) return;
+        const p = clamp((vh - r.top) / vh);
+        o.i.style.transform = `translate3d(${(o.dir * (p - .5) * 10).toFixed(2)}%, 0, 0)`;
+      });
+    }
+    requestAnimationFrame(loop3);
+  };
+  requestAnimationFrame(loop3);
+
+  /* --- dekodowane napisy: znaki „przewijają się”, zanim ułożą się w tekst --- */
+  const GLYPHS = '▪▫/\\|—_#%&<>+=0123456789ABCDEFGHJKLMNOPRSTUWXYZ';
+  const scramble = (el, text, dur = 700) => {
+    if (reduce || !el) { if (el) el.textContent = text; return; }
+    if (el._scr) cancelAnimationFrame(el._scr);
+    const t0 = performance.now(), n = text.length;
+    const step = now => {
+      const p = clamp((now - t0) / dur);
+      let out = '';
+      for (let i = 0; i < n; i++) {
+        const lim = (i / n) * .7 + .3;
+        out += text[i] === ' ' ? ' ' : (p >= lim ? text[i] : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]);
+      }
+      el.textContent = out;
+      if (p < 1) el._scr = requestAnimationFrame(step); else { el.textContent = text; el._scr = 0; }
+    };
+    el._scr = requestAnimationFrame(step);
+  };
+  // etykiety sekcji dekodują się, gdy wjadą w widok
+  const scrIO = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; scrIO.unobserve(e.target);
+    const tn = [...e.target.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+    if (!tn) return;
+    const sp = document.createElement('span'); sp.className = 'scr'; const txt = tn.textContent.trim(); tn.replaceWith(sp);
+    setTimeout(() => scramble(sp, txt, 900), 200);
+  }), { rootMargin: '0px 0px -10% 0px' });
+  $$('.eyebrow, .plan-name, .hero__stats dt, .archive__label').forEach(el => scrIO.observe(el));
+  // menu: napis dekoduje się po najechaniu
+  // HUD: narożniki pokazują się po zjechaniu z hero
+  const hud = $('#hud');
+  addEventListener('scroll', () => hud.classList.toggle('show', scrollY > VH() * .5), { passive: true });
+
+  /* --- obramówka z kory owija zaznaczone kafelki (pakiety, dodatki, opcje formularza) --- */
+  let bkId = 0;
+  // kafelki z polem wyboru + zakładki (usługi, proces, realizacje) + przełączniki w formularzu
+  const bkCards = [...$$('.plans .plan, .addon, .tile, .seg label').filter(el => $('input', el)), ...$$('.svc-list [role="tab"], .st-nav [role="tab"], .show-list [role="tab"]')];
+  const bkOn = el => { const i = $('input', el); return i ? i.checked : el.getAttribute('aria-selected') === 'true'; };
+  const bkSize = (el) => {
+    const b = el._bk; if (!b) return;
+    const w = el.offsetWidth, h = el.offsetHeight, rad = parseFloat(getComputedStyle(el).borderTopLeftRadius) || 14;
+    b.querySelectorAll('rect').forEach(r => { r.setAttribute('x', 1.5); r.setAttribute('y', 1.5); r.setAttribute('width', Math.max(0, w - 3)); r.setAttribute('height', Math.max(0, h - 3)); r.setAttribute('rx', Math.max(0, rad - 1.5)); });
+    const per = 2 * (w + h);
+    const dashes = []; let acc = 0; const rr = rng(bkId + w);
+    while (acc < per) { const on = 2 + rr() * 9, off = 7 + rr() * 30; dashes.push(on.toFixed(1), off.toFixed(1)); acc += on + off; }
+    b.querySelector('.bk-d').setAttribute('stroke-dasharray', dashes.join(' '));
+  };
+  bkCards.forEach(el => {
+    const id = 'bkm' + (bkId++);
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    el.insertAdjacentHTML('beforeend', `<svg class="bk" aria-hidden="true"><defs><mask id="${id}" maskUnits="userSpaceOnUse" x="-20" y="-20" width="4000" height="4000"><rect class="bk-m" pathLength="100"/></mask></defs><g mask="url(#${id})"><rect class="bk-b"/><rect class="bk-d"/></g></svg>`);
+    el._bk = el.lastElementChild;
+    bkSize(el);
+  });
+  const bkSync = () => bkCards.forEach(el => el._bk.classList.toggle('on', bkOn(el)));
+  document.addEventListener('change', e => { if (e.target.closest('.plans, .addon, .tile, .seg')) requestAnimationFrame(bkSync); });
+  new MutationObserver(() => requestAnimationFrame(bkSync)).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['aria-selected'] });
+  if ('ResizeObserver' in window) { const ro = new ResizeObserver(es => es.forEach(x => bkSize(x.target))); bkCards.forEach(el => ro.observe(el)); }
+  // zaznaczone na starcie owijają się, gdy kafelek wjedzie w widok
+  const bkIO = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { bkIO.unobserve(x.target); setTimeout(bkSync, 500); } }), { threshold: .4 });
+  bkCards.filter(bkOn).forEach(el => bkIO.observe(el));
+
+  /* --- listki z przycisków --- */
+  if (!reduce) document.addEventListener('click', e => {
+    const b = e.target.closest('.btn, .nav-cta, button, [role="tab"], .plan, .addon, .tile, .seg label, summary');
+    if (!b || !e.clientX) return;
+    for (let k = 0; k < 9; k++) {
+      const l = document.createElement('i'); l.className = 'burst-leaf'; l.style.background = GOLD[k % GOLD.length];
+      document.body.append(l);
+      const a = Math.PI * (1.05 + rnd() * .9), v = 50 + rnd() * 70, dx = Math.cos(a) * v, dy = Math.sin(a) * v, r0 = rnd() * 360, rs = (rnd() - .5) * 540;
+      l.animate([
+        { transform: `translate(${e.clientX}px, ${e.clientY}px) rotate(${r0}deg) scale(.4)`, opacity: 1 },
+        { transform: `translate(${e.clientX + dx}px, ${e.clientY + dy}px) rotate(${r0 + rs * .5}deg) scale(1)`, opacity: 1, offset: .35 },
+        { transform: `translate(${e.clientX + dx * 1.5}px, ${e.clientY + dy + 120}px) rotate(${r0 + rs}deg) scale(.8)`, opacity: 0 }
+      ], { duration: 1000 + rnd() * 500, easing: 'cubic-bezier(.2,.7,.4,1)' }).onfinish = () => l.remove();
+    }
+  });
+
+  /* --- nagłówki: słowa wyrastają --- */
+  const splitIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); splitIO.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
+  $$('section.sec h2').forEach(h => {
+    let i = 0;
+    (function wrap(node) {
+      [...node.childNodes].forEach(n => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(t => {
+            if (!t) return;
+            if (/^\s+$/.test(t)) { frag.append(' '); return; }
+            const o = document.createElement('span'); o.className = 'wd';
+            const inn = document.createElement('span'); inn.textContent = t; inn.style.setProperty('--i', i++);
+            o.append(inn); frag.append(o);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') wrap(n);
+      });
+    })(h);
+    h.classList.add('split');
+    splitIO.observe(h);
+  });
+  $$('.eyebrow').forEach(el => splitIO.observe(el));
+
+  /* --- proces: słoje drzewa --- */
+  $$('.st-pane .st-num').forEach((el, idx) => {
+    const r = rng(100 + idx), n = 3 + idx * 2, num = el.textContent.trim();
+    let g = '';
+    for (let k = 0; k < n; k++) {
+      const R = 17 + (27 * (k + 1)) / n, ph = r() * 6.28, ph2 = r() * 6.28;
+      let d = '';
+      for (let a = 0; a <= 64; a++) {
+        const t = a / 64 * Math.PI * 2, rr = R * (1 + .035 * Math.sin(3 * t + ph) + .02 * Math.sin(5 * t + ph2));
+        d += (a ? 'L' : 'M') + (50 + rr * Math.cos(t)).toFixed(2) + ' ' + (50 + rr * Math.sin(t)).toFixed(2);
+      }
+      g += `<path class="ring" style="--i:${k}" d="${d}Z" fill="none" stroke="var(--gold)" stroke-opacity="${(k % 2 ? .38 : .7)}" stroke-width="${(.7 + r() * .7).toFixed(2)}"/>`;
+    }
+    // kora na brzegu: jasny pierścień z ciemnymi znaczeniami
+    const bark = `<circle class="ring" style="--i:${n}" cx="50" cy="50" r="47" fill="none" stroke="#ece8df" stroke-width="3.6"/>` +
+      `<circle class="ring" style="--i:${n}" cx="50" cy="50" r="47" fill="none" stroke="#111" stroke-width="3.8" stroke-dasharray="${[2, 11, 1.2, 17, 3, 8, 1.5, 22].join(' ')}" stroke-dashoffset="${(idx * 13).toFixed(0)}"/>`;
+    const crack = `<path class="ring" style="--i:${n}" d="M50 ${50 - 17}L${(50 + r() * 4 - 2).toFixed(1)} 6" stroke="#000" stroke-width="1.6" stroke-opacity=".75"/>`;
+    el.classList.add('rings');
+    el.innerHTML = `<svg viewBox="0 0 100 100" aria-hidden="true"><g class="rg-spin">${g}${bark}${crack}</g></svg><span>${num}</span>`;
+  });
+
+  /* --- pień postępu z listkami-sekcjami --- */
+  const barkNav = $('#barkNav');
+  const barkFill = $('.bark-nav__fill');
+  const barkSecs = [['realizacje', 'Realizacje'], ['uslugi', 'Usługi'], ['proces', 'Proces'], ['o-nas', 'O nas'], ['cennik', 'Cennik'], ['faq', 'Pytania'], ['kontakt', 'Kontakt']]
+    .map(([id, name]) => ({ el: document.getElementById(id), name })).filter(x => x.el);
+  barkSecs.forEach(x => {
+    const a = document.createElement('a'); a.className = 'bark-leaf'; a.href = '#' + x.el.id; a.setAttribute('aria-label', x.name);
+    a.innerHTML = `<i></i><span>${x.name}</span>`; barkNav.append(a); x.leaf = a;
+  });
+  let barkMax = 1;
+  const barkLayout = () => {
+    barkMax = Math.max(1, document.documentElement.scrollHeight - VH());
+    barkSecs.forEach(x => { x.at = clamp((x.el.offsetTop - VH() * .35) / barkMax); x.leaf.style.setProperty('--y', (x.at * 100).toFixed(2) + '%'); });
+  };
+  barkLayout(); addEventListener('resize', barkLayout); addEventListener('load', barkLayout); setTimeout(barkLayout, 1500);
+
+  /* --- pętla: pień, scena realizacji --- */
+  const stage = $('#showStage');
+  let lastBp = -1, lastSt = -1;
+  const loop2 = () => {
+    const p = clamp(scrollY / barkMax);
+    if (Math.abs(p - lastBp) > .0005) {
+      lastBp = p;
+      barkFill.style.setProperty('--bp', p.toFixed(4));
+      barkNav.classList.toggle('show', scrollY > VH() * .55);
+      barkSecs.forEach(x => x.leaf.classList.toggle('on', p >= x.at - .002));
+    }
+    if (!reduce && stage) {
+      const r = stage.getBoundingClientRect();
+      if (r.top < VH() && r.bottom > 0) {
+        const k = clamp((VH() - r.top) / (VH() * .8)), e = 1 - Math.pow(1 - k, 3);
+        if (Math.abs(e - lastSt) > .001) {
+          lastSt = e;
+          const tilt = innerWidth < 860 ? 7 : 13;
+          stage.style.transform = e >= .999 ? '' : `perspective(1600px) rotateX(${((1 - e) * tilt).toFixed(2)}deg) scale(${(.9 + .1 * e).toFixed(4)}) translateY(${((1 - e) * 30).toFixed(1)}px)`;
+        }
+      }
+    }
+    requestAnimationFrame(loop2);
+  };
+  if (stage) stage.style.transformOrigin = '50% 0%';
+  requestAnimationFrame(loop2);
 })();
 </script>
 </body>
