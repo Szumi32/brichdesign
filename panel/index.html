@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel klienta | birchdesign</title>
+<meta name="description" content="Panel klienta birchdesign: etapy projektu, płatności, pliki i wiadomości w jednym miejscu. Logowanie kontem Google.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#edf0e7">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&family=Lexend+Giga:wght@300;400;500&family=Lexend:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #edf0e7; --bg2: #e3e8db; --card: #f8faf4; --ink: #14201a; --on: #f3f6ee; --muted: #566559; --line: rgba(20, 32, 26, .12); --line2: rgba(20, 32, 26, .24);
+  --gold: #b0521d; --gold-rgb: 176, 82, 29; --ok: #2e7d5b; --warn: #b0521d; --sage: #bcc8b7; --forest: #14201a;
+  --f-g: "Lexend Giga", "Lexend", system-ui, sans-serif; --f-d: "Lexend", system-ui, sans-serif; --f-b: "Inter Tight", system-ui, sans-serif; --f-s: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --ease: cubic-bezier(.22, 1, .36, 1); color-scheme: light; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--f-b); letter-spacing: -.005em; -webkit-font-smoothing: antialiased; min-height: 100svh; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+::selection { background: var(--gold); color: #fff; }
+:focus-visible { outline: 3px solid rgba(var(--gold-rgb), .45); outline-offset: 3px; border-radius: 8px; }
+[hidden] { display: none !important; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font: 300 20px var(--f-g); letter-spacing: -.03em; text-decoration: none; color: var(--ink); }
+.logo b { font-weight: 300; color: var(--gold); }
+.logo .lb { font-weight: 500; }
+.logo svg { display: block; width: 31px; height: 34px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border-radius: 999px; border: 1px solid transparent; background: var(--ink); color: var(--on); font: 500 15px/1 var(--f-b); text-decoration: none; cursor: pointer; transition: background-color .2s ease-in-out, border-color .2s ease-in-out, transform .2s ease-in-out, opacity .2s; }
+.btn:hover { background: #26382d; }
+.btn:active { transform: scale(.98); }
+.btn[disabled] { opacity: .55; cursor: default; }
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line2); }
+.btn--ghost:hover { background: rgba(255, 255, 255, .6); border-color: var(--ink); }
+.btn--sm { padding: 9px 16px; font-size: 14px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 500 11px/1 var(--f-g); letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.eyebrow::before { content: ""; width: 20px; height: 1px; background: currentColor; }
+
+/* ===== logowanie ===== */
+.login { min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.login__art { position: relative; overflow: hidden; padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; justify-content: space-between; background: #aeb9a8; isolation: isolate; }
+.login__art::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url("../assets/hero/bird-last.webp") 58% 42% / cover no-repeat; }
+.login__art::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(212, 222, 207, .55) 0%, rgba(212, 222, 207, 0) 34%, rgba(20, 32, 26, 0) 55%, rgba(20, 32, 26, .55) 100%); }
+.login__quote { color: #f3f6ee; max-width: 30ch; }
+.login__quote h2 { margin: 0; font: 400 clamp(38px, 4.4vw, 64px)/1 var(--f-s); letter-spacing: -.015em; text-shadow: 0 2px 30px rgba(20, 32, 26, .35); }
+.login__quote h2 em { color: #f0b48a; }
+.login__quote ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 8px; font-size: 15px; color: rgba(243, 246, 238, .9); }
+.login__quote li { display: flex; align-items: center; gap: 10px; }
+.login__quote li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #f0b48a; }
+.login__card { display: grid; place-items: center; padding: clamp(24px, 4vw, 56px); background: var(--bg); }
+.lc { width: min(440px, 100%); display: grid; gap: 26px; }
+.lc__top { display: flex; justify-content: space-between; align-items: center; }
+.lc__back { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
+.lc__back:hover { color: var(--ink); }
+.lc h1 { margin: 12px 0 0; font: 400 clamp(40px, 4vw, 54px)/1 var(--f-s); letter-spacing: -.015em; }
+.lc h1 em { color: var(--gold); }
+.lc p { margin: 12px 0 0; color: var(--muted); }
+.lc__box { padding: 26px; border-radius: 22px; border: 1px solid var(--line); background: rgba(255, 255, 255, .55); box-shadow: 0 30px 60px -40px rgba(20, 32, 26, .35); display: grid; gap: 18px; justify-items: center; }
+#gbtn { min-height: 44px; display: grid; place-items: center; }
+.lc__or { width: 100%; display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--muted); }
+.lc__or::before, .lc__or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.lc__fine { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.55; }
+.lc__fine a { color: var(--ink); }
+.lc__note { width: 100%; padding: 12px 14px; border-radius: 12px; background: rgba(var(--gold-rgb), .08); box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), .25); font-size: 14px; }
+.lc__err { min-height: 1.4em; font-size: 14px; color: #b3261e; text-align: center; margin: 0; }
+.lc__help { display: grid; gap: 8px; padding: 0 4px; }
+.lc__help p { margin: 0; font-size: 14px; }
+.lc__help a { color: var(--ink); font-weight: 500; text-underline-offset: 3px; }
+@media (max-width: 900px) { .login { grid-template-columns: 1fr; } .login__art { min-height: 300px; } .login__quote ul { display: none; } }
+
+/* ===== panel ===== */
+.pnav { position: sticky; top: 0; z-index: 30; background: rgba(237, 240, 231, .82); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border-bottom: 1px solid var(--line); }
+.pnav__in { width: min(1240px, 100% - 40px); margin-inline: auto; height: 68px; display: flex; align-items: center; gap: 18px; }
+.pnav__sp { flex: 1; }
+.me { display: flex; align-items: center; gap: 10px; }
+.me img, .me i { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; flex: none; }
+.me i { display: grid; place-items: center; background: var(--forest); color: var(--on); font: 500 14px var(--f-b); font-style: normal; }
+.me span { display: grid; line-height: 1.2; font-size: 14px; text-align: right; }
+.me small { color: var(--muted); font-size: 12px; }
+.shell { width: min(1240px, 100% - 40px); margin: 28px auto 80px; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 30px; align-items: start; }
+.side { position: sticky; top: 92px; display: grid; gap: 4px; }
+.side button { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 14px; border: 1px solid transparent; background: transparent; text-align: left; font-size: 15px; font-weight: 500; color: rgba(20, 32, 26, .72); cursor: pointer; transition: background-color .2s ease-in-out, color .2s, border-color .2s; }
+.side button:hover { background: rgba(20, 32, 26, .05); color: var(--ink); }
+.side button[aria-selected="true"] { background: var(--card); border-color: var(--line); color: var(--ink); box-shadow: 0 1px 2px rgba(20, 32, 26, .06); }
+.side svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.side .sep { margin: 10px 14px 4px; font: 500 10.5px/1 var(--f-g); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.main { min-width: 0; display: grid; gap: 22px; }
+.hello h1 { margin: 10px 0 0; font: 400 clamp(36px, 4vw, 56px)/1.02 var(--f-s); letter-spacing: -.015em; }
+.hello h1 em { color: var(--gold); }
+.hello p { margin: 10px 0 0; color: var(--muted); max-width: 60ch; }
+.card { padding: clamp(20px, 2.4vw, 30px); border-radius: 22px; border: 1px solid var(--line); background: var(--card); box-shadow: 0 1px 2px rgba(20, 32, 26, .05); }
+.card h3 { margin: 0 0 6px; font: 400 clamp(26px, 2.4vw, 32px)/1.1 var(--f-s); }
+.card .sub { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.proj { display: grid; gap: 22px; }
+.proj__head { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-start; justify-content: space-between; }
+.proj__head h3 { margin: 0; }
+.chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(20, 32, 26, .06); font-size: 13px; font-weight: 500; }
+.chip.ok { background: rgba(46, 125, 91, .12); color: #1f6247; }
+.chip.warn { background: rgba(var(--gold-rgb), .12); color: #8f3f12; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; counter-reset: s; }
+.steps li { position: relative; padding-top: 22px; font-size: 13.5px; line-height: 1.35; color: var(--muted); }
+.steps li::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; border-radius: 5px; background: rgba(20, 32, 26, .1); }
+.steps li.done::before { background: var(--ink); }
+.steps li.cur::before { background: linear-gradient(90deg, var(--gold) 55%, rgba(var(--gold-rgb), .25) 55%); }
+.steps li b { display: block; color: var(--ink); font-weight: 600; font-size: 14px; }
+.steps li.cur b { color: var(--gold); }
+.next { padding: 16px 18px; border-radius: 16px; background: rgba(var(--gold-rgb), .08); box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), .22); }
+.next small { display: block; font: 500 10.5px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255, 255, 255, .5); }
+.row > :first-child { flex: 1 1 200px; min-width: 0; }
+.row b { display: block; font-weight: 600; }
+.row small { color: var(--muted); font-size: 13.5px; }
+.amt { font: 400 26px/1 var(--f-s); }
+.feed { display: grid; gap: 12px; }
+.msg { max-width: 640px; padding: 14px 16px; border-radius: 18px; background: rgba(255, 255, 255, .6); border: 1px solid var(--line); }
+.msg.me2 { justify-self: end; background: var(--forest); color: var(--on); border-color: transparent; }
+.msg small { display: block; margin-bottom: 4px; font-size: 12px; opacity: .65; }
+.msg p { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.compose { display: grid; gap: 10px; margin-top: 18px; }
+textarea, input[type=text], input[type=email], input[type=url], input[type=number], select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line2); background: #fff; }
+textarea { min-height: 96px; resize: vertical; }
+label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: var(--muted); }
+.empty { padding: 34px 20px; text-align: center; color: var(--muted); border: 1px dashed var(--line2); border-radius: 18px; }
+.empty b { display: block; color: var(--ink); font: 400 28px/1.1 var(--f-s); margin-bottom: 6px; }
+.toast { position: fixed; left: 50%; bottom: 24px; translate: -50% 20px; z-index: 60; padding: 12px 18px; border-radius: 999px; background: var(--forest); color: var(--on); font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .25s ease-in-out, translate .25s ease-in-out; }
+.toast.on { opacity: 1; translate: -50% 0; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.tbl th { text-align: left; font: 500 10.5px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); padding: 0 10px 10px 0; }
+.tbl td { padding: 12px 10px 12px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.tbl button { cursor: pointer; }
+.pre { display: grid; gap: 12px; }
+.form3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.sk { height: 120px; border-radius: 22px; background: linear-gradient(90deg, rgba(20, 32, 26, .05), rgba(20, 32, 26, .1), rgba(20, 32, 26, .05)); background-size: 200% 100%; animation: sk 1.4s linear infinite; }
+@keyframes sk { to { background-position: -200% 0; } }
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; gap: 18px; margin-top: 18px; }
+  .side { position: static; display: flex; overflow-x: auto; gap: 6px; padding-bottom: 4px; scrollbar-width: none; }
+  .side button { flex: none; white-space: nowrap; padding: 9px 14px; }
+  .side .sep { display: none; }
+  .grid2, .form3 { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .steps li { padding: 0 0 0 16px; }
+  .steps li::before { top: 4px; bottom: 4px; right: auto; width: 4px; height: auto; }
+  .me span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="bd-mark" viewBox="6 2 40 44">
+    <circle cx="31" cy="31" r="10" fill="none" stroke="#b0521d" stroke-width="6"/>
+    <path fill="#14201a" fill-rule="evenodd" d="M8.5 9.5a5.5 5.5 0 0 1 11 0v29a5.5 5.5 0 0 1-11 0z M12.4 14.5h3.2a1.4 1.4 0 0 1 0 2.8h-3.2a1.4 1.4 0 0 1 0-2.8z M12.4 23h1.7a1.4 1.4 0 0 1 0 2.8h-1.7a1.4 1.4 0 0 1 0-2.8z"/>
+  </symbol>
+</svg>
+
+<!-- ============ LOGOWANIE ============ -->
+<main class="login" id="viewLogin" hidden>
+  <section class="login__art" aria-hidden="true">
+    <a href="../index.html" class="logo" tabindex="-1"><svg viewBox="0 0 40 44"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a>
+    <div class="login__quote">
+      <h2>Twoja strona,<br><em>w jednym miejscu.</em></h2>
+      <ul><li>Etapy projektu i najbliższy krok</li><li>Płatności: zaliczka i płatność końcowa</li><li>Pliki, podgląd strony i wiadomości do nas</li></ul>
+    </div>
+  </section>
+  <section class="login__card">
+    <div class="lc">
+      <div class="lc__top"><a href="../index.html" class="logo" aria-label="birchdesign: strona główna"><svg viewBox="0 0 40 44" aria-hidden="true"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a><a class="lc__back" href="../index.html">← Wróć na stronę</a></div>
+      <div><span class="eyebrow">Panel klienta</span><h1>Witaj <em>ponownie.</em></h1><p>Zaloguj się kontem Google, tym samym, którego adres podałeś nam w zapytaniu. Nie zakładamy osobnych haseł.</p></div>
+      <div class="lc__box">
+        <div id="gbtn" aria-live="polite"></div>
+        <p class="lc__err" id="loginErr" role="alert"></p>
+        <div class="lc__note" id="notCfg" hidden>Logowanie zostanie włączone po skonfigurowaniu panelu na serwerze. Do tego czasu napisz do nas: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</div>
+        <p class="lc__fine">Logując się, akceptujesz <a href="../regulamin.html">regulamin współpracy</a>. Dostajemy tylko imię, adres e-mail i zdjęcie profilowe z Google. Hasła nie przechodzą przez naszą stronę.</p>
+      </div>
+      <div class="lc__help"><p>Nie masz jeszcze projektu? <a href="../index.html#kontakt">Zamów bezpłatną wycenę</a>.</p><p>Nie możesz się zalogować? <a href="mailto:hello@birchdesign.pl">Napisz do nas</a> lub zadzwoń: <a href="tel:+48513970699">+48 513 970 699</a>.</p></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ PANEL ============ -->
+<div id="viewApp" hidden>
+  <header class="pnav"><div class="pnav__in">
+    <a href="../index.html" class="logo" aria-label="birchdesign: strona główna"><svg viewBox="0 0 40 44" aria-hidden="true"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a>
+    <span class="pnav__sp"></span>
+    <div class="me"><span><b id="meName"></b><small id="meMail"></small></span><span id="meAv" style="display:contents"></span></div>
+    <button class="btn btn--ghost btn--sm" id="btnOut" type="button">Wyloguj</button>
+  </div></header>
+  <div class="shell">
+    <nav class="side" id="side" role="tablist" aria-label="Sekcje panelu"></nav>
+    <main class="main" id="main" aria-live="polite"></main>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const money = n => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(n || 0);
+  const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }); };
+  const STAGES = [['Rozmowa', 'Wycena i plan'], ['Projekt', 'Wygląd do akceptacji'], ['Budowa', 'Kodowanie i treści'], ['Poprawki i start', 'Publikacja strony'], ['Opieka', 'Aktualizacje na bieżąco']];
+  const ICON = {
+    home: '<path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5H9v5H5a1 1 0 0 1-1-1z"/>',
+    pay: '<rect x="3.5" y="6" width="17" height="12" rx="2.5"/><path d="M3.5 10h17M7 15h3"/>',
+    file: '<path d="M7 3.5h6.5L18 8v12.5H7z"/><path d="M13 3.5V8h5"/>',
+    chat: '<path d="M5 6.5h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-7l-4 3v-3H5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1z"/>',
+    users: '<circle cx="9" cy="9" r="3"/><path d="M3.5 19c.7-3 3-4.5 5.5-4.5s4.8 1.5 5.5 4.5M16 6.5a3 3 0 0 1 0 5.5M17.5 14.7c1.7.5 2.7 2 3 4.3"/>'
+  };
+  const ico = n => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
+
+  const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const DEMO = LOCAL && /[?&]demo/.test(location.search);   // podgląd wyglądu na własnym komputerze (bez serwera)
+  let csrf = '', state = { user: null, client: null, clients: [] }, tab = 'start';
+
+  /* ---------- tryb podglądu (tylko localhost + ?demo) ---------- */
+  const demoDb = () => ({
+    user: { email: 'anna@example.com', name: 'Anna Kowalska', picture: '', admin: /[?&]admin/.test(location.search) },
+    client: { name: 'Anna Kowalska', projects: [{
+      id: 'd1', name: 'Strona gabinetu stomatologicznego', package: 'Strona firmowa', stage: 3, next: 'Prześlij zdjęcia gabinetu i zespołu (min. 6 sztuk). Do piątku pokażemy wersję roboczą.',
+      preview_url: 'https://szumi32.github.io/baranska-stomatolog/',
+      payments: [{ id: 'a', label: 'Zaliczka 50%', amount: 1745, status: 'paid', due: '2026-11-18', url: '' }, { id: 'b', label: 'Płatność końcowa 50%', amount: 1745, status: 'due', due: 'po publikacji strony', url: '' }],
+      files: [{ name: 'Wycena i zakres prac.pdf', url: 'https://example.com/wycena.pdf' }, { name: 'Projekt strony głównej', url: 'https://example.com/projekt' }],
+      updates: [{ at: '2026-11-19T10:00:00', by: 'admin', text: 'Dzień dobry! Projekt strony głównej jest gotowy do akceptacji. Daj znać, co zmienić.' }, { at: '2026-11-19T14:30:00', by: 'client', text: 'Wygląda świetnie. Poproszę tylko większe zdjęcie zespołu.' }]
+    }] },
+    clients: [{ email: 'anna@example.com', name: 'Anna Kowalska', projects: [{ id: 'd1', name: 'Strona gabinetu stomatologicznego', package: 'Strona firmowa', stage: 3 }] }]
+  });
+  let demo = DEMO ? demoDb() : null;
+
+  async function api(action, data) {
+    if (DEMO) {
+      await new Promise(r => setTimeout(r, 250));
+      if (action === 'session') return { ok: true, configured: true, clientId: 'demo', csrf: 'x', user: demo.in ? demo.user : null };
+      if (action === 'me') return { ok: true, user: demo.user, client: demo.client };
+      if (action === 'message') { demo.client.projects[0].updates.push({ at: new Date().toISOString(), by: 'client', text: data.text }); return { ok: true, client: demo.client }; }
+      if (action === 'admin_list') return { ok: true, clients: demo.clients };
+      return { ok: true, clients: demo.clients };
+    }
+    const opt = { credentials: 'same-origin', headers: { 'Accept': 'application/json' } };
+    if (data !== undefined) { opt.method = 'POST'; opt.headers['Content-Type'] = 'application/json'; opt.headers['X-CSRF-Token'] = csrf; opt.body = JSON.stringify(data); }
+    let r, j;
+    try { r = await fetch('api.php?action=' + action, opt); j = await r.json(); } catch (e) { return { ok: false, error: 'Brak połączenia z serwerem panelu.' }; }
+    return j;
+  }
+
+  const toast = (t) => { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2600); };
+
+  /* ---------- start ---------- */
+  async function boot() {
+    const s = await api('session');
+    if (!s.ok) { showLogin(null, s.error || 'Panel jest chwilowo niedostępny.'); return; }
+    csrf = s.csrf;
+    if (s.user) { state.user = s.user; await openApp(); return; }
+    showLogin(s);
+  }
+
+  function showLogin(s, err) {
+    $('#viewApp').hidden = true; $('#viewLogin').hidden = false;
+    $('#loginErr').textContent = err || '';
+    if (!s || !s.configured) { $('#notCfg').hidden = false; if (!err) $('#loginErr').textContent = ''; return; }
+    $('#notCfg').hidden = true;
+    const init = () => {
+      if (!window.google || !google.accounts || !google.accounts.id) return false;
+      google.accounts.id.initialize({ client_id: s.clientId, callback: onCredential, auto_select: false, cancel_on_tap_outside: true, itp_support: true });
+      google.accounts.id.renderButton($('#gbtn'), { theme: 'outline', size: 'large', shape: 'pill', text: 'continue_with', logo_alignment: 'left', locale: 'pl', width: 320 });
+      return true;
+    };
+    if (DEMO) { $('#gbtn').innerHTML = '<button class="btn" type="button" id="demoGo">Zaloguj się (podgląd)</button>'; $('#demoGo').addEventListener('click', async () => { demo.in = true; state.user = demo.user; await openApp(); }); return; }
+    if (init()) return;
+    const sc = document.createElement('script');
+    sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true; sc.defer = true;
+    sc.onload = () => { if (!init()) $('#loginErr').textContent = 'Nie udało się załadować logowania Google.'; };
+    sc.onerror = () => { $('#loginErr').textContent = 'Nie udało się połączyć z Google. Sprawdź internet lub wyłącz blokadę skryptów.'; };
+    document.head.append(sc);
+  }
+
+  async function onCredential(resp) {
+    $('#loginErr').textContent = '';
+    const r = await api('login', { credential: resp.credential });
+    if (!r.ok) { $('#loginErr').textContent = r.error || 'Logowanie nie powiodło się.'; return; }
+    csrf = r.csrf; state.user = r.user; await openApp();
+  }
+
+  async function openApp() {
+    $('#viewLogin').hidden = true; $('#viewApp').hidden = false;
+    const u = state.user;
+    $('#meName').textContent = u.name; $('#meMail').textContent = u.email;
+    $('#meAv').innerHTML = u.picture ? `<img src="${esc(u.picture)}" alt="" referrerpolicy="no-referrer" width="36" height="36">` : `<i aria-hidden="true">${esc((u.name || '?').trim().charAt(0).toUpperCase())}</i>`;
+    $('#main').innerHTML = '<div class="sk"></div><div class="sk"></div>';
+    const r = await api('me');
+    if (!r.ok) { if (DEMO) return; await signOut(true); return; }
+    state.client = r.client;
+    if (u.admin) { const a = await api('admin_list'); if (a.ok) state.clients = a.clients; }
+    renderSide(); render();
+  }
+
+  async function signOut(silent) {
+    if (DEMO) demo.in = false; else await api('logout', {});
+    if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
+    state = { user: null, client: null, clients: [] }; tab = 'start';
+    const s = await api('session'); csrf = s.csrf || '';
+    showLogin(s, silent ? 'Sesja wygasła. Zaloguj się ponownie.' : '');
+  }
+  $('#btnOut').addEventListener('click', () => signOut(false));
+
+  /* ---------- nawigacja panelu ---------- */
+  function renderSide() {
+    const items = [['start', 'Przegląd', 'home'], ['pay', 'Płatności', 'pay'], ['files', 'Pliki i podgląd', 'file'], ['chat', 'Wiadomości', 'chat']];
+    let h = items.map(([id, t, i]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${tab === id}">${ico(i)}<span>${t}</span></button>`).join('');
+    if (state.user.admin) h += `<div class="sep">Administrator</div><button type="button" role="tab" data-tab="admin" aria-selected="${tab === 'admin'}">${ico('users')}<span>Klienci</span></button>`;
+    $('#side').innerHTML = h;
+  }
+  $('#side').addEventListener('click', e => { const b = e.target.closest('button[data-tab]'); if (!b) return; tab = b.dataset.tab; renderSide(); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+  const projects = () => (state.client && state.client.projects) || [];
+  const firstName = () => (state.user.name || '').split(' ')[0] || 'Klient';
+
+  function render() {
+    const m = $('#main');
+    if (tab === 'admin') return renderAdmin(m);
+    const ps = projects();
+    if (!ps.length) {
+      m.innerHTML = `<div class="hello"><span class="eyebrow">Panel klienta</span><h1>Cześć, <em>${esc(firstName())}.</em></h1><p>Jesteś zalogowany jako ${esc(state.user.email)}.</p></div>
+        <div class="empty"><b>Nie widzimy jeszcze Twojego projektu</b>Jeśli właśnie ustaliliśmy współpracę, dodamy go w ciągu dnia. Jeśli zapytanie wysłałeś z innego adresu e-mail, napisz do nas: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.<br><br><a class="btn" href="../index.html#kontakt">Zamów bezpłatną wycenę</a></div>`;
+      return;
+    }
+    if (tab === 'start') m.innerHTML = hello() + ps.map(projCard).join('');
+    if (tab === 'pay') m.innerHTML = ps.map(payCard).join('');
+    if (tab === 'files') m.innerHTML = ps.map(fileCard).join('');
+    if (tab === 'chat') { m.innerHTML = ps.map(chatCard).join(''); }
+  }
+
+  const hello = () => `<div class="hello"><span class="eyebrow">Panel klienta</span><h1>Cześć, <em>${esc(firstName())}.</em></h1><p>Tu zobaczysz, na jakim etapie jest Twoja strona, co jest do zrobienia i jak wyglądają płatności.</p></div>`;
+
+  function projCard(p) {
+    const pay = (p.payments || []);
+    const due = pay.filter(x => x.status !== 'paid');
+    const steps = STAGES.map((s, i) => `<li class="${i + 1 < p.stage ? 'done' : i + 1 === p.stage ? 'cur' : ''}"><b>${esc(s[0])}</b>${esc(s[1])}</li>`).join('');
+    return `<article class="card proj">
+      <div class="proj__head"><div><span class="eyebrow">${esc(p.package || 'Projekt')}</span><h3>${esc(p.name)}</h3></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${due.length ? `<span class="chip warn">Do zapłaty: ${money(due.reduce((a, x) => a + x.amount, 0))}</span>` : '<span class="chip ok">Wszystko opłacone</span>'}<span class="chip">Etap ${p.stage} z 5</span></div></div>
+      <ol class="steps" aria-label="Etapy projektu">${steps}</ol>
+      ${p.next ? `<div class="next"><small>Najbliższy krok</small>${esc(p.next)}</div>` : ''}
+      ${p.preview_url ? `<div><a class="btn btn--ghost btn--sm" href="${esc(p.preview_url)}" target="_blank" rel="noopener">Zobacz podgląd strony ↗</a></div>` : ''}
+    </article>`;
+  }
+
+  const payCard = p => `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Zaliczka 50% rozpoczyna prace, płatność końcowa po publikacji strony. Szczegóły w <a href="../regulamin.html#s5">regulaminie</a>.</p>
+    ${(p.payments || []).length ? `<ul class="list">${p.payments.map(x => `<li class="row"><div><b>${esc(x.label)}</b><small>${x.status === 'paid' ? 'Opłacone' : 'Termin: ' + esc(x.due || 'do ustalenia')}</small></div><span class="amt">${money(x.amount)}</span>${x.status === 'paid' ? '<span class="chip ok">Opłacone</span>' : x.url ? `<a class="btn btn--sm" href="${esc(x.url)}" target="_blank" rel="noopener">Zapłać online</a>` : '<span class="chip warn">Czeka na płatność</span>'}</li>`).join('')}</ul>` : '<div class="empty">Płatności pojawią się tu po wycenie.</div>'}
+    <p class="sub" style="margin:16px 0 0">Dane do przelewu i fakturę wysyłamy na e-mail. W razie pytań: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</p></article>`;
+
+  const fileCard = p => `<article class="card"><h3>${esc(p.name)}</h3>
+    ${p.preview_url ? `<p class="sub">Podgląd na żywo: <a href="${esc(p.preview_url)}" target="_blank" rel="noopener">${esc(p.preview_url.replace(/^https?:\/\//, ''))}</a></p>` : '<p class="sub">Podgląd strony pojawi się, gdy skończymy projekt.</p>'}
+    ${(p.files || []).length ? `<ul class="list">${p.files.map(f => `<li class="row"><div><b>${esc(f.name)}</b><small>${esc(f.url.replace(/^https?:\/\//, '').slice(0, 60))}</small></div><a class="btn btn--ghost btn--sm" href="${esc(f.url)}" target="_blank" rel="noopener">Otwórz ↗</a></li>`).join('')}</ul>` : '<div class="empty">Brak plików. Gdy coś dla Ciebie przygotujemy, znajdziesz to tutaj.</div>'}</article>`;
+
+  const chatCard = p => {
+    const ups = (p.updates || []).slice().sort((a, b) => new Date(a.at) - new Date(b.at));
+    return `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Wiadomości do nas i aktualizacje projektu. Odpowiadamy zwykle w ciągu 24 godzin.</p>
+      <div class="feed">${ups.length ? ups.map(u => `<div class="msg ${u.by === 'client' ? 'me2' : ''}"><small>${u.by === 'client' ? 'Ty' : 'birchdesign'} · ${esc(when(u.at))}</small><p>${esc(u.text)}</p></div>`).join('') : '<div class="empty">Jeszcze nic tu nie ma. Napisz pierwszą wiadomość.</div>'}</div>
+      <form class="compose" data-send="${esc(p.id)}"><label class="f">Twoja wiadomość<textarea name="t" maxlength="1500" required placeholder="Np. wysyłam nowe zdjęcia, proszę o zmianę koloru przycisku…"></textarea></label><div><button class="btn" type="submit">Wyślij wiadomość</button></div></form></article>`;
+  };
+
+  $('#main').addEventListener('submit', async e => {
+    const f = e.target.closest('form[data-send]'); if (f) {
+      e.preventDefault();
+      const t = f.t.value.trim(); if (!t) return;
+      const btn = $('button', f); btn.disabled = true;
+      const r = await api('message', { project: f.dataset.send, text: t });
+      btn.disabled = false;
+      if (!r.ok) { toast(r.error || 'Nie udało się wysłać.'); return; }
+      state.client = r.client; render(); toast('Wiadomość wysłana. Dziękujemy!');
+      return;
+    }
+    const a = e.target.closest('#adminForm'); if (a) { e.preventDefault(); await saveAdmin(a); }
+  });
+
+  /* ---------- administrator ---------- */
+  let editing = null;
+  function renderAdmin(m) {
+    const rows = [];
+    state.clients.forEach(c => (c.projects.length ? c.projects : [null]).forEach(p => rows.push(`<tr><td><b>${esc(c.name || '(bez nazwy)')}</b><br><small>${esc(c.email)}</small></td><td>${p ? esc(p.name) + '<br><small>' + esc(p.package || '') + '</small>' : '<small>brak projektu</small>'}</td><td>${p ? 'Etap ' + p.stage + ' z 5' : ''}</td><td style="white-space:nowrap">${p ? `<button class="btn btn--ghost btn--sm" type="button" data-edit="${esc(c.email)}|${esc(p.id)}">Edytuj</button> ` : ''}<button class="btn btn--ghost btn--sm" type="button" data-del="${esc(c.email)}|${p ? esc(p.id) : ''}">Usuń</button></td></tr>`)));
+    const e = editing;
+    m.innerHTML = `<div class="hello"><span class="eyebrow">Administrator</span><h1>Twoi <em>klienci.</em></h1><p>Dodaj klienta po adresie Gmail, z którego się loguje, i przypisz mu projekt. Klient zobaczy go po zalogowaniu.</p></div>
+      <article class="card"><h3>${e ? 'Edytuj projekt' : 'Nowy projekt'}</h3><form id="adminForm" class="pre">
+        <div class="grid2"><label class="f">E-mail klienta (konto Google)<input type="email" name="email" required value="${esc(e ? e.email : '')}"></label><label class="f">Imię i nazwisko / firma<input type="text" name="cname" value="${esc(e ? e.cname : '')}"></label></div>
+        <div class="grid2"><label class="f">Nazwa projektu<input type="text" name="pname" required value="${esc(e ? e.p.name : '')}"></label><label class="f">Pakiet<input type="text" name="package" placeholder="Strona firmowa" value="${esc(e ? e.p.package : '')}"></label></div>
+        <div class="form3"><label class="f">Etap<select name="stage">${STAGES.map((s, i) => `<option value="${i + 1}" ${(e ? e.p.stage : 1) === i + 1 ? 'selected' : ''}>${i + 1}. ${esc(s[0])}</option>`).join('')}</select></label><label class="f">Cena całkowita (zł)<input type="number" name="total" min="0" step="1" value="${e ? esc(Math.round(((e.p.payments || []).reduce((a, x) => a + x.amount, 0)) || 0)) : ''}"></label><label class="f">Link do podglądu<input type="url" name="preview" placeholder="https://" value="${esc(e ? e.p.preview_url : '')}"></label></div>
+        <label class="f">Najbliższy krok (widoczny dla klienta)<input type="text" name="next" value="${esc(e ? e.p.next : '')}"></label>
+        <div class="grid2"><label class="f" style="grid-auto-flow:column;justify-content:start;align-items:center;gap:10px"><input type="checkbox" name="p1" ${e && e.p.payments && e.p.payments[0] && e.p.payments[0].status === 'paid' ? 'checked' : ''}> Zaliczka 50% opłacona</label><label class="f" style="grid-auto-flow:column;justify-content:start;align-items:center;gap:10px"><input type="checkbox" name="p2" ${e && e.p.payments && e.p.payments[1] && e.p.payments[1].status === 'paid' ? 'checked' : ''}> Płatność końcowa opłacona</label></div>
+        <div class="grid2"><label class="f">Link płatności: zaliczka (opcjonalnie)<input type="url" name="u1" value="${esc(e && e.p.payments && e.p.payments[0] ? e.p.payments[0].url : '')}"></label><label class="f">Link płatności: końcowa (opcjonalnie)<input type="url" name="u2" value="${esc(e && e.p.payments && e.p.payments[1] ? e.p.payments[1].url : '')}"></label></div>
+        <div class="grid2"><label class="f">Nowy plik: nazwa<input type="text" name="fname"></label><label class="f">Nowy plik: link<input type="url" name="furl" placeholder="https://"></label></div>
+        <label class="f">Nowa wiadomość dla klienta (opcjonalnie)<textarea name="upd" maxlength="1500"></textarea></label>
+        <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">${e ? 'Zapisz zmiany' : 'Dodaj projekt'}</button>${e ? '<button class="btn btn--ghost" type="button" id="adminCancel">Anuluj</button>' : ''}</div>
+      </form></article>
+      <article class="card"><h3>Wszyscy klienci</h3>${rows.length ? `<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Klient</th><th>Projekt</th><th>Etap</th><th></th></tr></thead><tbody>${rows.join('')}</tbody></table></div>` : '<div class="empty">Brak klientów. Dodaj pierwszego powyżej.</div>'}</article>`;
+  }
+  $('#main').addEventListener('click', async e => {
+    const ed = e.target.closest('[data-edit]'), dl = e.target.closest('[data-del]');
+    if (ed) { const [em, id] = ed.dataset.edit.split('|'); const c = state.clients.find(x => x.email === em); const p = c && c.projects.find(x => x.id === id); if (p) { editing = { email: em, cname: c.name, p }; renderAdmin($('#main')); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
+    if (dl) { const [em, id] = dl.dataset.del.split('|'); if (!confirm(id ? 'Usunąć ten projekt?' : 'Usunąć klienta ze wszystkimi projektami?')) return; const r = await api('admin_delete', { email: em, project: id }); if (r.ok) { state.clients = r.clients; renderAdmin($('#main')); toast('Usunięto.'); } else toast(r.error || 'Błąd.'); }
+    if (e.target.id === 'adminCancel') { editing = null; renderAdmin($('#main')); }
+  });
+  async function saveAdmin(f) {
+    const v = n => f.elements[n].value.trim();
+    const total = Math.max(0, +v('total') || 0), half = Math.round(total / 2);
+    const old = editing ? editing.p : null;
+    const pays = [{ id: 'z1', label: 'Zaliczka 50%', amount: half, status: f.elements.p1.checked ? 'paid' : 'due', due: 'na start prac', url: v('u1') }, { id: 'z2', label: 'Płatność końcowa 50%', amount: total - half, status: f.elements.p2.checked ? 'paid' : 'due', due: 'po publikacji strony', url: v('u2') }];
+    const files = (old ? old.files || [] : []).slice(); if (v('furl')) files.push({ name: v('fname') || 'Plik', url: v('furl') });
+    const updates = (old ? old.updates || [] : []).slice(); if (v('upd')) updates.push({ at: new Date().toISOString(), by: 'admin', text: v('upd') });
+    const btn = $('button[type=submit]', f); btn.disabled = true;
+    const r = await api('admin_save', { email: v('email'), client_name: v('cname'), project: { id: old ? old.id : '', name: v('pname'), package: v('package'), stage: +f.elements.stage.value, next: v('next'), preview_url: v('preview'), payments: pays, files, updates } });
+    btn.disabled = false;
+    if (!r.ok) { toast(r.error || 'Nie udało się zapisać.'); return; }
+    state.clients = r.clients; editing = null; renderAdmin($('#main')); toast('Zapisano.');
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>

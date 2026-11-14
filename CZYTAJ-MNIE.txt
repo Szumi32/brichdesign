@@ -61,3 +61,14 @@ AKTUALIZACJA 2026-11-14 (SEO i „O nas”)
 - Teksty SEO: nadtytuł w H1 „Projektowanie stron internetowych · Warszawa i cała Polska”, opisy usług (H3), blok „Tworzymy strony internetowe w Warszawie i zdalnie” i „Dlaczego warto nam zaufać?”.
 - Techniczne SEO: title i meta description, opisowe alt-y zrzutów, obrazy w WebP, dane strukturalne JSON-LD (ProfessionalService, Warszawa), krótkie studia przypadków (cel i rozwiązanie) przy realizacjach.
 - DO UZUPEŁNIENIA przez właściciela: realne wyniki klientów w studiach przypadków, wizytówka Google Moja Firma, link „Projekt i realizacja: birchdesign” w stopkach stron klientów.
+
+--- v25 (2026-11-14): jasny motyw „szałwia” pod zimorodka ---
+- Hero: film assets/hero/bird*.webm|mp4 (przylot i lądowanie zimorodka, napis „Birch” wypieczony za ptakiem, 5,4 s, gra raz),
+  bird-last.webp = kadr końcowy (bez filmu / oszczędzanie energii). Źródło klipu: media_zrodla/ (poza repo).
+  UWAGA: przylot pochodzi z filmu-wzoru dostarczonego przez właściciela (ptaszek.mp4); prawa do tego ujęcia trzeba potwierdzić
+  przed komercyjnym użyciem. Zapasowe darmowe ujęcie (Pexels, siedzący ptak) opisane w historii gita.
+- Cała strona na jasnym motywie (zmienne w bloku v25 na końcu <style>); ciemne panele: proces, kalkulator, kreator, „O nas”.
+- Realizacje: galeria ekranów 3D (klasa .pjs), zrzuty z assets/previews/*.webp. Klatki z Blendera (assets/realizacje) nieużywane.
+- Kreator kontaktu: wybór nie przechodzi dalej sam, trzeba kliknąć „Dalej”.
+- Panel klienta: folder panel/ (logowanie Google, PHP 7.4+). Instrukcja: panel/README-PANEL.txt. Podgląd wyglądu: panel/index.html?demo (tylko localhost).
+- Regulamin i 404 mają ten sam pasek, kolory i czcionki co strona główna.

@@ -1,0 +1,10 @@
+Options -Indexes
+DirectoryIndex index.html
+<FilesMatch "^(config\.sample\.php|README-PANEL\.txt)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "same-origin"
+  Header always set X-Robots-Tag "noindex, nofollow"
+</IfModule>
