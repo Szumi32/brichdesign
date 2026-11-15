@@ -1641,6 +1641,16 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
   .dma--note { width: 220px; font-size: 19px; }
 }
 
+/* kalkulator: płatność online (SellAuth) */
+.pay-now { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(238, 242, 232, .18); font: 400 14px/1.3 var(--f-b); color: rgba(238, 242, 232, .75); }
+.pay-now b { font: 400 clamp(30px, 3vw, 40px)/1 var(--f-s); color: #fff; letter-spacing: 0; }
+.pay-note { margin: 10px 0 0; font-size: 13px; line-height: 1.5; color: rgba(238, 242, 232, .62); }
+.btn-dot--lt { margin-top: 18px; width: 100%; justify-content: space-between; background: radial-gradient(130px circle at var(--mx) var(--my), rgba(20, 32, 26, .1), rgba(20, 32, 26, 0) 65%), #eef2e8; color: #14201a; box-shadow: 0 22px 34px -22px rgba(0, 0, 0, .7); }
+.btn-dot--lt:hover { box-shadow: 0 28px 42px -22px rgba(0, 0, 0, .8); }
+.pay-alt { display: inline-block; margin-top: 14px; font: 500 14px/1 var(--f-b); color: rgba(238, 242, 232, .78); text-decoration: none; padding: 8px 0; transition: color .35s var(--e2); }
+.pay-alt:hover { color: #fff; }
+.pay-fine { margin: 8px 0 0; font-size: 12px; line-height: 1.5; color: rgba(238, 242, 232, .5); }
+
 /* panel klienta: zapowiedź na stronie głównej */
 .pnl { background: var(--bg); }
 .pnl__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 6vw, 90px); align-items: center; }
@@ -2276,7 +2286,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
     <p class="swipe-hint">Przesuń, żeby zobaczyć pakiety</p>
     <div class="plans" id="plans">
       <label class="plan rv">
-        <input type="radio" name="plan" id="plan-start" value="1999" data-days="do 72 godzin" data-name="Wizytówka">
+        <input type="radio" name="plan" id="plan-start" value="1999" data-days="do 72 godzin" data-name="Wizytówka" data-sa="993255:2074810">
         <span class="radio"></span>
         <span class="plan-name">Wizytówka</span>
         <div class="price"><small>od</small>1 999 zł</div>
@@ -2284,7 +2294,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
         <ul><li>Projekt i wersja na telefon</li><li>Do 5 sekcji</li><li>Formularz kontaktowy i mapa</li><li>Podstawowe SEO</li></ul>
       </label>
       <label class="plan featured rv" style="--d:.08s">
-        <input type="radio" name="plan" id="plan-firma" value="3490" data-days="do 5 dni roboczych" data-name="Strona firmowa" checked>
+        <input type="radio" name="plan" id="plan-firma" value="3490" data-days="do 5 dni roboczych" data-name="Strona firmowa" data-sa="993255:2074811" checked>
         <span class="radio"></span>
         <span class="ribbon">Najczęściej wybierany</span>
         <span class="plan-name">Strona firmowa</span>
@@ -2293,7 +2303,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
         <ul><li>Do 6 podstron</li><li>Animacje wejścia sekcji</li><li>Galeria, cennik, opinie</li><li>Google Moja Firma i SEO lokalne</li></ul>
       </label>
       <label class="plan rv" style="--d:.16s">
-        <input type="radio" name="plan" id="plan-kino" value="5990" data-days="do 2 tygodni" data-name="Premium">
+        <input type="radio" name="plan" id="plan-kino" value="5990" data-days="do 2 tygodni" data-name="Premium" data-sa="993255:2074812">
         <span class="radio"></span>
         <span class="plan-name">Premium</span>
         <div class="price"><small>od</small>5 990 zł</div>
@@ -2305,23 +2315,28 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
       <div class="addons rv">
         <h3>Dodatki</h3>
         <div class="addon-grid">
-        <label class="addon"><input type="checkbox" id="ad-sub" value="290" data-label="Dodatkowa podstrona"><span>Dodatkowa podstrona</span><span>+290 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-shop" value="2490" data-label="Sklep internetowy"><span>Sklep internetowy (do 50 produktów)</span><span>+2 490 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-prod" value="699" data-label="Dodatkowe 50 produktów"><span>Dodatkowe 50 produktów w sklepie</span><span>+699 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-book" value="990" data-label="Rezerwacje online"><span>Rezerwacje online i kalendarz</span><span>+990 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-text" value="590" data-label="Teksty i SEO"><span>Napiszemy teksty i zadbamy o SEO</span><span>+590 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-logo" value="790" data-label="Logo"><span>Logo i kolory firmy</span><span>+790 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-sub" value="290" data-label="Dodatkowa podstrona" data-sa="993257:2074887"><span>Dodatkowa podstrona</span><span>+290 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-shop" value="2490" data-label="Sklep internetowy" data-sa="993258:2074903"><span>Sklep internetowy (do 50 produktów)</span><span>+2 490 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-prod" value="699" data-label="Dodatkowe 50 produktów" data-sa="993259:2074918"><span>Dodatkowe 50 produktów w sklepie</span><span>+699 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-book" value="990" data-label="Rezerwacje online" data-sa="993261:2074937"><span>Rezerwacje online i kalendarz</span><span>+990 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-text" value="590" data-label="Teksty i SEO" data-sa="993279:2075119"><span>Napiszemy teksty i zadbamy o SEO</span><span>+590 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-logo" value="790" data-label="Logo" data-sa="993280:2075120"><span>Logo i kolory firmy</span><span>+790 zł</span></label>
         
-        <label class="addon"><input type="checkbox" id="ad-3d" value="399" data-label="Animacje i modele 3D"><span>Animacje i modele 3D</span><span>+399 zł</span></label>
+        <label class="addon"><input type="checkbox" id="ad-3d" value="399" data-label="Animacje i modele 3D" data-sa="993281:2075121"><span>Animacje i modele 3D</span><span>+399 zł</span></label>
         <label class="addon"><input type="checkbox" id="ad-panel" value="699" data-label="Panel do własnej modyfikacji"><span>Panel do własnej modyfikacji strony</span><span>+699 zł</span></label>
-        <label class="addon"><input type="checkbox" id="ad-care" value="99" data-monthly="1" data-label="Opieka nad stroną" checked><span>Opieka nad stroną: poprawki i aktualizacje</span><span>99 zł / mies.</span></label>
+        <label class="addon"><input type="checkbox" id="ad-care" value="99" data-monthly="1" data-sa="993284:2075124" data-label="Opieka nad stroną (miesiąc)"><span>Opieka nad stroną: poprawki i aktualizacje, miesiąc</span><span>99 zł / mies.</span></label>
+        <label class="addon"><input type="checkbox" id="ad-care-y" value="999" data-yearly="1" data-sa="993284:2075125" data-label="Opieka nad stroną (rok)"><span>Opieka nad stroną, cały rok (taniej o 189 zł)</span><span>999 zł / rok</span></label>
         </div>
       </div>
       <div class="total rv" style="--d:.1s" aria-live="polite">
         <span class="mono">Szacunek</span>
         <div class="total-sum" id="sum">3 490 zł</div>
         <div class="total-rows" id="rows"></div>
-        <a href="#kontakt" class="btn btn-primary" id="calc-cta">Wyślij to zapytanie <span class="arr">→</span></a>
+        <div class="pay-now"><span>Do zapłaty teraz</span><b id="payNowSum">1 745 zł</b></div>
+        <p class="pay-note" id="payNote">Zaliczka 50%. Resztę płacisz po publikacji strony.</p>
+        <a href="https://brichdesign.mysellauth.com" class="btn-dot btn-dot--lt" id="buy" data-mag target="_blank" rel="noopener">Zapłać zaliczkę online<span class="btn-dot__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a href="#kontakt" class="pay-alt" id="calc-cta">Wolę najpierw napisać <span class="arr">→</span></a>
+        <p class="pay-fine">Bezpieczna płatność w sklepie SellAuth. Dostępne metody płatności zobaczysz w koszyku.</p>
       </div>
     </div>
     <p class="fine">Ceny orientacyjne, brutto. Ostateczna kwota zależy od zakresu i jest zapisana w umowie przed startem prac. Ceny nie obejmują kosztów hostingu i domeny, które opłacasz u wybranego dostawcy. Pomagamy w ich wyborze, w konfiguracji i w uruchomieniu strony na telefonie, komputerze i innych urządzeniach mobilnych.</p>
@@ -3055,16 +3070,30 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
   const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' zł';
   const sumEl = $('#sum'), rowsEl = $('#rows');
   let shown = 3490, target = 3490, anim = null;
+  // v26: koszyk SellAuth (sklep brichdesign, produkty i warianty z panelu SellAuth)
+  const SA = { shopId: 281466, shopUrl: 'https://brichdesign.mysellauth.com' };
+  const zl = n => { const [a, b] = (n % 1 ? n.toFixed(2) : String(n)).split('.'); return a.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (b ? ',' + b : '') + ' zł'; };
+  const saItem = el => { const [p, v] = el.dataset.sa.split(':'); return { productId: +p, variantId: +v, quantity: 1 }; };
+  const checkoutLink = cart => SA.shopUrl + '/checkout-link?' + cart.map((it, i) => `cart%5B${i}%5D%5BproductId%5D=${it.productId}&cart%5B${i}%5D%5BvariantId%5D=${it.variantId}&cart%5B${i}%5D%5Bquantity%5D=${it.quantity}`).join('&');
+  const buyEl = $('#buy'), payNowEl = $('#payNowSum'), payNoteEl = $('#payNote');
+  let saCart = [];
   const calc = () => {
     const plan = $('input[name="plan"]:checked');
-    let total = +plan.value, monthly = 0;
+    let total = +plan.value, monthly = 0, yearly = 0, deposit = +plan.value / 2, careNow = 0, manual = [];
     const rows = [[plan.dataset.name, fmt(+plan.value)]];
+    const cart = [saItem(plan)];
     $$('.addon input:checked').forEach(c => {
-      if (c.dataset.monthly) { monthly += +c.value; return; }
+      if (c.dataset.monthly || c.dataset.yearly) { if (c.dataset.monthly) monthly += +c.value; else yearly += +c.value; careNow += +c.value; cart.push(saItem(c)); return; }
       total += +c.value; rows.push([c.dataset.label, '+' + fmt(+c.value)]);
+      if (c.dataset.sa) { deposit += +c.value / 2; cart.push(saItem(c)); } else manual.push(c.dataset.label);
     });
     rows.push(['Czas realizacji', plan.dataset.days]);
     if (monthly) rows.push(['Abonament', fmt(monthly) + ' / mies.']);
+    if (yearly) rows.push(['Opieka na rok', fmt(yearly) + ' / rok']);
+    saCart = cart;
+    payNowEl.textContent = zl(deposit + careNow);
+    payNoteEl.textContent = `Zaliczka 50% (${zl(deposit)})${careNow ? ' i opieka (' + zl(careNow) + ')' : ''}. Resztę, ${zl(total - deposit)}, płacisz po publikacji strony.` + (manual.length ? ` Do wyceny dodamy osobno: ${manual.join(', ').toLowerCase()}.` : '');
+    buyEl.href = checkoutLink(cart);
     rowsEl.innerHTML = '';
     rows.forEach(([a, b]) => { const d = document.createElement('div'); const s1 = document.createElement('span'); s1.textContent = a; const s2 = document.createElement('span'); s2.textContent = b; d.append(s1, s2); rowsEl.append(d); });
     target = total;
@@ -3079,8 +3108,18 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
     anim = requestAnimationFrame(tick);
     window.__wycena = { plan: plan.dataset.name, rows, total, monthly };
   };
-  $$('#cennik input').forEach(i => i.addEventListener('change', calc));
+  $$('#cennik input').forEach(i => i.addEventListener('change', () => {
+    if (i.checked && (i.id === 'ad-care' || i.id === 'ad-care-y')) { const o = $(i.id === 'ad-care' ? '#ad-care-y' : '#ad-care'); if (o) o.checked = false; }
+    calc();
+  }));
   calc();
+  // modal SellAuth (osadzony koszyk); bez skryptu link otwiera sklep w nowej karcie
+  let saLoaded = false;
+  const saLoad = () => { if (saLoaded) return; saLoaded = true; const sc = document.createElement('script'); sc.src = 'https://static.sellauth.com/embed/v3.min.js'; sc.defer = true; document.head.append(sc); };
+  new IntersectionObserver((es, io) => { if (es[0].isIntersecting) { saLoad(); io.disconnect(); } }, { rootMargin: '300px' }).observe($('#cennik'));
+  buyEl.addEventListener('click', e => {
+    if (window.sellAuth && typeof window.sellAuth.open === 'function') { e.preventDefault(); window.sellAuth.open({ shopId: SA.shopId, shopUrl: SA.shopUrl, cart: saCart }); }
+  });
   $('#calc-cta').addEventListener('click', () => {
     const w = window.__wycena; if (!w) return;
     const map = { 'Wizytówka': 'p-card', 'Strona firmowa': 'p-firm', 'Premium': 'p-kino' };

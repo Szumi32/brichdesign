@@ -85,3 +85,11 @@ AKTUALIZACJA 2026-11-14 (SEO i „O nas”)
 - Realizacje: tło sceny zmienia odcień pod aktualny projekt (tablica TINTS w skrypcie, warstwa .corr__tint).
 - Czcionki dodane do Google Fonts: Caveat, IBM Plex Mono. Strona nadal ignoruje „ogranicz ruch” (decyzja właściciela, const reduce = false).
 - Panel klienta: bez zmian w działaniu; przyciski dostały ten sam nacisk i krzywą ruchu. Logowanie Google wymaga Client ID (panel/README-PANEL.txt).
+
+--- v26b (2026-11-15): sklep SellAuth podpięty do kalkulatora, panel: aktualizacje i płatności ---
+- Sklep SellAuth: shop ID 281466, adres https://brichdesign.mysellauth.com (nazwa subdomeny nadal „brichdesign”, do zmiany w SellAuth → Custom Domain).
+  Produkty/warianty (productId:variantId) są w atrybutach data-sa przy pakietach i dodatkach w #cennik. Ceny w SellAuth to ZALICZKI 50% cen ze strony.
+  Pakiet strony 993255: Wizytówka 2074810, Firmowa 2074811, Premium 2074812. Podstrona 993257:2074887, Sklep 993258:2074903, +50 produktów 993259:2074918,
+  Rezerwacje 993261:2074937, Teksty 993279:2075119, Logo 993280:2075120, Animacje 993281:2075121, Opieka 993284 (miesiąc 2075124, rok 2075125; płatne w całości).
+  BRAK produktu „Panel do własnej modyfikacji” w SellAuth: dodawany do wyceny poza koszykiem. Przycisk „Zapłać zaliczkę online” otwiera koszyk (embed v3), bez skryptu link checkout-link.
+- Panel: zakładka „Aktualizacje” (oś czasu), płatności z podsumowaniem i paskiem postępu, administrator dodaje wiele płatności (wstawianie linków SellAuth), aktualizacje i pliki.

@@ -313,7 +313,7 @@ if ($action === 'message') {
         $c = &$db['clients'][$u['email']];
         foreach ($c['projects'] as &$p) {
             if (($p['id'] ?? '') === $pid) {
-                $p['updates'][] = ['at' => date('c'), 'by' => 'client', 'text' => $text];
+                $p['updates'][] = ['at' => date('c'), 'by' => 'client', 'kind' => 'message', 'text' => $text];
                 $name = $p['name'] ?? '';
                 return true;
             }
@@ -361,6 +361,7 @@ if ($action === 'admin_save') {
             'amount' => max(0, (float)($x['amount'] ?? 0)),
             'status' => ($x['status'] ?? '') === 'paid' ? 'paid' : 'due',
             'due' => clean($x['due'] ?? '', 40),
+            'paid_at' => clean($x['paid_at'] ?? '', 20),
             'url' => clean_url($x['url'] ?? ''),
         ];
     }
@@ -373,7 +374,14 @@ if ($action === 'admin_save') {
     $updates = [];
     foreach ((array)($pin['updates'] ?? []) as $x) {
         if (is_array($x) && clean($x['text'] ?? '', 1500) !== '') {
-            $updates[] = ['at' => clean($x['at'] ?? date('c'), 40), 'by' => ($x['by'] ?? '') === 'client' ? 'client' : 'admin', 'text' => clean($x['text'], 1500)];
+            $updates[] = [
+                'at' => clean($x['at'] ?? date('c'), 40),
+                'by' => ($x['by'] ?? '') === 'client' ? 'client' : 'admin',
+                'kind' => (($x['kind'] ?? '') === 'update' && ($x['by'] ?? '') !== 'client') ? 'update' : 'message',
+                'title' => clean($x['title'] ?? '', 90),
+                'tag' => clean($x['tag'] ?? '', 30),
+                'text' => clean($x['text'], 1500),
+            ];
         }
     }
     $proj = [

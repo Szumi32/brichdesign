@@ -164,6 +164,39 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   .steps li::before { top: 4px; bottom: 4px; right: auto; width: 4px; height: auto; }
   .me span { display: none; }
 }
+
+/* ===== v26: płatności, oś czasu aktualizacji, edytor administratora ===== */
+.pbar { display: grid; gap: 8px; }
+.pbar__top { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.pbar__top b { color: var(--ink); font-weight: 600; }
+.pbar__tr { height: 8px; border-radius: 8px; background: rgba(20, 32, 26, .1); overflow: hidden; }
+.pbar__tr i { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #2e7d5b, #4aa37c); transition: width .6s cubic-bezier(.23, 1, .32, 1); }
+.psum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 16px; }
+.psum > div { padding: 14px 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255, 255, 255, .55); }
+.psum small { display: block; font: 500 10.5px/1 var(--f-g); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.psum b { font: 400 clamp(24px, 2.6vw, 32px)/1 var(--f-s); }
+.psum .ok b { color: #1f6247; } .psum .warn b { color: #8f3f12; }
+.lh { margin: 22px 0 10px; font: 500 11px/1 var(--f-g); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.row--paid { background: rgba(46, 125, 91, .05); }
+.lastu { padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line); background: rgba(255, 255, 255, .55); display: grid; gap: 4px; justify-items: start; }
+.lastu small { font: 500 10.5px/1 var(--f-g); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.lastu b { font-weight: 600; margin-top: 4px; } .lastu p { margin: 0 0 8px; color: var(--muted); font-size: 14.5px; }
+.tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.tl li { position: relative; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 14px; padding-bottom: 22px; }
+.tl li::before { content: ""; position: absolute; left: 10px; top: 20px; bottom: 0; width: 2px; background: var(--line2); }
+.tl li:last-child { padding-bottom: 0; } .tl li:last-child::before { display: none; }
+.tl__dot { width: 22px; height: 22px; margin-top: 2px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 5px rgba(var(--gold-rgb), .16); }
+.tl li:not(:first-child) .tl__dot { background: var(--ink); box-shadow: 0 0 0 5px rgba(20, 32, 26, .08); }
+.tl__meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; } .tl__meta small { color: var(--muted); font-size: 13px; }
+.tl__body b { display: block; font-size: 16.5px; font-weight: 600; } .tl__body p { margin: 4px 0 0; color: var(--muted); max-width: 64ch; white-space: pre-wrap; overflow-wrap: anywhere; }
+.fs { margin: 0; padding: 18px; border: 1px solid var(--line2); border-radius: 18px; display: grid; gap: 14px; min-width: 0; }
+.fs legend { padding: 0 8px; font: 500 12px/1 var(--f-g); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+.fs__act { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.fs__split { display: inline-flex; gap: 8px; align-items: center; } .fs__split input { width: 170px; }
+.pe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; align-items: end; padding: 14px; border-radius: 14px; background: rgba(255, 255, 255, .55); border: 1px solid var(--line); }
+.pe__url { grid-column: span 2; } .pe__x { text-align: right; align-self: end; }
+.ued { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 14px; }
+@media (max-width: 760px) { .pe { grid-template-columns: 1fr 1fr; } .pe__url { grid-column: span 2; } .psum { grid-template-columns: 1fr; } .ued { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -226,7 +259,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   'use strict';
   const $ = (s, r = document) => r.querySelector(s);
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  const money = n => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(n || 0);
+  const money = n => { n = +n || 0; const [a, b] = (n % 1 ? n.toFixed(2) : String(n)).split('.'); return a.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (b ? ',' + b : '') + ' zł'; };
   const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }); };
   const STAGES = [['Rozmowa', 'Wycena i plan'], ['Projekt', 'Wygląd do akceptacji'], ['Budowa', 'Kodowanie i treści'], ['Poprawki i start', 'Publikacja strony'], ['Opieka', 'Aktualizacje na bieżąco']];
   const ICON = {
@@ -234,6 +267,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
     pay: '<rect x="3.5" y="6" width="17" height="12" rx="2.5"/><path d="M3.5 10h17M7 15h3"/>',
     file: '<path d="M7 3.5h6.5L18 8v12.5H7z"/><path d="M13 3.5V8h5"/>',
     chat: '<path d="M5 6.5h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-7l-4 3v-3H5a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1z"/>',
+    bell: '<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15zM10 20.5a2 2 0 0 0 4 0"/>',
     users: '<circle cx="9" cy="9" r="3"/><path d="M3.5 19c.7-3 3-4.5 5.5-4.5s4.8 1.5 5.5 4.5M16 6.5a3 3 0 0 1 0 5.5M17.5 14.7c1.7.5 2.7 2 3 4.3"/>'
   };
   const ico = n => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
@@ -248,11 +282,22 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
     client: { name: 'Anna Kowalska', projects: [{
       id: 'd1', name: 'Strona gabinetu stomatologicznego', package: 'Strona firmowa', stage: 3, next: 'Prześlij zdjęcia gabinetu i zespołu (min. 6 sztuk). Do piątku pokażemy wersję roboczą.',
       preview_url: 'https://szumi32.github.io/baranska-stomatolog/',
-      payments: [{ id: 'a', label: 'Zaliczka 50%', amount: 1745, status: 'paid', due: '2026-11-18', url: '' }, { id: 'b', label: 'Płatność końcowa 50%', amount: 1745, status: 'due', due: 'po publikacji strony', url: '' }],
+      payments: [
+        { id: 'a', label: 'Zaliczka 50%: Strona firmowa', amount: 1745, status: 'paid', due: 'na start prac', paid_at: '2026-11-12', url: '' },
+        { id: 'b', label: 'Zaliczka 50%: Rezerwacje online', amount: 495, status: 'paid', due: 'na start prac', paid_at: '2026-11-12', url: '' },
+        { id: 'c', label: 'Płatność końcowa 50%', amount: 2240, status: 'due', due: 'po publikacji strony', url: 'https://brichdesign.mysellauth.com/' },
+        { id: 'd', label: 'Opieka nad stroną, miesiąc', amount: 99, status: 'due', due: 'od startu strony', url: 'https://brichdesign.mysellauth.com/' }
+      ],
       files: [{ name: 'Wycena i zakres prac.pdf', url: 'https://example.com/wycena.pdf' }, { name: 'Projekt strony głównej', url: 'https://example.com/projekt' }],
-      updates: [{ at: '2026-11-19T10:00:00', by: 'admin', text: 'Dzień dobry! Projekt strony głównej jest gotowy do akceptacji. Daj znać, co zmienić.' }, { at: '2026-11-19T14:30:00', by: 'client', text: 'Wygląda świetnie. Poproszę tylko większe zdjęcie zespołu.' }]
+      updates: [
+        { at: '2026-11-12T10:00:00', by: 'admin', kind: 'update', tag: 'Etap', title: 'Ruszamy z projektem', text: 'Zaliczka zaksięgowana. Zaczynamy od układu strony głównej i podstron.' },
+        { at: '2026-11-15T10:00:00', by: 'admin', kind: 'update', tag: 'Do akceptacji', title: 'Projekt strony głównej gotowy', text: 'Wersja robocza jest pod linkiem podglądu. Daj znać, co zmienić, zanim ruszymy z kodowaniem.' },
+        { at: '2026-11-17T14:30:00', by: 'admin', kind: 'update', tag: 'Zmiana na stronie', title: 'Dodany kalendarz wizyt', text: 'Działa już formularz umawiania wizyt z potwierdzeniem na e-mail.' },
+        { at: '2026-11-19T10:00:00', by: 'admin', kind: 'message', text: 'Dzień dobry! Projekt strony głównej jest gotowy do akceptacji. Daj znać, co zmienić.' },
+        { at: '2026-11-19T14:30:00', by: 'client', kind: 'message', text: 'Wygląda świetnie. Poproszę tylko większe zdjęcie zespołu.' }
+      ]
     }] },
-    clients: [{ email: 'anna@example.com', name: 'Anna Kowalska', projects: [{ id: 'd1', name: 'Strona gabinetu stomatologicznego', package: 'Strona firmowa', stage: 3 }] }]
+    clients: [{ email: 'anna@example.com', name: 'Anna Kowalska', projects: [{ id: 'd1', name: 'Strona gabinetu stomatologicznego', package: 'Strona firmowa', stage: 3, payments: [{ amount: 1745, status: 'paid' }, { amount: 495, status: 'paid' }, { amount: 2240, status: 'due' }, { amount: 99, status: 'due' }] }] }]
   });
   let demo = DEMO ? demoDb() : null;
 
@@ -262,8 +307,8 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
       if (action === 'session') return { ok: true, configured: true, clientId: 'demo', csrf: 'x', user: demo.in ? demo.user : null };
       if (action === 'me') return { ok: true, user: demo.user, client: demo.client };
       if (action === 'message') { demo.client.projects[0].updates.push({ at: new Date().toISOString(), by: 'client', text: data.text }); return { ok: true, client: demo.client }; }
-      if (action === 'admin_list') return { ok: true, clients: demo.clients };
-      return { ok: true, clients: demo.clients };
+      if (action === 'admin_list') return { ok: true, clients: [{ email: demo.user.email, name: demo.client.name, projects: demo.client.projects }] };
+      return { ok: true, clients: [{ email: demo.user.email, name: demo.client.name, projects: demo.client.projects }] };
     }
     const opt = { credentials: 'same-origin', headers: { 'Accept': 'application/json' } };
     if (data !== undefined) { opt.method = 'POST'; opt.headers['Content-Type'] = 'application/json'; opt.headers['X-CSRF-Token'] = csrf; opt.body = JSON.stringify(data); }
@@ -348,7 +393,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
 
   /* ---------- nawigacja panelu ---------- */
   function renderSide() {
-    const items = [['start', 'Przegląd', 'home'], ['pay', 'Płatności', 'pay'], ['files', 'Pliki i podgląd', 'file'], ['chat', 'Wiadomości', 'chat']];
+    const items = [['start', 'Przegląd', 'home'], ['upd', 'Aktualizacje', 'bell'], ['pay', 'Płatności', 'pay'], ['files', 'Pliki i podgląd', 'file'], ['chat', 'Wiadomości', 'chat']];
     let h = items.map(([id, t, i]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${tab === id}">${ico(i)}<span>${t}</span></button>`).join('');
     if (state.user.admin) h += `<div class="sep">Administrator</div><button type="button" role="tab" data-tab="admin" aria-selected="${tab === 'admin'}">${ico('users')}<span>Klienci</span></button>`;
     $('#side').innerHTML = h;
@@ -368,37 +413,67 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
       return;
     }
     if (tab === 'start') m.innerHTML = hello() + ps.map(projCard).join('');
+    if (tab === 'upd') m.innerHTML = ps.map(updCard).join('');
     if (tab === 'pay') m.innerHTML = ps.map(payCard).join('');
     if (tab === 'files') m.innerHTML = ps.map(fileCard).join('');
     if (tab === 'chat') { m.innerHTML = ps.map(chatCard).join(''); }
   }
 
-  const hello = () => `<div class="hello"><span class="eyebrow">Panel klienta</span><h1>Cześć, <em>${esc(firstName())}.</em></h1><p>Tu zobaczysz, na jakim etapie jest Twoja strona, co jest do zrobienia i jak wyglądają płatności.</p></div>`;
+  const hello = () => `<div class="hello"><span class="eyebrow">Panel klienta</span><h1>Cześć, <em>${esc(firstName())}.</em></h1><p>Tu zobaczysz, na jakim etapie jest Twoja strona, co się zmieniło, co jest do zrobienia i jak wyglądają płatności.</p></div>`;
+
+  const isUpd = u => u.kind === 'update';
+  const paySum = p => {
+    const pay = p.payments || [];
+    const total = pay.reduce((a, x) => a + (+x.amount || 0), 0);
+    const paid = pay.filter(x => x.status === 'paid').reduce((a, x) => a + (+x.amount || 0), 0);
+    return { total, paid, due: total - paid, pct: total ? Math.round(paid / total * 100) : 0, n: pay.length };
+  };
+  const payBar = p => {
+    const s = paySum(p); if (!s.n) return '';
+    return `<div class="pbar"><div class="pbar__top"><span><b>${money(s.paid)}</b> opłacone</span><span>${s.due > 0 ? `<b>${money(s.due)}</b> do zapłaty` : '<b>wszystko opłacone</b>'}</span></div><div class="pbar__tr" role="img" aria-label="Opłacono ${s.pct}%"><i style="width:${s.pct}%"></i></div></div>`;
+  };
+  const updsOf = p => (p.updates || []).filter(isUpd).sort((a, b) => new Date(b.at) - new Date(a.at));
 
   function projCard(p) {
-    const pay = (p.payments || []);
-    const due = pay.filter(x => x.status !== 'paid');
-    const steps = STAGES.map((s, i) => `<li class="${i + 1 < p.stage ? 'done' : i + 1 === p.stage ? 'cur' : ''}"><b>${esc(s[0])}</b>${esc(s[1])}</li>`).join('');
+    const s = paySum(p), lu = updsOf(p)[0];
+    const steps = STAGES.map((st, i) => `<li class="${i + 1 < p.stage ? 'done' : i + 1 === p.stage ? 'cur' : ''}"><b>${esc(st[0])}</b>${esc(st[1])}</li>`).join('');
     return `<article class="card proj">
       <div class="proj__head"><div><span class="eyebrow">${esc(p.package || 'Projekt')}</span><h3>${esc(p.name)}</h3></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">${due.length ? `<span class="chip warn">Do zapłaty: ${money(due.reduce((a, x) => a + x.amount, 0))}</span>` : '<span class="chip ok">Wszystko opłacone</span>'}<span class="chip">Etap ${p.stage} z 5</span></div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${s.n ? (s.due > 0 ? `<span class="chip warn">Do zapłaty: ${money(s.due)}</span>` : '<span class="chip ok">Wszystko opłacone</span>') : ''}<span class="chip">Etap ${p.stage} z 5</span></div></div>
       <ol class="steps" aria-label="Etapy projektu">${steps}</ol>
+      ${payBar(p)}
       ${p.next ? `<div class="next"><small>Najbliższy krok</small>${esc(p.next)}</div>` : ''}
-      ${p.preview_url ? `<div><a class="btn btn--ghost btn--sm" href="${esc(p.preview_url)}" target="_blank" rel="noopener">Zobacz podgląd strony ↗</a></div>` : ''}
+      ${lu ? `<div class="lastu"><small>Ostatnia aktualizacja · ${esc(when(lu.at))}</small><b>${esc(lu.title || 'Aktualizacja')}</b><p>${esc(lu.text.length > 160 ? lu.text.slice(0, 157) + '…' : lu.text)}</p><button class="btn btn--ghost btn--sm" type="button" data-go="upd">Wszystkie aktualizacje</button></div>` : ''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap">${p.preview_url ? `<a class="btn btn--ghost btn--sm" href="${esc(p.preview_url)}" target="_blank" rel="noopener">Zobacz podgląd strony ↗</a>` : ''}${s.due > 0 ? '<button class="btn btn--sm" type="button" data-go="pay">Płatności</button>' : ''}</div>
     </article>`;
   }
 
-  const payCard = p => `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Zaliczka 50% rozpoczyna prace, płatność końcowa po publikacji strony. Szczegóły w <a href="../regulamin.html#s5">regulaminie</a>.</p>
-    ${(p.payments || []).length ? `<ul class="list">${p.payments.map(x => `<li class="row"><div><b>${esc(x.label)}</b><small>${x.status === 'paid' ? 'Opłacone' : 'Termin: ' + esc(x.due || 'do ustalenia')}</small></div><span class="amt">${money(x.amount)}</span>${x.status === 'paid' ? '<span class="chip ok">Opłacone</span>' : x.url ? `<a class="btn btn--sm" href="${esc(x.url)}" target="_blank" rel="noopener">Zapłać online</a>` : '<span class="chip warn">Czeka na płatność</span>'}</li>`).join('')}</ul>` : '<div class="empty">Płatności pojawią się tu po wycenie.</div>'}
-    <p class="sub" style="margin:16px 0 0">Dane do przelewu i fakturę wysyłamy na e-mail. W razie pytań: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</p></article>`;
+  const updCard = p => {
+    const ups = updsOf(p);
+    return `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Co zmieniliśmy i co robimy dalej. Dodajemy wpis po każdym ważnym kroku.</p>
+      ${ups.length ? `<ol class="tl">${ups.map(u => `<li><span class="tl__dot" aria-hidden="true"></span><div class="tl__body"><div class="tl__meta">${u.tag ? `<span class="chip">${esc(u.tag)}</span>` : ''}<small>${esc(when(u.at))}</small></div>${u.title ? `<b>${esc(u.title)}</b>` : ''}<p>${esc(u.text)}</p></div></li>`).join('')}</ol>` : '<div class="empty"><b>Jeszcze bez aktualizacji</b>Gdy tylko ruszymy z pracami, znajdziesz tu każdy krok: co zrobiliśmy i co jest do akceptacji.</div>'}</article>`;
+  };
+
+  const payCard = p => {
+    const s = paySum(p), pay = p.payments || [];
+    const due = pay.filter(x => x.status !== 'paid'), paid = pay.filter(x => x.status === 'paid');
+    const rowDue = x => `<li class="row"><div><b>${esc(x.label)}</b><small>Termin: ${esc(x.due || 'do ustalenia')}</small></div><span class="amt">${money(x.amount)}</span>${x.url ? `<a class="btn btn--sm" href="${esc(x.url)}" target="_blank" rel="noopener">Zapłać online</a>` : '<span class="chip warn">Czeka na płatność</span>'}</li>`;
+    const rowPaid = x => `<li class="row row--paid"><div><b>${esc(x.label)}</b><small>Opłacone${x.paid_at ? ' · ' + esc(when(x.paid_at)) : ''}</small></div><span class="amt">${money(x.amount)}</span><span class="chip ok">Opłacone</span></li>`;
+    return `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Zaliczka 50% rozpoczyna prace, płatność końcowa po publikacji strony. Szczegóły w <a href="../regulamin.html#s5">regulaminie</a>.</p>
+      ${s.n ? `<div class="psum"><div><small>Razem</small><b>${money(s.total)}</b></div><div class="ok"><small>Opłacone</small><b>${money(s.paid)}</b></div><div class="${s.due > 0 ? 'warn' : 'ok'}"><small>Do zapłaty</small><b>${money(s.due)}</b></div></div>${payBar(p)}` : ''}
+      ${due.length ? `<h4 class="lh">Do zapłaty</h4><ul class="list">${due.map(rowDue).join('')}</ul>` : ''}
+      ${paid.length ? `<h4 class="lh">Opłacone</h4><ul class="list">${paid.map(rowPaid).join('')}</ul>` : ''}
+      ${s.n ? '' : '<div class="empty">Płatności pojawią się tu po wycenie.</div>'}
+      <p class="sub" style="margin:18px 0 0">Dane do przelewu i fakturę wysyłamy na e-mail. W razie pytań: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</p></article>`;
+  };
 
   const fileCard = p => `<article class="card"><h3>${esc(p.name)}</h3>
     ${p.preview_url ? `<p class="sub">Podgląd na żywo: <a href="${esc(p.preview_url)}" target="_blank" rel="noopener">${esc(p.preview_url.replace(/^https?:\/\//, ''))}</a></p>` : '<p class="sub">Podgląd strony pojawi się, gdy skończymy projekt.</p>'}
     ${(p.files || []).length ? `<ul class="list">${p.files.map(f => `<li class="row"><div><b>${esc(f.name)}</b><small>${esc(f.url.replace(/^https?:\/\//, '').slice(0, 60))}</small></div><a class="btn btn--ghost btn--sm" href="${esc(f.url)}" target="_blank" rel="noopener">Otwórz ↗</a></li>`).join('')}</ul>` : '<div class="empty">Brak plików. Gdy coś dla Ciebie przygotujemy, znajdziesz to tutaj.</div>'}</article>`;
 
   const chatCard = p => {
-    const ups = (p.updates || []).slice().sort((a, b) => new Date(a.at) - new Date(b.at));
-    return `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Wiadomości do nas i aktualizacje projektu. Odpowiadamy zwykle w ciągu 24 godzin.</p>
+    const ups = (p.updates || []).filter(u => !isUpd(u)).sort((a, b) => new Date(a.at) - new Date(b.at));
+    return `<article class="card"><h3>${esc(p.name)}</h3><p class="sub">Wiadomości do nas. Odpowiadamy zwykle w ciągu 24 godzin.</p>
       <div class="feed">${ups.length ? ups.map(u => `<div class="msg ${u.by === 'client' ? 'me2' : ''}"><small>${u.by === 'client' ? 'Ty' : 'birchdesign'} · ${esc(when(u.at))}</small><p>${esc(u.text)}</p></div>`).join('') : '<div class="empty">Jeszcze nic tu nie ma. Napisz pierwszą wiadomość.</div>'}</div>
       <form class="compose" data-send="${esc(p.id)}"><label class="f">Twoja wiadomość<textarea name="t" maxlength="1500" required placeholder="Np. wysyłam nowe zdjęcia, proszę o zmianę koloru przycisku…"></textarea></label><div><button class="btn" type="submit">Wyślij wiadomość</button></div></form></article>`;
   };
@@ -418,43 +493,119 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   });
 
   /* ---------- administrator ---------- */
-  let editing = null;
-  function renderAdmin(m) {
+  // gotowe pozycje ze sklepu SellAuth: [nazwa, productId, variantId, cena]
+  const SA_SHOP = 'https://brichdesign.mysellauth.com';
+  const SA_ITEMS = [
+    ['Zaliczka 50%: Wizytówka', 993255, 2074810, 999.5], ['Zaliczka 50%: Strona firmowa', 993255, 2074811, 1745], ['Zaliczka 50%: Premium', 993255, 2074812, 2995],
+    ['Zaliczka 50%: Dodatkowa podstrona', 993257, 2074887, 145], ['Zaliczka 50%: Sklep internetowy', 993258, 2074903, 1245], ['Zaliczka 50%: Dodatkowe 50 produktów', 993259, 2074918, 349.5],
+    ['Zaliczka 50%: Rezerwacje online', 993261, 2074937, 495], ['Zaliczka 50%: Teksty i SEO', 993279, 2075119, 295], ['Zaliczka 50%: Logo i kolory', 993280, 2075120, 395],
+    ['Zaliczka 50%: Animacje i modele 3D', 993281, 2075121, 199.5], ['Opieka nad stroną, miesiąc', 993284, 2075124, 99], ['Opieka nad stroną, rok', 993284, 2075125, 999]
+  ];
+  const saLink = (pid, vid) => `${SA_SHOP}/checkout-link?cart%5B0%5D%5BproductId%5D=${pid}&cart%5B0%5D%5BvariantId%5D=${vid}&cart%5B0%5D%5Bquantity%5D=1`;
+  const UPD_TAGS = ['Zmiana na stronie', 'Etap', 'Do akceptacji', 'Ważne'];
+  let editing = null, draft = null;
+  const startDraft = () => { const p = editing ? editing.p : null; draft = { payments: ((p && p.payments) || []).map(x => ({ ...x })), updates: ((p && p.updates) || []).map(x => ({ ...x })), files: ((p && p.files) || []).map(x => ({ ...x })) }; };
+  const newId = () => 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+
+  const payEdHtml = () => draft.payments.length ? draft.payments.map((x, i) => `<div class="pe" data-pi="${i}">
+      <label class="f">Za co<input type="text" data-pf="label" value="${esc(x.label)}" maxlength="80"></label>
+      <label class="f">Kwota (zł)<input type="number" min="0" step="0.01" data-pf="amount" value="${esc(x.amount)}"></label>
+      <label class="f">Status<select data-pf="status"><option value="due" ${x.status !== 'paid' ? 'selected' : ''}>Do zapłaty</option><option value="paid" ${x.status === 'paid' ? 'selected' : ''}>Opłacone</option></select></label>
+      ${x.status === 'paid' ? `<label class="f">Data wpłaty<input type="date" data-pf="paid_at" value="${esc(x.paid_at || '')}"></label>` : `<label class="f">Termin<input type="text" data-pf="due" value="${esc(x.due || '')}" placeholder="np. po publikacji strony" maxlength="40"></label>`}
+      <label class="f pe__url">Link płatności<input type="url" data-pf="url" value="${esc(x.url || '')}" placeholder="https://…"></label>
+      <label class="f">Wstaw ze sklepu<select data-psa><option value="">Pozycja SellAuth…</option>${SA_ITEMS.map((it, k) => `<option value="${k}">${esc(it[0])} (${money(it[3])})</option>`).join('')}</select></label>
+      <div class="pe__x"><button class="btn btn--ghost btn--sm" type="button" data-pdel="${i}">Usuń</button></div></div>`).join('') : '<div class="empty" style="padding:18px">Brak płatności. Dodaj pierwszą poniżej.</div>';
+  const updEdHtml = () => {
+    const l = draft.updates.map((u, i) => ({ u, i })).filter(x => isUpd(x.u)).reverse();
+    return l.length ? `<ul class="list">${l.map(({ u, i }) => `<li class="row"><div><b>${esc(u.title || 'Aktualizacja')}${u.tag ? ' · ' + esc(u.tag) : ''}</b><small>${esc(when(u.at))}. ${esc(u.text.slice(0, 90))}${u.text.length > 90 ? '…' : ''}</small></div><button class="btn btn--ghost btn--sm" type="button" data-udel="${i}">Usuń</button></li>`).join('')}</ul>` : '<p class="sub" style="margin:0">Brak aktualizacji. Dodaj pierwszą poniżej.</p>';
+  };
+  const fileEdHtml = () => draft.files.length ? `<ul class="list">${draft.files.map((f, i) => `<li class="row"><div><b>${esc(f.name)}</b><small>${esc(f.url.slice(0, 70))}</small></div><button class="btn btn--ghost btn--sm" type="button" data-fdel="${i}">Usuń</button></li>`).join('')}</ul>` : '';
+  const refreshEd = () => { const a = $('#payEd'), b = $('#updEd'), c = $('#fileEd'); if (a) a.innerHTML = payEdHtml(); if (b) b.innerHTML = updEdHtml(); if (c) c.innerHTML = fileEdHtml(); };
+
+  function renderAdmin(m, keep) {
+    if (!keep || !draft) startDraft();
     const rows = [];
-    state.clients.forEach(c => (c.projects.length ? c.projects : [null]).forEach(p => rows.push(`<tr><td><b>${esc(c.name || '(bez nazwy)')}</b><br><small>${esc(c.email)}</small></td><td>${p ? esc(p.name) + '<br><small>' + esc(p.package || '') + '</small>' : '<small>brak projektu</small>'}</td><td>${p ? 'Etap ' + p.stage + ' z 5' : ''}</td><td style="white-space:nowrap">${p ? `<button class="btn btn--ghost btn--sm" type="button" data-edit="${esc(c.email)}|${esc(p.id)}">Edytuj</button> ` : ''}<button class="btn btn--ghost btn--sm" type="button" data-del="${esc(c.email)}|${p ? esc(p.id) : ''}">Usuń</button></td></tr>`)));
+    state.clients.forEach(c => (c.projects.length ? c.projects : [null]).forEach(p => { const sm = p ? paySum(p) : null; rows.push(`<tr><td><b>${esc(c.name || '(bez nazwy)')}</b><br><small>${esc(c.email)}</small></td><td>${p ? esc(p.name) + '<br><small>' + esc(p.package || '') + '</small>' : '<small>brak projektu</small>'}</td><td>${p ? 'Etap ' + p.stage + ' z 5' : ''}</td><td>${sm && sm.n ? `${money(sm.paid)} z ${money(sm.total)}<br><small>${sm.due > 0 ? 'do zapłaty ' + money(sm.due) : 'opłacone'}</small>` : ''}</td><td style="white-space:nowrap">${p ? `<button class="btn btn--ghost btn--sm" type="button" data-edit="${esc(c.email)}|${esc(p.id)}">Edytuj</button> ` : ''}<button class="btn btn--ghost btn--sm" type="button" data-del="${esc(c.email)}|${p ? esc(p.id) : ''}">Usuń</button></td></tr>`); }));
     const e = editing;
-    m.innerHTML = `<div class="hello"><span class="eyebrow">Administrator</span><h1>Twoi <em>klienci.</em></h1><p>Dodaj klienta po adresie Gmail, z którego się loguje, i przypisz mu projekt. Klient zobaczy go po zalogowaniu.</p></div>
+    m.innerHTML = `<div class="hello"><span class="eyebrow">Administrator</span><h1>Twoi <em>klienci.</em></h1><p>Dodaj klienta po adresie Gmail, z którego się loguje, i przypisz mu projekt. Tu publikujesz aktualizacje, zaznaczasz wpłaty i dodajesz pliki. Klient widzi to od razu po zalogowaniu.</p></div>
       <article class="card"><h3>${e ? 'Edytuj projekt' : 'Nowy projekt'}</h3><form id="adminForm" class="pre">
         <div class="grid2"><label class="f">E-mail klienta (konto Google)<input type="email" name="email" required value="${esc(e ? e.email : '')}"></label><label class="f">Imię i nazwisko / firma<input type="text" name="cname" value="${esc(e ? e.cname : '')}"></label></div>
         <div class="grid2"><label class="f">Nazwa projektu<input type="text" name="pname" required value="${esc(e ? e.p.name : '')}"></label><label class="f">Pakiet<input type="text" name="package" placeholder="Strona firmowa" value="${esc(e ? e.p.package : '')}"></label></div>
-        <div class="form3"><label class="f">Etap<select name="stage">${STAGES.map((s, i) => `<option value="${i + 1}" ${(e ? e.p.stage : 1) === i + 1 ? 'selected' : ''}>${i + 1}. ${esc(s[0])}</option>`).join('')}</select></label><label class="f">Cena całkowita (zł)<input type="number" name="total" min="0" step="1" value="${e ? esc(Math.round(((e.p.payments || []).reduce((a, x) => a + x.amount, 0)) || 0)) : ''}"></label><label class="f">Link do podglądu<input type="url" name="preview" placeholder="https://" value="${esc(e ? e.p.preview_url : '')}"></label></div>
-        <label class="f">Najbliższy krok (widoczny dla klienta)<input type="text" name="next" value="${esc(e ? e.p.next : '')}"></label>
-        <div class="grid2"><label class="f" style="grid-auto-flow:column;justify-content:start;align-items:center;gap:10px"><input type="checkbox" name="p1" ${e && e.p.payments && e.p.payments[0] && e.p.payments[0].status === 'paid' ? 'checked' : ''}> Zaliczka 50% opłacona</label><label class="f" style="grid-auto-flow:column;justify-content:start;align-items:center;gap:10px"><input type="checkbox" name="p2" ${e && e.p.payments && e.p.payments[1] && e.p.payments[1].status === 'paid' ? 'checked' : ''}> Płatność końcowa opłacona</label></div>
-        <div class="grid2"><label class="f">Link płatności: zaliczka (opcjonalnie)<input type="url" name="u1" value="${esc(e && e.p.payments && e.p.payments[0] ? e.p.payments[0].url : '')}"></label><label class="f">Link płatności: końcowa (opcjonalnie)<input type="url" name="u2" value="${esc(e && e.p.payments && e.p.payments[1] ? e.p.payments[1].url : '')}"></label></div>
-        <div class="grid2"><label class="f">Nowy plik: nazwa<input type="text" name="fname"></label><label class="f">Nowy plik: link<input type="url" name="furl" placeholder="https://"></label></div>
-        <label class="f">Nowa wiadomość dla klienta (opcjonalnie)<textarea name="upd" maxlength="1500"></textarea></label>
+        <div class="form3"><label class="f">Etap<select name="stage">${STAGES.map((s, i) => `<option value="${i + 1}" ${(e ? e.p.stage : 1) === i + 1 ? 'selected' : ''}>${i + 1}. ${esc(s[0])}</option>`).join('')}</select></label><label class="f" style="grid-column:span 2">Link do podglądu<input type="url" name="preview" placeholder="https://" value="${esc(e ? e.p.preview_url : '')}"></label></div>
+        <label class="f">Najbliższy krok (widoczny dla klienta)<input type="text" name="next" maxlength="200" value="${esc(e ? e.p.next : '')}"></label>
+
+        <fieldset class="fs"><legend>Płatności klienta</legend>
+          <div id="payEd">${payEdHtml()}</div>
+          <div class="fs__act"><button class="btn btn--ghost btn--sm" type="button" id="payAdd">Dodaj płatność</button>
+            <span class="fs__split"><input type="number" id="splitTotal" min="0" step="1" placeholder="Cena całkowita, zł"><button class="btn btn--ghost btn--sm" type="button" id="paySplit">Podziel 50 / 50</button></span></div>
+        </fieldset>
+
+        <fieldset class="fs"><legend>Aktualizacje dla klienta (oś czasu)</legend>
+          <div id="updEd">${updEdHtml()}</div>
+          <div class="ued"><label class="f">Rodzaj<select id="uTag">${UPD_TAGS.map(t => `<option>${esc(t)}</option>`).join('')}</select></label><label class="f">Tytuł<input type="text" id="uTitle" maxlength="90" placeholder="np. Dodany formularz rezerwacji"></label></div>
+          <label class="f">Treść<textarea id="uText" maxlength="1500" placeholder="Co zmieniliśmy, co jest do akceptacji…"></textarea></label>
+          <div><button class="btn btn--ghost btn--sm" type="button" id="updAdd">Dodaj aktualizację</button></div>
+        </fieldset>
+
+        <fieldset class="fs"><legend>Pliki</legend>
+          <div id="fileEd">${fileEdHtml()}</div>
+          <div class="grid2"><label class="f">Nowy plik: nazwa<input type="text" name="fname"></label><label class="f">Nowy plik: link<input type="url" name="furl" placeholder="https://"></label></div>
+        </fieldset>
+
+        <label class="f">Wiadomość w czacie (opcjonalnie)<textarea name="upd" maxlength="1500" placeholder="Odpowiedź na wiadomość klienta"></textarea></label>
         <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn" type="submit">${e ? 'Zapisz zmiany' : 'Dodaj projekt'}</button>${e ? '<button class="btn btn--ghost" type="button" id="adminCancel">Anuluj</button>' : ''}</div>
       </form></article>
-      <article class="card"><h3>Wszyscy klienci</h3>${rows.length ? `<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Klient</th><th>Projekt</th><th>Etap</th><th></th></tr></thead><tbody>${rows.join('')}</tbody></table></div>` : '<div class="empty">Brak klientów. Dodaj pierwszego powyżej.</div>'}</article>`;
+      <article class="card"><h3>Wszyscy klienci</h3>${rows.length ? `<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>Klient</th><th>Projekt</th><th>Etap</th><th>Płatności</th><th></th></tr></thead><tbody>${rows.join('')}</tbody></table></div>` : '<div class="empty">Brak klientów. Dodaj pierwszego powyżej.</div>'}</article>`;
   }
+
+  $('#main').addEventListener('input', e => {
+    const f = e.target.dataset && e.target.dataset.pf; if (!f || !draft) return;
+    const row = e.target.closest('[data-pi]'); const x = draft.payments[+row.dataset.pi]; if (!x) return;
+    x[f] = f === 'amount' ? (+e.target.value || 0) : e.target.value;
+  });
+  $('#main').addEventListener('change', e => {
+    if (!draft) return;
+    const t = e.target;
+    if (t.dataset && t.dataset.pf === 'status') { draft.payments[+t.closest('[data-pi]').dataset.pi].status = t.value === 'paid' ? 'paid' : 'due'; if (t.value === 'paid' && !draft.payments[+t.closest('[data-pi]').dataset.pi].paid_at) draft.payments[+t.closest('[data-pi]').dataset.pi].paid_at = new Date().toISOString().slice(0, 10); refreshEd(); }
+    if (t.dataset && 'psa' in t.dataset && t.value !== '') {
+      const it = SA_ITEMS[+t.value], x = draft.payments[+t.closest('[data-pi]').dataset.pi];
+      x.url = saLink(it[1], it[2]); x.amount = it[3]; x.label = it[0]; refreshEd();
+    }
+  });
   $('#main').addEventListener('click', async e => {
+    const g = e.target.closest('[data-go]'); if (g) { tab = g.dataset.go; renderSide(); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     const ed = e.target.closest('[data-edit]'), dl = e.target.closest('[data-del]');
     if (ed) { const [em, id] = ed.dataset.edit.split('|'); const c = state.clients.find(x => x.email === em); const p = c && c.projects.find(x => x.id === id); if (p) { editing = { email: em, cname: c.name, p }; renderAdmin($('#main')); window.scrollTo({ top: 0, behavior: 'smooth' }); } }
-    if (dl) { const [em, id] = dl.dataset.del.split('|'); if (!confirm(id ? 'Usunąć ten projekt?' : 'Usunąć klienta ze wszystkimi projektami?')) return; const r = await api('admin_delete', { email: em, project: id }); if (r.ok) { state.clients = r.clients; renderAdmin($('#main')); toast('Usunięto.'); } else toast(r.error || 'Błąd.'); }
-    if (e.target.id === 'adminCancel') { editing = null; renderAdmin($('#main')); }
+    if (dl) { const [em, id] = dl.dataset.del.split('|'); if (!confirm(id ? 'Usunąć ten projekt?' : 'Usunąć klienta ze wszystkimi projektami?')) return; const r = await api('admin_delete', { email: em, project: id }); if (r.ok) { state.clients = r.clients; editing = null; draft = null; renderAdmin($('#main')); toast('Usunięto.'); } else toast(r.error || 'Błąd.'); }
+    if (e.target.id === 'adminCancel') { editing = null; draft = null; renderAdmin($('#main')); }
+    if (!draft) return;
+    if (e.target.id === 'payAdd') { draft.payments.push({ id: newId(), label: 'Nowa płatność', amount: 0, status: 'due', due: '', url: '' }); refreshEd(); }
+    if (e.target.id === 'paySplit') {
+      const tot = +$('#splitTotal').value || 0; if (tot <= 0) { toast('Wpisz cenę całkowitą.'); return; }
+      const half = Math.round(tot / 2);
+      draft.payments.push({ id: newId(), label: 'Zaliczka 50%', amount: half, status: 'due', due: 'na start prac', url: '' }, { id: newId(), label: 'Płatność końcowa 50%', amount: tot - half, status: 'due', due: 'po publikacji strony', url: '' });
+      $('#splitTotal').value = ''; refreshEd();
+    }
+    const pd = e.target.closest('[data-pdel]'); if (pd) { draft.payments.splice(+pd.dataset.pdel, 1); refreshEd(); }
+    const ud = e.target.closest('[data-udel]'); if (ud) { draft.updates.splice(+ud.dataset.udel, 1); refreshEd(); }
+    const fd = e.target.closest('[data-fdel]'); if (fd) { draft.files.splice(+fd.dataset.fdel, 1); refreshEd(); }
+    if (e.target.id === 'updAdd') {
+      const text = $('#uText').value.trim(); if (!text) { toast('Wpisz treść aktualizacji.'); return; }
+      draft.updates.push({ at: new Date().toISOString(), by: 'admin', kind: 'update', tag: $('#uTag').value, title: $('#uTitle').value.trim(), text });
+      $('#uText').value = ''; $('#uTitle').value = ''; refreshEd(); toast('Aktualizacja dodana. Zapisz zmiany, żeby klient ją zobaczył.');
+    }
   });
   async function saveAdmin(f) {
     const v = n => f.elements[n].value.trim();
-    const total = Math.max(0, +v('total') || 0), half = Math.round(total / 2);
     const old = editing ? editing.p : null;
-    const pays = [{ id: 'z1', label: 'Zaliczka 50%', amount: half, status: f.elements.p1.checked ? 'paid' : 'due', due: 'na start prac', url: v('u1') }, { id: 'z2', label: 'Płatność końcowa 50%', amount: total - half, status: f.elements.p2.checked ? 'paid' : 'due', due: 'po publikacji strony', url: v('u2') }];
-    const files = (old ? old.files || [] : []).slice(); if (v('furl')) files.push({ name: v('fname') || 'Plik', url: v('furl') });
-    const updates = (old ? old.updates || [] : []).slice(); if (v('upd')) updates.push({ at: new Date().toISOString(), by: 'admin', text: v('upd') });
+    const pays = draft.payments.map(x => ({ id: x.id || newId(), label: (x.label || 'Płatność').trim(), amount: +x.amount || 0, status: x.status === 'paid' ? 'paid' : 'due', due: x.due || '', paid_at: x.paid_at || '', url: x.url || '' }));
+    const files = draft.files.slice(); if (v('furl')) files.push({ name: v('fname') || 'Plik', url: v('furl') });
+    const updates = draft.updates.slice(); if (v('upd')) updates.push({ at: new Date().toISOString(), by: 'admin', kind: 'message', text: v('upd') });
     const btn = $('button[type=submit]', f); btn.disabled = true;
     const r = await api('admin_save', { email: v('email'), client_name: v('cname'), project: { id: old ? old.id : '', name: v('pname'), package: v('package'), stage: +f.elements.stage.value, next: v('next'), preview_url: v('preview'), payments: pays, files, updates } });
     btn.disabled = false;
     if (!r.ok) { toast(r.error || 'Nie udało się zapisać.'); return; }
-    state.clients = r.clients; editing = null; renderAdmin($('#main')); toast('Zapisano.');
+    state.clients = r.clients; editing = null; draft = null; renderAdmin($('#main')); toast('Zapisano.');
   }
 
   boot();
