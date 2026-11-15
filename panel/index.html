@@ -42,6 +42,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .login { min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
 .login__art { position: relative; overflow: hidden; padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; justify-content: space-between; background: #aeb9a8; isolation: isolate; }
 .login__art::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url("../assets/hero/bird-last.webp") 58% 42% / cover no-repeat; }
+.login__v { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: 58% 42%; }
 .login__art::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(212, 222, 207, .55) 0%, rgba(212, 222, 207, 0) 34%, rgba(20, 32, 26, 0) 55%, rgba(20, 32, 26, .55) 100%); }
 .login__quote { color: #f3f6ee; max-width: 30ch; }
 .login__quote h2 { margin: 0; font: 400 clamp(38px, 4.4vw, 64px)/1 var(--f-s); letter-spacing: -.015em; text-shadow: 0 2px 30px rgba(20, 32, 26, .35); }
@@ -64,6 +65,22 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lc__fine { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.55; }
 .lc__fine a { color: var(--ink); }
 .lc__note { width: 100%; padding: 12px 14px; border-radius: 12px; background: rgba(var(--gold-rgb), .08); box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), .25); font-size: 14px; }
+.lc__off { width: 100%; display: grid; gap: 14px; justify-items: center; text-align: center; }
+.lc__off p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+.lc__chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px; border-radius: 999px; background: rgba(var(--gold-rgb), .1); box-shadow: inset 0 0 0 1px rgba(var(--gold-rgb), .28); font: 500 12.5px/1 var(--f-b); color: var(--gold); }
+.lc__chip i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.lc__demo { min-height: 52px; padding: 6px 6px 6px 26px; gap: 16px; font-size: 16px; }
+.lc__ar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--gold); color: #fff; transition: scale .35s cubic-bezier(.23, 1, .32, 1); }
+.lc__ar svg { width: 18px; height: 18px; transition: rotate .35s cubic-bezier(.23, 1, .32, 1); }
+.lc__demo:hover .lc__ar { scale: 1.1; }
+.lc__demo:hover .lc__ar svg { rotate: -45deg; }
+.lc__mail { font-size: 14px; color: var(--ink); text-underline-offset: 3px; }
+.demobar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; padding: 10px clamp(16px, 4vw, 40px); background: #14201a; color: #eef2e8; font-size: 14px; }
+.demobar span { flex: 1 1 260px; }
+.demobar b { margin-right: 6px; padding: 3px 9px; border-radius: 999px; background: #e08a55; color: #14201a; font-weight: 600; font-size: 12px; }
+.demobar .btn--ghost { color: #eef2e8; border-color: rgba(238, 242, 232, .35); }
+.demobar .btn--ghost:hover, .demobar .btn--ghost[aria-pressed="true"] { background: rgba(238, 242, 232, .14); border-color: #eef2e8; }
+.demobar .btn:not(.btn--ghost) { background: #eef2e8; color: #14201a; }
 .lc__err { min-height: 1.4em; font-size: 14px; color: #b3261e; text-align: center; margin: 0; }
 .lc__help { display: grid; gap: 8px; padding: 0 4px; }
 .lc__help p { margin: 0; font-size: 14px; }
@@ -161,6 +178,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
 <!-- ============ LOGOWANIE ============ -->
 <main class="login" id="viewLogin" hidden>
   <section class="login__art" aria-hidden="true">
+    <video class="login__v" muted playsinline preload="auto" disablepictureinpicture poster="../assets/hero/bird-last.webp"><source src="../assets/hero/bird-sm.webm" type="video/webm"><source src="../assets/hero/bird-sm.mp4" type="video/mp4"></video>
     <a href="../index.html" class="logo" tabindex="-1"><svg viewBox="0 0 40 44"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a>
     <div class="login__quote">
       <h2>Twoja strona,<br><em>w jednym miejscu.</em></h2>
@@ -174,7 +192,12 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
       <div class="lc__box">
         <div id="gbtn" aria-live="polite"></div>
         <p class="lc__err" id="loginErr" role="alert"></p>
-        <div class="lc__note" id="notCfg" hidden>Logowanie zostanie włączone po skonfigurowaniu panelu na serwerze. Do tego czasu napisz do nas: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</div>
+        <div class="lc__off" id="notCfg" hidden>
+          <span class="lc__chip"><i aria-hidden="true"></i>Logowanie jeszcze nieaktywne</span>
+          <p>Panel łączy się z naszym serwerem, a ta wersja strony działa bez niego. Zobacz, jak wygląda panel klienta, na przykładowych danych. Prawdziwe logowanie kontem Google zadziała na birchdesign.pl.</p>
+          <button class="btn lc__demo" id="demoStart" type="button">Zobacz podgląd panelu<span class="lc__ar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+          <a class="lc__mail" href="mailto:hello@birchdesign.pl">Albo napisz: hello@birchdesign.pl</a>
+        </div>
         <p class="lc__fine">Logując się, akceptujesz <a href="../regulamin.html">regulamin współpracy</a>. Dostajemy tylko imię, adres e-mail i zdjęcie profilowe z Google. Hasła nie przechodzą przez naszą stronę.</p>
       </div>
       <div class="lc__help"><p>Nie masz jeszcze projektu? <a href="../index.html#kontakt">Zamów bezpłatną wycenę</a>.</p><p>Nie możesz się zalogować? <a href="mailto:hello@birchdesign.pl">Napisz do nas</a> lub zadzwoń: <a href="tel:+48513970699">+48 513 970 699</a>.</p></div>
@@ -190,6 +213,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
     <div class="me"><span><b id="meName"></b><small id="meMail"></small></span><span id="meAv" style="display:contents"></span></div>
     <button class="btn btn--ghost btn--sm" id="btnOut" type="button">Wyloguj</button>
   </div></header>
+  <div class="demobar" id="demoBar" hidden><span><b>Podgląd</b> Przykładowe dane, nic tu nie jest prawdziwe.</span><button class="btn btn--ghost btn--sm" id="demoAdm" type="button" aria-pressed="false">Widok administratora</button><a class="btn btn--sm" href="../index.html#kontakt">Zamów wycenę</a></div>
   <div class="shell">
     <nav class="side" id="side" role="tablist" aria-label="Sekcje panelu"></nav>
     <main class="main" id="main" aria-live="polite"></main>
@@ -215,7 +239,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   const ico = n => `<svg viewBox="0 0 24 24" aria-hidden="true">${ICON[n]}</svg>`;
 
   const LOCAL = ['localhost', '127.0.0.1'].includes(location.hostname);
-  const DEMO = LOCAL && /[?&]demo/.test(location.search);   // podgląd wyglądu na własnym komputerze (bez serwera)
+  let DEMO = LOCAL && /[?&]demo/.test(location.search);   // podgląd wyglądu na własnym komputerze (bez serwera)
   let csrf = '', state = { user: null, client: null, clients: [] }, tab = 'start';
 
   /* ---------- tryb podglądu (tylko localhost + ?demo) ---------- */
@@ -253,7 +277,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   /* ---------- start ---------- */
   async function boot() {
     const s = await api('session');
-    if (!s.ok) { showLogin(null, s.error || 'Panel jest chwilowo niedostępny.'); return; }
+    if (!s.ok) { showLogin(null, ''); return; }
     csrf = s.csrf;
     if (s.user) { state.user = s.user; await openApp(); return; }
     showLogin(s);
@@ -261,9 +285,10 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
 
   function showLogin(s, err) {
     $('#viewApp').hidden = true; $('#viewLogin').hidden = false;
+    const bv = $('.login__v'); if (bv) { try { bv.currentTime = 0; const pr = bv.play(); if (pr && pr.catch) pr.catch(() => {}); } catch (e) {} }
     $('#loginErr').textContent = err || '';
-    if (!s || !s.configured) { $('#notCfg').hidden = false; if (!err) $('#loginErr').textContent = ''; return; }
-    $('#notCfg').hidden = true;
+    if (!s || !s.configured) { $('#notCfg').hidden = false; $('#gbtn').hidden = true; if (!err) $('#loginErr').textContent = ''; return; }
+    $('#notCfg').hidden = true; $('#gbtn').hidden = false;
     const init = () => {
       if (!window.google || !google.accounts || !google.accounts.id) return false;
       google.accounts.id.initialize({ client_id: s.clientId, callback: onCredential, auto_select: false, cancel_on_tap_outside: true, itp_support: true });
@@ -300,6 +325,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   }
 
   async function signOut(silent) {
+    if (DEMO && !LOCAL) { location.reload(); return; }
     if (DEMO) demo.in = false; else await api('logout', {});
     if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
     state = { user: null, client: null, clients: [] }; tab = 'start';
@@ -307,6 +333,18 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
     showLogin(s, silent ? 'Sesja wygasła. Zaloguj się ponownie.' : '');
   }
   $('#btnOut').addEventListener('click', () => signOut(false));
+
+  // podgląd panelu na przykładowych danych (gdy serwer panelu nie działa, np. GitHub Pages)
+  $('#demoStart').addEventListener('click', async () => {
+    DEMO = true; demo = demoDb(); demo.user.admin = false; demo.in = true; state.user = demo.user; csrf = 'x';
+    $('#demoBar').hidden = false; await openApp();
+  });
+  $('#demoAdm').addEventListener('click', async () => {
+    const on = !state.user.admin; state.user.admin = on; demo.user.admin = on;
+    $('#demoAdm').setAttribute('aria-pressed', on ? 'true' : 'false');
+    if (!on && tab === 'admin') tab = 'start';
+    await openApp();
+  });
 
   /* ---------- nawigacja panelu ---------- */
   function renderSide() {
