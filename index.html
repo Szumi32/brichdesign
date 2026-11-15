@@ -1539,24 +1539,24 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
 .hero__stats dt { order: 1; font: 400 12px/1 var(--mono); letter-spacing: 0; text-transform: lowercase; color: rgba(20, 32, 26, .62); white-space: nowrap; }
 
 /* ramka przeglądarki zamiast wachlarza miniatur (wzór z nagrania: makieta strony nad tłem) */
-.kf-proof.bf { display: block; gap: 0; width: clamp(250px, 21vw, 300px); padding: 0; border-radius: 12px; background: #fbfcf8; border: 1px solid rgba(20, 32, 26, .16);
-  box-shadow: 0 44px 70px -38px rgba(20, 32, 26, .7), 0 0 0 7px rgba(255, 255, 255, .2); -webkit-backdrop-filter: none; backdrop-filter: none; transition: box-shadow .35s var(--e2), transform .6s var(--e2); will-change: transform; }
-.kf-proof.bf:hover { background: #fbfcf8; box-shadow: 0 50px 80px -36px rgba(20, 32, 26, .78), 0 0 0 7px rgba(255, 255, 255, .28); }
-.bf__bar { display: flex; align-items: center; gap: 5px; height: 25px; padding: 0 10px; background: #e8ede2; border-bottom: 1px solid rgba(20, 32, 26, .1); border-radius: 11px 11px 0 0; }
-.bf__bar i { width: 6px; height: 6px; border-radius: 50%; background: rgba(20, 32, 26, .22); }
-.bf__bar em { margin-left: 8px; font: 400 9.5px/1 var(--mono); font-style: normal; color: rgba(20, 32, 26, .55); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kf-proof.bf { display: block; gap: 0; width: clamp(260px, 22vw, 320px); padding: 0; overflow: hidden; border-radius: 14px; background: #fbfcf8; border: 1px solid rgba(20, 32, 26, .12);
+  box-shadow: 0 2px 6px rgba(20, 32, 26, .08), 0 34px 60px -30px rgba(20, 32, 26, .6); -webkit-backdrop-filter: none; backdrop-filter: none; transition: box-shadow .35s var(--e2), transform .6s var(--e2); will-change: transform; }
+.kf-proof.bf:hover { background: #fbfcf8; box-shadow: 0 2px 6px rgba(20, 32, 26, .1), 0 44px 70px -30px rgba(20, 32, 26, .7); }
+.bf__bar { display: flex; align-items: center; gap: 5px; height: 30px; padding: 0 12px; background: #eef1e8; border-bottom: 1px solid rgba(20, 32, 26, .08); }
+.bf__bar i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: rgba(20, 32, 26, .18); }
+.bf__bar i:nth-child(1) { background: #e0866b; } .bf__bar i:nth-child(2) { background: #e3c06a; } .bf__bar i:nth-child(3) { background: #8fbf7f; }
+.bf__bar em { flex: 1; min-width: 0; margin-left: 8px; padding: 4px 10px; border-radius: 6px; background: rgba(20, 32, 26, .06); font: 400 9.5px/1 var(--mono); font-style: normal; color: rgba(20, 32, 26, .6); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .bf__scr { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #dfe6d8; }
-.bf__scr img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.05); transition: opacity .8s var(--e2), transform 1.6s var(--e2); }
+.bf__scr img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transform: scale(1.04); transition: opacity .8s var(--e2), transform 1.6s var(--e2); }
 .bf__scr img.on { opacity: 1; transform: none; }
-.bf__cap { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px 11px; border-radius: 0 0 11px 11px; }
-.bf__cap b { font: 400 21px/1 var(--f-s); letter-spacing: 0; }
-.bf__cap small { display: inline-flex; gap: 6px; font: 500 10px/1 var(--f-g); letter-spacing: .12em; text-transform: uppercase; color: rgba(20, 32, 26, .6); }
-.bf__sel { position: absolute; inset: -9px; border: 1px solid var(--gold); border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity .3s var(--e2); }
-.bf__sel u { position: absolute; left: -1px; top: -21px; padding: 4px 8px; background: var(--gold); color: #fff; font: 500 10px/1.1 var(--mono); text-decoration: none; border-radius: 3px 3px 3px 0; }
-.bf__sel i { position: absolute; width: 7px; height: 7px; background: #fff; border: 1px solid var(--gold); }
-.bf__sel i:nth-of-type(1) { left: -4px; top: -4px; } .bf__sel i:nth-of-type(2) { right: -4px; top: -4px; }
-.bf__sel i:nth-of-type(3) { left: -4px; bottom: -4px; } .bf__sel i:nth-of-type(4) { right: -4px; bottom: -4px; }
-.bf:hover .bf__sel, .bf:focus-visible .bf__sel { opacity: 1; }
+.bf__cap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px 13px; }
+.bf__nm { display: grid; gap: 7px; min-width: 0; }
+.bf__nm b { font: 400 22px/1 var(--f-s); letter-spacing: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bf__dots { display: flex; gap: 5px; }
+.bf__dots i { width: 5px; height: 5px; border-radius: 50%; background: rgba(20, 32, 26, .2); transition: background-color .35s var(--e2), width .35s var(--e2); }
+.bf__dots i.on { width: 16px; border-radius: 5px; background: var(--gold); }
+.bf__go { flex: none; display: inline-flex; align-items: center; gap: 6px; font: 500 13px/1 var(--f-b); color: var(--ink); white-space: nowrap; }
+.bf:hover .bf__go { color: var(--gold); }
 .bf:hover .arr { transform: translateX(3px); }
 
 /* sekcja DETALE: interaktywny przycisk */
@@ -1687,6 +1687,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
 @property --tint { syntax: "<color>"; inherits: false; initial-value: rgba(0, 0, 0, 0); }
 .corr__tint { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(78% 70% at 50% 46%, var(--tint), rgba(0, 0, 0, 0) 80%); transition: --tint 1.1s var(--e2); }
 
+@media (min-width: 901px) and (max-width: 1280px) { .hero__stats { max-width: calc(100% - 350px); } }
 @media (max-width: 900px) {
   .hero-frame { display: none; }
   .hero .hand { margin-left: 8px; }
@@ -1975,8 +1976,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
   <a class="kf-proof bf" id="bf" href="#realizacje" aria-label="Zobacz 7 realizacji na żywo">
     <span class="bf__bar" aria-hidden="true"><i></i><i></i><i></i><em id="bfUrl">szumi32.github.io/karpik</em></span>
     <span class="bf__scr" id="bfScr" aria-hidden="true"><img src="assets/previews/karpik.webp" alt="" width="1440" height="900" decoding="async" class="on"></span>
-    <span class="bf__cap"><b id="bfName">Karpik</b><small>7 stron na żywo <span class="arr">→</span></small></span>
-    <span class="bf__sel" aria-hidden="true"><u>Realizacje</u><i></i><i></i><i></i><i></i></span>
+    <span class="bf__cap"><span class="bf__nm"><b id="bfName">Karpik</b><span class="bf__dots" id="bfDots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></span></span><span class="bf__go">7 stron na żywo <span class="arr">→</span></span></span>
   </a>
   <button type="button" class="replay" id="replay">Powtórz wejście</button>
   <a href="#realizacje" class="scroll-cue" aria-label="Przewiń do realizacji"><span aria-hidden="true">Przewiń</span><i aria-hidden="true"></i></a>
@@ -3803,7 +3803,8 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
   if (bf) {
     const scr = $('#bfScr'), bName = $('#bfName'), bUrl = $('#bfUrl'), L = PROJECTS.slice(0, 5);
     let k = 0, vis = true, ims = $$('img', scr);
-    const bShow = i => { ims.forEach((im, j) => im.classList.toggle('on', j === i)); bName.textContent = L[i].n; bUrl.textContent = L[i].u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/?(#top)?$/, ''); };
+    const bDots = $$('#bfDots i');
+    const bShow = i => { ims.forEach((im, j) => im.classList.toggle('on', j === i)); bDots.forEach((d, j) => d.classList.toggle('on', j === i)); bName.textContent = L[i].n; bUrl.textContent = L[i].u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/?(#top)?$/, ''); };
     const bBuild = () => {
       L.forEach((p, i) => { if (!i) return; const im = new Image(); im.alt = ''; im.width = 1440; im.height = 900; im.decoding = 'async'; im.src = p.img; scr.append(im); });
       ims = $$('img', scr);
@@ -3818,7 +3819,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
         tq = requestAnimationFrame(() => {
           tq = 0;
           const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5;
-          bf.style.transform = `perspective(900px) rotateY(${(nx * 7).toFixed(2)}deg) rotateX(${(-ny * 5).toFixed(2)}deg)`;
+          bf.style.transform = `perspective(900px) rotateY(${(nx * 4).toFixed(2)}deg) rotateX(${(-ny * 3).toFixed(2)}deg)`;
         });
       }, { passive: true });
     }
