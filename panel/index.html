@@ -464,7 +464,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
       ${due.length ? `<h4 class="lh">Do zapłaty</h4><ul class="list">${due.map(rowDue).join('')}</ul>` : ''}
       ${paid.length ? `<h4 class="lh">Opłacone</h4><ul class="list">${paid.map(rowPaid).join('')}</ul>` : ''}
       ${s.n ? '' : '<div class="empty">Płatności pojawią się tu po wycenie.</div>'}
-      <p class="sub" style="margin:18px 0 0">Dane do przelewu i fakturę wysyłamy na e-mail. W razie pytań: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</p></article>`;
+      <p class="sub" style="margin:18px 0 0">Potwierdzenie każdej płatności przychodzi na e-mail ze sklepu. W razie pytań: <a href="mailto:hello@birchdesign.pl">hello@birchdesign.pl</a>.</p></article>`;
   };
 
   const fileCard = p => `<article class="card"><h3>${esc(p.name)}</h3>
