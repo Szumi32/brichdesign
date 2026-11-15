@@ -72,3 +72,16 @@ AKTUALIZACJA 2026-11-14 (SEO i „O nas”)
 - Kreator kontaktu: wybór nie przechodzi dalej sam, trzeba kliknąć „Dalej”.
 - Panel klienta: folder panel/ (logowanie Google, PHP 7.4+). Instrukcja: panel/README-PANEL.txt. Podgląd wyglądu: panel/index.html?demo (tylko localhost).
 - Regulamin i 404 mają ten sam pasek, kolory i czcionki co strona główna.
+
+--- v26 (2026-11-15): inspiracje z nagrań (detale przycisku, makiety stron, adnotacje) ---
+- Hero: nowy układ. Ramka z znacznikami narożnymi i opisami w mono, podkreślenie „resztę.” rysowane pędzlem, odręczna notka
+  (czcionka Caveat), „chipy” zamiast liczb, przycisk z kropką zamiast dwóch przycisków, zamiast wachlarza miniatur ramka przeglądarki
+  z przewijanymi realizacjami (#bf, przechył za kursorem, ramka zaznaczenia po najechaniu).
+- Przycisk .btn-dot: prawie czarny #14201a, miedziana kropka ze strzałką, po najechaniu strzałka -45° i kropka rośnie, światło za kursorem
+  (--mx/--my), magnes (JS, atrybut data-mag), nacisk :active scale .97, krzywa cubic-bezier(.23,1,.32,1) 350 ms, min. 44-52 px wysokości.
+- Nowa sekcja #detale: ten sam przycisk budowany w 9 krokach (autoodtwarzanie po wejściu w widok, potem ręcznie), przełącznik „Pokaż pomiary”
+  (wymiary liczone z prawdziwego przycisku). Dane kroków w atrybutach data-code / data-cap przycisków #detSteps.
+- Nowa sekcja #panel: zapowiedź panelu klienta z przyciskiem „Zaloguj przez Google” (prowadzi do panel/).
+- Realizacje: tło sceny zmienia odcień pod aktualny projekt (tablica TINTS w skrypcie, warstwa .corr__tint).
+- Czcionki dodane do Google Fonts: Caveat, IBM Plex Mono. Strona nadal ignoruje „ogranicz ruch” (decyzja właściciela, const reduce = false).
+- Panel klienta: bez zmian w działaniu; przyciski dostały ten sam nacisk i krzywą ruchu. Logowanie Google wymaga Client ID (panel/README-PANEL.txt).

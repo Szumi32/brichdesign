@@ -28,9 +28,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .logo b { font-weight: 300; color: var(--gold); }
 .logo .lb { font-weight: 500; }
 .logo svg { display: block; width: 31px; height: 34px; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 22px; border-radius: 999px; border: 1px solid transparent; background: var(--ink); color: var(--on); font: 500 15px/1 var(--f-b); text-decoration: none; cursor: pointer; transition: background-color .2s ease-in-out, border-color .2s ease-in-out, transform .2s ease-in-out, opacity .2s; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 12px 22px; border-radius: 999px; border: 1px solid transparent; background: var(--ink); color: var(--on); font: 500 15px/1 var(--f-b); text-decoration: none; cursor: pointer; transition: background-color .35s cubic-bezier(.23, 1, .32, 1), border-color .35s cubic-bezier(.23, 1, .32, 1), scale .35s cubic-bezier(.23, 1, .32, 1), opacity .2s; }
 .btn:hover { background: #26382d; }
-.btn:active { transform: scale(.98); }
+.btn:active { scale: .97; }
 .btn[disabled] { opacity: .55; cursor: default; }
 .btn--ghost { background: transparent; color: var(--ink); border-color: var(--line2); }
 .btn--ghost:hover { background: rgba(255, 255, 255, .6); border-color: var(--ink); }
