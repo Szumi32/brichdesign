@@ -93,3 +93,30 @@ AKTUALIZACJA 2026-11-14 (SEO i „O nas”)
   Rezerwacje 993261:2074937, Teksty 993279:2075119, Logo 993280:2075120, Animacje 993281:2075121, Opieka 993284 (miesiąc 2075124, rok 2075125; płatne w całości).
   BRAK produktu „Panel do własnej modyfikacji” w SellAuth: dodawany do wyceny poza koszykiem. Przycisk „Zapłać zaliczkę online” otwiera koszyk (embed v3), bez skryptu link checkout-link.
 - Panel: zakładka „Aktualizacje” (oś czasu), płatności z podsumowaniem i paskiem postępu, administrator dodaje wiele płatności (wstawianie linków SellAuth), aktualizacje i pliki.
+
+--- v27 (2026-11-16): las brzozowy zamiast zimorodka, konta z e-mailem i hasłem ---
+- Hero: animacja „Las, który wyrasta” (assets/forest.js, canvas): pnie brzozy wyrastają od dołu (daleki plan, potem bliższy), kora ze znaczkami,
+  gałęzie z miedzianymi liśćmi, mgła, promienie słońca, pyłki i spadające liście, napis „Birch” za drzewami, ruch za kursorem i przy przewijaniu.
+  Zdjęcie zastępcze: assets/hero/forest-poster.webp (render: ?still w adresie rysuje kadr końcowy, ?still=1.6 kadr w 1,6 s).
+  Film i zdjęcia zimorodka (assets/hero/bird*) nie są już używane ani pakowane. Wielosekundowy „intro” (kostka) wyłączony.
+  Ten sam las gra na ekranie logowania panelu.
+- Panel: konto z e-mailem i hasłem obok Google. Rejestracja wymaga potwierdzenia adresu linkiem z maila (bez tego nie da się zalogować),
+  jest reset hasła mailem, hasła tylko jako hash (bcrypt), limity prób, pułapka na boty. Wymaga działającej poczty PHP (mail()) na home.pl:
+  nadawca panel@birchdesign.pl. Testy: 39 przypadków w php-wasm (konta) + 29 (reszta API).
+- config.php: dodatkowy klucz 'site_url' (domyślnie https://birchdesign.pl) do linków w mailach. 'mail_debug' tylko do testów, na produkcji NIE ustawiać.
+
+--- v27b (2026-11-16): hero jako film „brzoza wyrasta” ---
+- Na canvasie (assets/forest.js, atrybut data-tree="1") rysowana jest na żywo jedna główna brzoza: pęd wyrasta od ziemi (ok. 0,5-5 s), pojawia się kora
+  i czarne znaczki, potem gałęzie, witki i miedziane liście rozwijają się w miarę wzrostu. Dopiero od ok. 4,3 s dorasta las wokół (kamera lekko odjeżdża).
+  Drzewo reaguje na kursor jak na wiatr: liście drżą i uciekają od wskaźnika, a przy mocnym ruchu część liści odrywa się i spada.
+- Przycisk „Zobacz, jak rośnie” (po zakończeniu animacji) odtwarza wzrost od nowa (window.birchReplay()). Ukryty na telefonie.
+- Podgląd klatek: ?still (kadr końcowy), ?still=2.2 / 4.4 (konkretna sekunda). Zdjęcie zastępcze i og-image zawierają kadr końcowy z drzewem.
+
+--- v28 (2026-11-16): hero przypięte, wzrost brzozy steruje przewijanie ---
+- Na komputerze hero jest przypięte na ok. 4 ekrany przewijania (#heroPin, .hero-pin 400svh, .hero sticky). Przewijanie steruje wzrostem brzozy
+  (assets/forest.js, data-scroll="1"): start = młode drzewo (samo urasta do ok. 28%), kamera zaczyna nisko i odjeżdża. Pasek etapów 01 Pomysł, 02 Projekt,
+  03 Kod, 04 Start (skrypt w index.html reaguje na zdarzenie "forestgrowth"). Karta z realizacjami pojawia się w ostatnim etapie (.hero--end).
+- Na telefonie bez przypinania: animacja wzrostu odtwarza się sama, po ok. 9 s.
+- Mniej elementów w hero: usunięte odręczna notka, ramka z opisami, chipy z liczbami, przycisk powtórki (ukryte w CSS lub usunięte z HTML).
+- Dopracowanie „filmowe” obrazu: ziarno, tekstura kory, liście dwutonowe z żyłką, rozmyte trawy, bokeh, flary, korekcja kolorów, głębia. To nadal grafika
+  generowana w kodzie, nie film: foto-realizm wymagałby prawdziwego nagrania.

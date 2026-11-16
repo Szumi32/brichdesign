@@ -23,7 +23,7 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="alternate" hreflang="pl" href="https://birchdesign.pl/">
 <link rel="alternate" hreflang="x-default" href="https://birchdesign.pl/">
-<link rel="preload" as="image" href="assets/hero/bird-first.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero/forest-poster.webp" fetchpriority="high">
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta name="theme-color" content="#edf0e7">
@@ -1347,7 +1347,9 @@ h2 { font: 400 clamp(40px, 5vw, 72px)/1 var(--f-s); letter-spacing: -.012em; tex
 .kf { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: radial-gradient(70% 60% at 62% 38%, #c2cdbd 0%, var(--sage-edge) 70%); }
 .kf__still, .kf__v { position: absolute; top: 0; left: max(0px, 9vw); height: 100%; width: auto; aspect-ratio: 16 / 9; max-width: none; object-fit: cover;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 90%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 90%, transparent 100%); transform-origin: 62% 60%; }
-.kf__still { opacity: 0; }
+.kf__still { opacity: 1; left: 0; width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; -webkit-mask-image: none; mask-image: none; }
+#forest { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; display: block; }
+.kf--js .kf__still, .forest--done .kf__still { opacity: 0; transition: opacity .6s ease-out; }
 .kf__v { opacity: 1; }
 .kf--still .kf__still { opacity: 1; }
 .kf--still .kf__v { opacity: 0; }
@@ -1511,6 +1513,11 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
 .btn-dot:hover .btn-dot__ic svg { rotate: -45deg; }
 .btn-dot--sm { min-height: 44px; padding: 4px 4px 4px 20px; gap: 12px; font-size: 14.5px; }
 .btn-dot--sm .btn-dot__ic { width: 36px; height: 36px; }
+.forest-replay { position: absolute; z-index: 4; left: max(24px, calc((100% - 1200px) / 2)); bottom: clamp(70px, 11vh, 110px); display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 12px; border: 1px solid var(--line2); border-radius: 999px; background: rgba(247, 250, 242, .6); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: var(--ink); font: 500 12.5px/1 var(--f-b); cursor: pointer; transition: background-color .35s var(--e2), scale .35s var(--e2), opacity .6s var(--e2); opacity: 0; pointer-events: none; }
+.forest--done ~ .forest-replay, .hero:has(.forest--done) .forest-replay { opacity: 1; pointer-events: auto; }
+.forest-replay:hover { background: rgba(255, 255, 255, .85); }
+.forest-replay:active { scale: .97; }
+@media (max-width: 900px) { .forest-replay { display: none; } }
 .btn-dot .g-ic { width: 20px; height: 20px; margin-right: -4px; flex: none; opacity: .92; }
 .link-u { position: relative; display: inline-flex; align-items: center; padding: 10px 2px; font: 500 16px/1 var(--f-b); color: var(--ink); text-decoration: none; transition: color .35s var(--e2); }
 .link-u::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 4px; height: 1px; background: currentColor; opacity: .4; transition: opacity .35s var(--e2); }
@@ -1694,6 +1701,40 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
   .kf-proof.bf { width: min(300px, calc(100% - 48px)); }
 }
 
+/* ============ v28: hero przypięte, wzrost brzozy steruje przewijanie ============ */
+.hero-pin { position: relative; height: 400svh; }
+.hero-pin .hero { position: sticky; top: 0; }
+.hero__stats, .hero .hand, .hero-frame, .forest-replay, .hero-hint { display: none !important; }
+.hero__title { font-size: clamp(48px, 5.3vw, 92px); }
+.hero__content { padding: 110px 0 210px; }
+.hero__lead { max-width: 440px; }
+.hero-steps { position: absolute; z-index: 4; left: max(24px, calc((100% - 1200px) / 2)); bottom: clamp(26px, 5.5vh, 58px); width: min(470px, 40vw); display: grid; gap: 14px; }
+.hs__list { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+.hs__list li { flex: 1; padding-top: 11px; border-top: 3px solid rgba(20, 32, 26, .16); font: 500 11.5px/1.2 var(--mono); letter-spacing: .02em; color: rgba(20, 32, 26, .42); transition: color .45s var(--e2), border-color .45s var(--e2); }
+.hs__list li b { display: block; margin-bottom: 3px; font-weight: 500; color: inherit; }
+.hs__list li span { text-transform: uppercase; letter-spacing: .1em; }
+.hs__list li.done { border-color: var(--ink); color: rgba(20, 32, 26, .75); }
+.hs__list li.on { border-color: var(--gold); color: var(--ink); }
+.hs__list li.on b { color: var(--gold); }
+.hs__txt { margin: 0; min-height: 3.1em; font: 400 15.5px/1.5 var(--f-b); color: rgba(20, 32, 26, .82); transition: opacity .3s var(--e2), translate .3s var(--e2); }
+.hs__txt b { color: var(--ink); font-weight: 600; }
+.hs__txt.sw { opacity: 0; translate: 0 5px; }
+.hs__hint { position: absolute; left: 0; bottom: -2px; display: inline-flex; align-items: center; gap: 10px; transform: translateY(calc(100% + 14px)); font: 500 11.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); transition: opacity .5s var(--e2); }
+.hs__hint i { width: 14px; height: 22px; border: 1.5px solid rgba(20, 32, 26, .45); border-radius: 8px; position: relative; }
+.hs__hint i::after { content: ""; position: absolute; left: 50%; top: 4px; width: 3px; height: 5px; margin-left: -1.5px; border-radius: 2px; background: var(--gold); animation: hsWheel 1.6s var(--e2) infinite; }
+@keyframes hsWheel { 0% { opacity: 0; translate: 0 0; } 30% { opacity: 1; } 100% { opacity: 0; translate: 0 8px; } }
+.hs__hint.gone { opacity: 0; }
+.kf-proof.bf { animation: none; opacity: 0; translate: 0 16px; pointer-events: none; transition: opacity .7s var(--e2), translate .7s var(--e2), box-shadow .35s var(--e2), transform .6s var(--e2); }
+.hero--end .kf-proof.bf { opacity: 1; translate: 0 0; pointer-events: auto; }
+.kf__mist { background: linear-gradient(90deg, rgba(212, 222, 207, .92) 0%, rgba(212, 222, 207, .7) 30%, rgba(212, 222, 207, 0) 52%), linear-gradient(to top, var(--bg) 0%, rgba(237, 240, 231, 0) 16%); }
+@media (max-width: 900px) {
+  .hero-pin { height: auto; }
+  .hero-pin .hero { position: relative; }
+  .hero-steps { display: none; }
+  .kf-proof.bf { opacity: 1; translate: 0 0; pointer-events: auto; }
+  .hero__content { padding: 63svh 0 34px; }
+  .hero__title { font-size: clamp(46px, 13vw, 66px); }
+}
 </style>
 <script type="application/ld+json">
 {
@@ -1870,8 +1911,9 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
 </script>
 <script>
 /* EKRAN STARTOWY: pokazuje się przy każdym wejściu na stronę; pomija go tylko link prosto do sekcji (np. #kontakt) */
-(function () { try { if (!/^#(top|realizacje|show|uslugi|proces|o-nas|cennik|faq|kontakt)$/.test(location.hash)) { document.documentElement.classList.add('intro-on'); setTimeout(function () { document.documentElement.classList.remove('intro-on'); }, 9500); if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } } catch (e) {} })();
+(function () { try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {} })();
 </script>
+<script src="assets/forest.js" defer></script>
 </head>
 <body>
 <!-- Znak birchdesign: litera „b” = biały pień birch (dwa znaczenia kory) + miedziany pierścień -->
@@ -1912,16 +1954,12 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
 
 <main id="top">
 <!-- ============ HERO ============ -->
+<div class="hero-pin" id="heroPin">
 <section class="hero" data-hero aria-labelledby="heroTitle">
   <!-- v25: zimorodek wlatuje i siada na gałęzi (film), napis „Birch” jest wypieczony w klatki za ptakiem -->
   <div class="kf" id="kf" aria-hidden="true">
-    <img class="kf__still" src="assets/hero/bird-last.webp" alt="" width="1600" height="900" decoding="async" fetchpriority="high">
-    <video class="kf__v" muted playsinline preload="auto" disablepictureinpicture poster="assets/hero/bird-first.webp" width="1600" height="900">
-      <source media="(max-width: 760px)" src="assets/hero/bird-sm.webm" type="video/webm">
-      <source media="(max-width: 760px)" src="assets/hero/bird-sm.mp4" type="video/mp4">
-      <source src="assets/hero/bird.webm" type="video/webm">
-      <source src="assets/hero/bird.mp4" type="video/mp4">
-    </video>
+    <img class="kf__still" src="assets/hero/forest-poster.webp" alt="" width="1600" height="900" decoding="async" fetchpriority="high">
+    <canvas id="forest" data-tree="1" data-scroll="1"></canvas>
     <div class="kf__mist"></div>
   </div>
   <div class="hero__sky" aria-hidden="true"></div>
@@ -1954,7 +1992,6 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
         <a href="#kontakt" class="btn-dot" data-mag>Wyceń swój projekt<span class="btn-dot__ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
         <a href="#realizacje" class="link-u">Zobacz realizacje</a>
       </div>
-      <p class="hand fade" style="--d:1.25s" aria-hidden="true"><svg viewBox="0 0 60 44" width="46" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M54 40C40 36 22 30 14 8M8 15l6-9 8 7"/></svg><span>odpowiedź w 24 h, bez zobowiązań</span></p>
     </div>
 
     <aside class="hcard" aria-label="Realizacje w skrócie">
@@ -1972,7 +2009,11 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
       <div><dt>Szablonów</dt><dd>0</dd></div>
     </dl>
   </div>
-  <div class="hero-frame" aria-hidden="true"><i class="hf-c hf-c--tl"></i><i class="hf-c hf-c--tr"></i><i class="hf-c hf-c--bl"></i><i class="hf-c hf-c--br"></i><span class="hf-meta hf-meta--l">birchdesign · studio stron www</span><span class="hf-meta hf-meta--r">52°13′N 21°01′E · Warszawa</span></div>
+  <div class="hero-steps" id="heroSteps">
+    <ol class="hs__list" aria-label="Etapy powstawania strony"><li class="on"><b>01</b><span>Pomysł</span></li><li><b>02</b><span>Projekt</span></li><li><b>03</b><span>Kod</span></li><li><b>04</b><span>Start</span></li></ol>
+    <p class="hs__txt" id="hsTxt" aria-live="polite"><b>Pomysł.</b> Rozmowa i wycena w 24 godziny. Ustalamy cel strony, zakres i terminy.</p>
+    <span class="hs__hint" id="hsHint" aria-hidden="true"><i></i>Przewiń, żeby ją wyhodować</span>
+  </div>
   <a class="kf-proof bf" id="bf" href="#realizacje" aria-label="Zobacz 7 realizacji na żywo">
     <span class="bf__bar" aria-hidden="true"><i></i><i></i><i></i><em id="bfUrl">szumi32.github.io/karpik</em></span>
     <span class="bf__scr" id="bfScr" aria-hidden="true"><img src="assets/previews/karpik.webp" alt="" width="1440" height="900" decoding="async" class="on"></span>
@@ -1981,6 +2022,7 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
   <button type="button" class="replay" id="replay">Powtórz wejście</button>
   <a href="#realizacje" class="scroll-cue" aria-label="Przewiń do realizacji"><span aria-hidden="true">Przewiń</span><i aria-hidden="true"></i></a>
 </section>
+</div>
 
 <!-- ============ REALIZACJE (prawdziwe projekty) ============ -->
 <section class="sec sec--corr" id="realizacje">
@@ -3774,6 +3816,20 @@ footer { background: var(--bg); border-top: 1px solid var(--line); color: var(--
 
   /* ============ v26: detale z nagrań ============ */
   const calm = reduce;   // zgodnie z decyzją właściciela strona pokazuje animacje zawsze
+
+  // hero: pasek etapów (Pomysł, Projekt, Kod, Start) podąża za wzrostem brzozy
+  const hs = $('#heroSteps');
+  if (hs) {
+    const HS = [['Pomysł', 'Rozmowa i wycena w 24 godziny. Ustalamy cel strony, zakres i terminy.'], ['Projekt', 'Pokazujemy wygląd do akceptacji, zanim napiszemy pierwszą linię kodu.'], ['Kod', 'Piszemy od zera, bez szablonów. Szybko i poprawnie na telefonie i komputerze.'], ['Start', 'Publikacja, pomoc z domeną i opieka po starcie. Strona działa, a my zostajemy obok.']];
+    const li = $$('.hs__list li', hs), txt = $('#hsTxt'), hint = $('#hsHint'); let cur = 0, sw = 0;
+    addEventListener('forestgrowth', e => {
+      const g = e.detail.g, st = g < 0.4 ? 0 : g < 0.64 ? 1 : g < 0.88 ? 2 : 3;
+      li.forEach((x, i) => { x.classList.toggle('on', i === st); x.classList.toggle('done', i < st); });
+      if (st !== cur) { cur = st; clearTimeout(sw); txt.classList.add('sw'); sw = setTimeout(() => { txt.innerHTML = '<b>' + HS[st][0] + '.</b> ' + HS[st][1]; txt.classList.remove('sw'); }, 170); }
+      hint.classList.toggle('gone', g > 0.42);
+      hero.classList.toggle('hero--end', g > 0.9);
+    });
+  }
 
   // magnes i światło za kursorem (przyciski z data-mag)
   const mags = $$('[data-mag]').map(el => ({ el, tx: 0, ty: 0, cx: 0, cy: 0, raf: 0, demo: el.dataset.mag === 'demo' }));

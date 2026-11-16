@@ -1,7 +1,8 @@
 <?php
 /**
  * birchdesign: panel klienta, API (PHP 7.4+).
- * Logowanie wyłącznie kontem Google (Google Identity Services). Sesja po stronie serwera, ochrona CSRF,
+ * Logowanie: konto Google (Google Identity Services) albo e-mail i hasło (z obowiązkowym potwierdzeniem adresu mailem).
+ * Sesja po stronie serwera, ochrona CSRF,
  * dane w pliku data/db.php (z blokadą dostępu przez .htaccess i przez nagłówek <?php exit; ?>).
  * Konfiguracja: config.php (wzór: config.sample.php). Bez config.php API odpowiada "configured": false.
  */
@@ -14,7 +15,9 @@ header('Cross-Origin-Opener-Policy: same-origin-allow-popups');
 const STAGES = 5;
 $cfgFile = __DIR__ . '/config.php';
 $cfg = is_file($cfgFile) ? include $cfgFile : null;
-$configured = is_array($cfg) && !empty($cfg['google_client_id']) && strpos($cfg['google_client_id'], 'WKLEJ') === false;
+$configured = is_array($cfg) && !empty($cfg['google_client_id']) && strpos($cfg['google_client_id'], 'WKLEJ') === false;   // logowanie Google
+$ready = is_array($cfg);                                                                                                         // konfiguracja istnieje (logowanie hasłem)
+$siteUrl = rtrim(is_array($cfg) && !empty($cfg['site_url']) ? $cfg['site_url'] : 'https://birchdesign.pl', '/');
 
 function out($data, $code = 200)
 {
@@ -235,6 +238,45 @@ function client_view($db, $email)
     return $c ? ['name' => $c['name'] ?? '', 'projects' => array_values($c['projects'] ?? [])] : null;
 }
 
+// ---------- konta z hasłem ----------
+function send_mail($to, $subject, $text)
+{
+    global $cfg;
+    if (!empty($cfg['mail_debug'])) {   // tylko do testów automatycznych
+        @file_put_contents(__DIR__ . '/data/last_mail.txt', "TO: $to\nSUBJECT: $subject\n\n$text\n");
+        return true;
+    }
+    $hdr = 'From: birchdesign <panel@birchdesign.pl>' . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
+    return @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $text, $hdr);
+}
+
+function valid_password($p)
+{
+    return is_string($p) && strlen($p) >= 8 && strlen($p) <= 72;
+}
+
+function make_token(&$u, $key, $ttl)
+{
+    $t = bin2hex(random_bytes(32));
+    $u[$key] = hash('sha256', $t);
+    $u[$key . '_exp'] = time() + $ttl;
+    return $t;
+}
+
+function check_token($u, $key, $tok)
+{
+    return is_array($u) && !empty($u[$key]) && !empty($u[$key . '_exp']) && $u[$key . '_exp'] > time()
+        && is_string($tok) && hash_equals($u[$key], hash('sha256', $tok));
+}
+
+function start_session($email, $name)
+{
+    session_regenerate_id(true);
+    $_SESSION['user'] = ['email' => $email, 'name' => $name, 'picture' => ''];
+    $_SESSION['csrf'] = bin2hex(random_bytes(24));
+    out(['ok' => true, 'csrf' => $_SESSION['csrf'], 'user' => public_user($_SESSION['user'])]);
+}
+
 function public_user($u)
 {
     return ['email' => $u['email'], 'name' => $u['name'], 'picture' => $u['picture'] ?? '', 'admin' => is_admin($u['email'])];
@@ -246,6 +288,7 @@ if ($action === 'session') {
         'ok' => true,
         'configured' => $configured,
         'clientId' => $configured ? $cfg['google_client_id'] : '',
+        'passwordEnabled' => $ready,
         'csrf' => $_SESSION['csrf'],
         'user' => !empty($_SESSION['user']) ? public_user($_SESSION['user']) : null,
     ]);
@@ -258,11 +301,171 @@ if ($method !== 'POST' && !in_array($action, ['me', 'admin_list'], true)) {
 if ($method === 'POST') {
     check_post();
 }
-if (!$configured) {
+if (!$ready) {
     fail('Panel nie jest jeszcze skonfigurowany.', 503);
 }
 
+if ($action === 'register') {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'x';
+    if (!rate_ok('reg' . $ip, 8, 3600)) {
+        fail('Zbyt wiele prób. Spróbuj za godzinę.', 429);
+    }
+    $in = body_json();
+    $generic = 'Wysłaliśmy wiadomość na podany adres. Kliknij link w niej, żeby aktywować konto (zajrzyj też do spamu). Link działa 24 godziny.';
+    if (!empty($in['website'])) {   // pułapka na boty
+        out(['ok' => true, 'message' => $generic]);
+    }
+    $email = clean_email($in['email'] ?? '');
+    $name = clean($in['name'] ?? '', 80);
+    $pw = $in['password'] ?? '';
+    if (!$email) {
+        fail('Podaj poprawny adres e-mail.');
+    }
+    if ($name === '') {
+        fail('Podaj imię lub nazwę firmy.');
+    }
+    if (!valid_password($pw)) {
+        fail('Hasło ma mieć od 8 do 72 znaków.');
+    }
+    if (!rate_ok('regm' . $email, 3, 3600)) {
+        fail('Zbyt wiele prób dla tego adresu. Spróbuj później.', 429);
+    }
+    $mail = null;
+    db_update(function (&$db) use ($email, $name, $pw, &$mail) {
+        $db['users'] = $db['users'] ?? [];
+        $ex = $db['users'][$email] ?? null;
+        if ($ex && !empty($ex['verified'])) {
+            $mail = ['exists'];
+            return;
+        }
+        $u = ['name' => $name, 'hash' => password_hash($pw, PASSWORD_DEFAULT), 'verified' => false, 'created' => date('c')];
+        $tok = make_token($u, 'vtoken', 86400);
+        $db['users'][$email] = $u;
+        $mail = ['verify', $tok];
+    });
+    if ($mail && $mail[0] === 'verify') {
+        $link = $siteUrl . '/panel/?verify=' . $mail[1] . '&email=' . rawurlencode($email);
+        send_mail($email, 'Potwierdź konto w panelu birchdesign', "Cześć $name,\n\nkliknij, żeby aktywować konto w panelu klienta birchdesign:\n\n$link\n\nLink działa 24 godziny. Jeśli to nie Ty zakładasz konto, zignoruj tę wiadomość.\n\nbirchdesign\n");
+    } elseif ($mail && $mail[0] === 'exists') {
+        send_mail($email, 'Konto w panelu birchdesign już istnieje', "Ktoś próbował założyć konto w panelu birchdesign na ten adres, ale konto już istnieje.\n\nJeśli to Ty, zaloguj się: $siteUrl/panel/ (a jeśli nie pamiętasz hasła, użyj opcji „Nie pamiętam hasła”).\nJeśli to nie Ty, zignoruj tę wiadomość.\n\nbirchdesign\n");
+    }
+    out(['ok' => true, 'message' => $generic]);
+}
+
+if ($action === 'verify') {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'x';
+    if (!rate_ok('ver' . $ip, 30, 600)) {
+        fail('Zbyt wiele prób. Spróbuj za kilka minut.', 429);
+    }
+    $in = body_json();
+    $email = clean_email($in['email'] ?? '');
+    $tok = $in['token'] ?? '';
+    $res = null;
+    if ($email) {
+        db_update(function (&$db) use ($email, $tok, &$res) {
+            $u = $db['users'][$email] ?? null;
+            if (!check_token($u, 'vtoken', $tok)) {
+                return;
+            }
+            $u['verified'] = true;
+            unset($u['vtoken'], $u['vtoken_exp']);
+            $db['users'][$email] = $u;
+            $res = $u;
+        });
+    }
+    if (!$res) {
+        fail('Link jest nieważny albo wygasł. Załóż konto jeszcze raz.', 400);
+    }
+    start_session($email, $res['name']);
+}
+
+if ($action === 'login_pw') {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'x';
+    if (!rate_ok('lpw' . $ip, 30, 600)) {
+        fail('Zbyt wiele prób. Spróbuj za kilka minut.', 429);
+    }
+    $in = body_json();
+    $email = clean_email($in['email'] ?? '');
+    $pw = is_string($in['password'] ?? null) ? $in['password'] : '';
+    if (!$email || $pw === '') {
+        fail('Podaj e-mail i hasło.');
+    }
+    if (!rate_ok('lpwm' . $email, 10, 900)) {
+        fail('Zbyt wiele prób logowania na to konto. Spróbuj za 15 minut.', 429);
+    }
+    $db = db_read();
+    $u = $db['users'][$email] ?? null;
+    $ok = $u ? password_verify($pw, $u['hash'] ?? '') : password_verify($pw, password_hash('x', PASSWORD_DEFAULT));   // stały czas
+    if (!$u || !$ok) {
+        fail('Nieprawidłowy e-mail lub hasło.', 401);
+    }
+    if (empty($u['verified'])) {
+        fail('Najpierw potwierdź adres e-mail: kliknij link z wiadomości, którą wysłaliśmy po założeniu konta.', 403);
+    }
+    start_session($email, $u['name']);
+}
+
+if ($action === 'forgot') {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'x';
+    if (!rate_ok('fg' . $ip, 8, 3600)) {
+        fail('Zbyt wiele prób. Spróbuj za godzinę.', 429);
+    }
+    $in = body_json();
+    $email = clean_email($in['email'] ?? '');
+    $generic = 'Jeśli konto z tym adresem istnieje, wysłaliśmy na nie link do ustawienia nowego hasła. Link działa godzinę.';
+    if (!$email || !rate_ok('fgm' . $email, 3, 3600)) {
+        out(['ok' => true, 'message' => $generic]);
+    }
+    $tok = null;
+    db_update(function (&$db) use ($email, &$tok) {
+        $u = $db['users'][$email] ?? null;
+        if ($u && !empty($u['verified'])) {
+            $tok = make_token($u, 'rtoken', 3600);
+            $db['users'][$email] = $u;
+        }
+    });
+    if ($tok) {
+        send_mail($email, 'Ustaw nowe hasło w panelu birchdesign', "Kliknij, żeby ustawić nowe hasło:\n\n$siteUrl/panel/?reset=$tok&email=" . rawurlencode($email) . "\n\nLink działa godzinę. Jeśli to nie Ty, zignoruj tę wiadomość, hasło się nie zmieni.\n\nbirchdesign\n");
+    }
+    out(['ok' => true, 'message' => $generic]);
+}
+
+if ($action === 'reset') {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'x';
+    if (!rate_ok('rs' . $ip, 20, 600)) {
+        fail('Zbyt wiele prób. Spróbuj za kilka minut.', 429);
+    }
+    $in = body_json();
+    $email = clean_email($in['email'] ?? '');
+    $tok = $in['token'] ?? '';
+    $pw = $in['password'] ?? '';
+    if (!valid_password($pw)) {
+        fail('Hasło ma mieć od 8 do 72 znaków.');
+    }
+    $res = null;
+    if ($email) {
+        db_update(function (&$db) use ($email, $tok, $pw, &$res) {
+            $u = $db['users'][$email] ?? null;
+            if (!check_token($u, 'rtoken', $tok)) {
+                return;
+            }
+            $u['hash'] = password_hash($pw, PASSWORD_DEFAULT);
+            $u['verified'] = true;
+            unset($u['rtoken'], $u['rtoken_exp'], $u['vtoken'], $u['vtoken_exp']);
+            $db['users'][$email] = $u;
+            $res = $u;
+        });
+    }
+    if (!$res) {
+        fail('Link jest nieważny albo wygasł. Poproś o nowy.', 400);
+    }
+    start_session($email, $res['name']);
+}
+
 if ($action === 'login') {
+    if (!$configured) {
+        fail('Logowanie Google nie jest jeszcze włączone.', 503);
+    }
     $ip = $_SERVER['REMOTE_ADDR'] ?? 'x';
     if (!rate_ok('login' . $ip, 20, 600)) {
         fail('Zbyt wiele prób. Spróbuj za kilka minut.', 429);

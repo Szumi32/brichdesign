@@ -41,7 +41,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 /* ===== logowanie ===== */
 .login { min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
 .login__art { position: relative; overflow: hidden; padding: clamp(28px, 4vw, 52px); display: flex; flex-direction: column; justify-content: space-between; background: #aeb9a8; isolation: isolate; }
-.login__art::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url("../assets/hero/bird-last.webp") 58% 42% / cover no-repeat; }
+.login__art::before { content: ""; position: absolute; inset: 0; z-index: -1; background: url("../assets/hero/forest-poster.webp") 58% 42% / cover no-repeat; }
 .login__v { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: 58% 42%; }
 .login__art::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(212, 222, 207, .55) 0%, rgba(212, 222, 207, 0) 34%, rgba(20, 32, 26, 0) 55%, rgba(20, 32, 26, .55) 100%); }
 .login__quote { color: #f3f6ee; max-width: 30ch; }
@@ -81,6 +81,27 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .demobar .btn--ghost { color: #eef2e8; border-color: rgba(238, 242, 232, .35); }
 .demobar .btn--ghost:hover, .demobar .btn--ghost[aria-pressed="true"] { background: rgba(238, 242, 232, .14); border-color: #eef2e8; }
 .demobar .btn:not(.btn--ghost) { background: #eef2e8; color: #14201a; }
+.lc__box { justify-items: stretch; }
+.lc__seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(20, 32, 26, .07); }
+.lc__seg button { min-height: 40px; border: 0; border-radius: 999px; background: transparent; font: 500 14px/1 var(--f-b); color: var(--muted); cursor: pointer; transition: background-color .35s cubic-bezier(.23, 1, .32, 1), color .35s cubic-bezier(.23, 1, .32, 1), scale .35s cubic-bezier(.23, 1, .32, 1); }
+.lc__seg button:active { scale: .97; }
+.lc__seg button[aria-selected="true"] { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(20, 32, 26, .15); }
+.lc__pane { display: grid; gap: 14px; justify-items: stretch; }
+#gbtn { justify-self: center; }
+.lf { display: grid; gap: 14px; }
+.lf .f input { min-height: 46px; }
+.lf__go { min-height: 50px; width: 100%; }
+.lf__links { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.lf__a { border: 0; background: none; padding: 6px 0; font: 500 14px/1.2 var(--f-b); color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.lf__a:hover { color: var(--gold); }
+.lf__chk { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
+.lf__chk input { width: 18px; height: 18px; margin-top: 2px; flex: none; }
+.lf__chk a { color: var(--ink); }
+.hp { position: absolute !important; left: -9999px; width: 1px !important; height: 1px !important; opacity: 0; }
+.lc__muted { margin: 0; font-size: 14px; color: var(--muted); }
+.lc__ok { min-height: 0; margin: 0; font-size: 14px; color: #1f6247; text-align: center; }
+.lc__ok:empty { display: none; }
+input[type=password] { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line2); background: #fff; }
 .lc__err { min-height: 1.4em; font-size: 14px; color: #b3261e; text-align: center; margin: 0; }
 .lc__help { display: grid; gap: 8px; padding: 0 4px; }
 .lc__help p { margin: 0; font-size: 14px; }
@@ -211,7 +232,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
 <!-- ============ LOGOWANIE ============ -->
 <main class="login" id="viewLogin" hidden>
   <section class="login__art" aria-hidden="true">
-    <video class="login__v" muted playsinline preload="auto" disablepictureinpicture poster="../assets/hero/bird-last.webp"><source src="../assets/hero/bird-sm.webm" type="video/webm"><source src="../assets/hero/bird-sm.mp4" type="video/mp4"></video>
+    <canvas id="forest" class="login__v"></canvas>
     <a href="../index.html" class="logo" tabindex="-1"><svg viewBox="0 0 40 44"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a>
     <div class="login__quote">
       <h2>Twoja strona,<br><em>w jednym miejscu.</em></h2>
@@ -221,17 +242,50 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   <section class="login__card">
     <div class="lc">
       <div class="lc__top"><a href="../index.html" class="logo" aria-label="birchdesign: strona główna"><svg viewBox="0 0 40 44" aria-hidden="true"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a><a class="lc__back" href="../index.html">← Wróć na stronę</a></div>
-      <div><span class="eyebrow">Panel klienta</span><h1>Witaj <em>ponownie.</em></h1><p>Zaloguj się kontem Google, tym samym, którego adres podałeś nam w zapytaniu. Nie zakładamy osobnych haseł.</p></div>
+      <div><span class="eyebrow">Panel klienta</span><h1>Witaj <em>ponownie.</em></h1><p>Zaloguj się kontem Google albo e-mailem i hasłem. Jeśli masz już u nas projekt, użyj adresu e-mail, który podałeś w zapytaniu.</p></div>
       <div class="lc__box">
-        <div id="gbtn" aria-live="polite"></div>
+        <div class="lc__seg" id="lcSeg" role="tablist" aria-label="Sposób logowania" hidden>
+          <button type="button" role="tab" data-m="e" aria-selected="true">E-mail i hasło</button>
+          <button type="button" role="tab" data-m="g" aria-selected="false">Konto Google</button>
+        </div>
+        <div class="lc__pane" id="paneG" hidden><div id="gbtn" aria-live="polite"></div><p class="lc__muted" id="gOff" hidden>Logowanie kontem Google nie jest jeszcze włączone.</p></div>
+        <div class="lc__pane" id="paneE" hidden>
+          <form class="lf" id="fLogin" novalidate>
+            <label class="f">E-mail<input type="email" name="email" autocomplete="username" required></label>
+            <label class="f">Hasło<input type="password" name="password" autocomplete="current-password" required></label>
+            <button class="btn lf__go" type="submit">Zaloguj się</button>
+            <div class="lf__links"><button type="button" class="lf__a" data-f="fForgot">Nie pamiętam hasła</button><button type="button" class="lf__a" data-f="fReg">Załóż konto</button></div>
+          </form>
+          <form class="lf" id="fReg" novalidate hidden>
+            <label class="f">Imię lub nazwa firmy<input type="text" name="name" autocomplete="name" maxlength="80" required></label>
+            <label class="f">E-mail<input type="email" name="email" autocomplete="email" required></label>
+            <label class="f">Hasło (min. 8 znaków)<input type="password" name="password" autocomplete="new-password" minlength="8" maxlength="72" required></label>
+            <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <label class="lf__chk"><input type="checkbox" name="terms" required> <span>Akceptuję <a href="../regulamin.html" target="_blank" rel="noopener">regulamin współpracy</a></span></label>
+            <button class="btn lf__go" type="submit">Załóż konto</button>
+            <div class="lf__links"><button type="button" class="lf__a" data-f="fLogin">Mam już konto</button></div>
+          </form>
+          <form class="lf" id="fForgot" novalidate hidden>
+            <p class="lc__muted">Podaj adres e-mail konta. Wyślemy link do ustawienia nowego hasła.</p>
+            <label class="f">E-mail<input type="email" name="email" autocomplete="username" required></label>
+            <button class="btn lf__go" type="submit">Wyślij link</button>
+            <div class="lf__links"><button type="button" class="lf__a" data-f="fLogin">Wróć do logowania</button></div>
+          </form>
+          <form class="lf" id="fReset" novalidate hidden>
+            <p class="lc__muted">Ustaw nowe hasło do konta <b id="rsMail"></b>.</p>
+            <label class="f">Nowe hasło (min. 8 znaków)<input type="password" name="password" autocomplete="new-password" minlength="8" maxlength="72" required></label>
+            <button class="btn lf__go" type="submit">Ustaw hasło i zaloguj</button>
+          </form>
+        </div>
         <p class="lc__err" id="loginErr" role="alert"></p>
+        <p class="lc__ok" id="loginOk" role="status"></p>
         <div class="lc__off" id="notCfg" hidden>
           <span class="lc__chip"><i aria-hidden="true"></i>Logowanie jeszcze nieaktywne</span>
           <p>Panel łączy się z naszym serwerem, a ta wersja strony działa bez niego. Zobacz, jak wygląda panel klienta, na przykładowych danych. Prawdziwe logowanie kontem Google zadziała na birchdesign.pl.</p>
           <button class="btn lc__demo" id="demoStart" type="button">Zobacz podgląd panelu<span class="lc__ar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
           <a class="lc__mail" href="mailto:hello@birchdesign.pl">Albo napisz: hello@birchdesign.pl</a>
         </div>
-        <p class="lc__fine">Logując się, akceptujesz <a href="../regulamin.html">regulamin współpracy</a>. Dostajemy tylko imię, adres e-mail i zdjęcie profilowe z Google. Hasła nie przechodzą przez naszą stronę.</p>
+        <p class="lc__fine">Logując się, akceptujesz <a href="../regulamin.html">regulamin współpracy</a>. Przy koncie Google dostajemy tylko imię, adres e-mail i zdjęcie profilowe. Hasła do kont z e-mailem przechowujemy wyłącznie w postaci zaszyfrowanej.</p>
       </div>
       <div class="lc__help"><p>Nie masz jeszcze projektu? <a href="../index.html#kontakt">Zamów bezpłatną wycenę</a>.</p><p>Nie możesz się zalogować? <a href="mailto:hello@birchdesign.pl">Napisz do nas</a> lub zadzwoń: <a href="tel:+48513970699">+48 513 970 699</a>.</p></div>
     </div>
@@ -258,6 +312,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
 (() => {
   'use strict';
   const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const money = n => { n = +n || 0; const [a, b] = (n % 1 ? n.toFixed(2) : String(n)).split('.'); return a.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + (b ? ',' + b : '') + ' zł'; };
   const when = iso => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' }); };
@@ -304,7 +359,9 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   async function api(action, data) {
     if (DEMO) {
       await new Promise(r => setTimeout(r, 250));
-      if (action === 'session') return { ok: true, configured: true, clientId: 'demo', csrf: 'x', user: demo.in ? demo.user : null };
+      if (action === 'session') return { ok: true, configured: true, passwordEnabled: true, clientId: 'demo', csrf: 'x', user: demo.in ? demo.user : null };
+      if (['login_pw', 'verify', 'reset'].includes(action)) { demo.in = true; return { ok: true, csrf: 'x', user: demo.user }; }
+      if (['register', 'forgot'].includes(action)) return { ok: true, message: 'Podgląd: w prawdziwym panelu wysłalibyśmy e-mail z linkiem. Tu nic nie zostało wysłane.' };
       if (action === 'me') return { ok: true, user: demo.user, client: demo.client };
       if (action === 'message') { demo.client.projects[0].updates.push({ at: new Date().toISOString(), by: 'client', text: data.text }); return { ok: true, client: demo.client }; }
       if (action === 'admin_list') return { ok: true, clients: [{ email: demo.user.email, name: demo.client.name, projects: demo.client.projects }] };
@@ -320,20 +377,78 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   const toast = (t) => { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2600); };
 
   /* ---------- start ---------- */
+  const qs = new URLSearchParams(location.search);
+  const setErr = t => { $('#loginErr').textContent = t || ''; $('#loginOk').textContent = ''; };
+  const setOk = t => { $('#loginOk').textContent = t || ''; $('#loginErr').textContent = ''; };
+  const withBtn = async (form, fn) => { const btn = $('button[type=submit]', form); btn.disabled = true; try { return await fn(); } finally { btn.disabled = false; } };
+  const showForm = id => { ['fLogin', 'fReg', 'fForgot', 'fReset'].forEach(f => { $('#' + f).hidden = f !== id; }); setErr(''); };
+  const setMode = m => { $('#paneE').hidden = m !== 'e'; $('#paneG').hidden = m !== 'g'; $$('#lcSeg button').forEach(bt => bt.setAttribute('aria-selected', bt.dataset.m === m ? 'true' : 'false')); setErr(''); };
+  $('#lcSeg').addEventListener('click', e => { const bt = e.target.closest('button[data-m]'); if (bt) setMode(bt.dataset.m); });
+  $('#paneE').addEventListener('click', e => { const a = e.target.closest('[data-f]'); if (a) showForm(a.dataset.f); });
+  const finishLogin = async r => { csrf = r.csrf; state.user = r.user; if (qs.get('verify') || qs.get('reset')) history.replaceState(null, '', location.pathname); await openApp(); };
+
+  $('#fLogin').addEventListener('submit', async e => {
+    e.preventDefault(); const f = e.target;
+    if (!f.email.value.trim() || !f.password.value) { setErr('Podaj e-mail i hasło.'); return; }
+    const r = await withBtn(f, () => api('login_pw', { email: f.email.value.trim(), password: f.password.value }));
+    if (!r.ok) { setErr(r.error || 'Logowanie nie powiodło się.'); return; }
+    f.password.value = ''; await finishLogin(r);
+  });
+  $('#fReg').addEventListener('submit', async e => {
+    e.preventDefault(); const f = e.target;
+    if (!f.name.value.trim()) { setErr('Podaj imię lub nazwę firmy.'); return; }
+    if (!/^\S+@\S+\.\S+$/.test(f.email.value.trim())) { setErr('Podaj poprawny adres e-mail.'); return; }
+    if (f.password.value.length < 8) { setErr('Hasło ma mieć co najmniej 8 znaków.'); return; }
+    if (!f.terms.checked) { setErr('Zaznacz akceptację regulaminu.'); return; }
+    const mail = f.email.value.trim();
+    const r = await withBtn(f, () => api('register', { name: f.name.value.trim(), email: mail, password: f.password.value, website: f.website.value }));
+    if (!r.ok) { setErr(r.error || 'Nie udało się założyć konta.'); return; }
+    f.password.value = ''; showForm('fLogin'); $('#fLogin').email.value = mail; setOk(r.message);
+  });
+  $('#fForgot').addEventListener('submit', async e => {
+    e.preventDefault(); const f = e.target;
+    if (!/^\S+@\S+\.\S+$/.test(f.email.value.trim())) { setErr('Podaj poprawny adres e-mail.'); return; }
+    const r = await withBtn(f, () => api('forgot', { email: f.email.value.trim() }));
+    if (!r.ok) { setErr(r.error || 'Nie udało się wysłać.'); return; }
+    setOk(r.message);
+  });
+  let resetCtx = null;
+  $('#fReset').addEventListener('submit', async e => {
+    e.preventDefault(); const f = e.target;
+    if (f.password.value.length < 8) { setErr('Hasło ma mieć co najmniej 8 znaków.'); return; }
+    const r = await withBtn(f, () => api('reset', { email: resetCtx.email, token: resetCtx.token, password: f.password.value }));
+    if (!r.ok) { setErr(r.error || 'Nie udało się ustawić hasła.'); return; }
+    f.password.value = ''; await finishLogin(r);
+  });
+
   async function boot() {
     const s = await api('session');
     if (!s.ok) { showLogin(null, ''); return; }
     csrf = s.csrf;
-    if (s.user) { state.user = s.user; await openApp(); return; }
+    if (s.user) { state.user = s.user; if (qs.get('verify') || qs.get('reset')) history.replaceState(null, '', location.pathname); await openApp(); return; }
+    const vt = qs.get('verify'), rt = qs.get('reset'), em = qs.get('email');
+    if (vt && em) {   // link z wiadomości: potwierdzenie konta
+      showLogin(s); setMode('e'); setOk('Potwierdzamy Twoje konto…');
+      const r = await api('verify', { email: em, token: vt });
+      if (r.ok) { await finishLogin(r); return; }
+      history.replaceState(null, '', location.pathname); setErr(r.error || 'Nie udało się potwierdzić konta.'); return;
+    }
+    if (rt && em) {   // link z wiadomości: nowe hasło
+      resetCtx = { email: em, token: rt }; $('#rsMail').textContent = em;
+      showLogin(s); setMode('e'); showForm('fReset'); return;
+    }
     showLogin(s);
   }
 
   function showLogin(s, err) {
     $('#viewApp').hidden = true; $('#viewLogin').hidden = false;
-    const bv = $('.login__v'); if (bv) { try { bv.currentTime = 0; const pr = bv.play(); if (pr && pr.catch) pr.catch(() => {}); } catch (e) {} }
-    $('#loginErr').textContent = err || '';
-    if (!s || !s.configured) { $('#notCfg').hidden = false; $('#gbtn').hidden = true; if (!err) $('#loginErr').textContent = ''; return; }
-    $('#notCfg').hidden = true; $('#gbtn').hidden = false;
+    setErr(err || '');
+    const off = !s;
+    $('#notCfg').hidden = !off; $('#lcSeg').hidden = off || !(s.configured && s.passwordEnabled);
+    if (off) { $('#paneE').hidden = true; $('#paneG').hidden = true; return; }
+    const g = !!s.configured;
+    setMode(g ? 'g' : 'e'); $('#gOff').hidden = g; $('#gbtn').hidden = !g;
+    if (!g) return;
     const init = () => {
       if (!window.google || !google.accounts || !google.accounts.id) return false;
       google.accounts.id.initialize({ client_id: s.clientId, callback: onCredential, auto_select: false, cancel_on_tap_outside: true, itp_support: true });
@@ -344,8 +459,8 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
     if (init()) return;
     const sc = document.createElement('script');
     sc.src = 'https://accounts.google.com/gsi/client'; sc.async = true; sc.defer = true;
-    sc.onload = () => { if (!init()) $('#loginErr').textContent = 'Nie udało się załadować logowania Google.'; };
-    sc.onerror = () => { $('#loginErr').textContent = 'Nie udało się połączyć z Google. Sprawdź internet lub wyłącz blokadę skryptów.'; };
+    sc.onload = () => { if (!init()) setErr('Nie udało się załadować logowania Google.'); };
+    sc.onerror = () => { setErr('Nie udało się połączyć z Google. Sprawdź internet lub wyłącz blokadę skryptów.'); };
     document.head.append(sc);
   }
 
@@ -611,5 +726,6 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   boot();
 })();
 </script>
+<script src="../assets/forest.js" defer></script>
 </body>
 </html>

@@ -12,6 +12,9 @@ return [
     // 2) Konta Google z dostępem administratora (widzą zakładkę „Klienci”, mogą dodawać projekty).
     'admins' => ['hello@birchdesign.pl'],
 
-    // 3) Na ten adres przychodzą wiadomości klientów z panelu.
+    // 3) Adres strony (do linków w e-mailach: potwierdzenie konta, nowe hasło).
+    'site_url' => 'https://birchdesign.pl',
+
+    // 4) Na ten adres przychodzą wiadomości klientów z panelu.
     'notify_email' => 'hello@birchdesign.pl',
 ];
