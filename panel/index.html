@@ -102,6 +102,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lc__ok { min-height: 0; margin: 0; font-size: 14px; color: #1f6247; text-align: center; }
 .lc__ok:empty { display: none; }
 input[type=password] { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line2); background: #fff; }
+.pw { position: relative; display: block; }
+.pw input { padding-right: 76px !important; }
+.pw__t { position: absolute; right: 8px; top: 50%; translate: 0 -50%; padding: 8px 10px; border: 0; background: none; font: 500 13px/1 var(--f-b); color: var(--muted); cursor: pointer; border-radius: 8px; }
+.pw__t:hover { color: var(--ink); }
 .lc__err { min-height: 1.4em; font-size: 14px; color: #b3261e; text-align: center; margin: 0; }
 .lc__help { display: grid; gap: 8px; padding: 0 4px; }
 .lc__help p { margin: 0; font-size: 14px; }
@@ -242,7 +246,7 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   <section class="login__card">
     <div class="lc">
       <div class="lc__top"><a href="../index.html" class="logo" aria-label="birchdesign: strona główna"><svg viewBox="0 0 40 44" aria-hidden="true"><use href="#bd-mark"/></svg><span><span class="lb">birch</span><b>design</b></span></a><a class="lc__back" href="../index.html">← Wróć na stronę</a></div>
-      <div><span class="eyebrow">Panel klienta</span><h1>Witaj <em>ponownie.</em></h1><p>Zaloguj się kontem Google albo e-mailem i hasłem. Jeśli masz już u nas projekt, użyj adresu e-mail, który podałeś w zapytaniu.</p></div>
+      <div><span class="eyebrow">Panel klienta</span><h1 id="lcH1">Witaj <em>ponownie.</em></h1><p id="lcLead">Zaloguj się kontem Google albo e-mailem i hasłem. Jeśli masz już u nas projekt, użyj adresu e-mail, który podałeś w zapytaniu.</p></div>
       <div class="lc__box">
         <div class="lc__seg" id="lcSeg" role="tablist" aria-label="Sposób logowania" hidden>
           <button type="button" role="tab" data-m="e" aria-selected="true">E-mail i hasło</button>
@@ -377,12 +381,26 @@ label.f { display: grid; gap: 6px; font-size: 13.5px; font-weight: 500; color: v
   const toast = (t) => { const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 2600); };
 
   /* ---------- start ---------- */
+  // przycisk „Pokaż / Ukryj” przy polach hasła
+  $$('input[type=password]').forEach(inp => {
+    const w = document.createElement('span'); w.className = 'pw'; inp.parentNode.insertBefore(w, inp); w.append(inp);
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'pw__t'; b.textContent = 'Pokaż'; b.setAttribute('aria-label', 'Pokaż hasło');
+    b.addEventListener('click', () => { const on = inp.type === 'password'; inp.type = on ? 'text' : 'password'; b.textContent = on ? 'Ukryj' : 'Pokaż'; b.setAttribute('aria-label', on ? 'Ukryj hasło' : 'Pokaż hasło'); });
+    w.append(b);
+  });
   const qs = new URLSearchParams(location.search);
   const setErr = t => { $('#loginErr').textContent = t || ''; $('#loginOk').textContent = ''; };
   const setOk = t => { $('#loginOk').textContent = t || ''; $('#loginErr').textContent = ''; };
   const withBtn = async (form, fn) => { const btn = $('button[type=submit]', form); btn.disabled = true; try { return await fn(); } finally { btn.disabled = false; } };
-  const showForm = id => { ['fLogin', 'fReg', 'fForgot', 'fReset'].forEach(f => { $('#' + f).hidden = f !== id; }); setErr(''); };
-  const setMode = m => { $('#paneE').hidden = m !== 'e'; $('#paneG').hidden = m !== 'g'; $$('#lcSeg button').forEach(bt => bt.setAttribute('aria-selected', bt.dataset.m === m ? 'true' : 'false')); setErr(''); };
+  const HEADS = {
+    fLogin: ['Witaj <em>ponownie.</em>', 'Zaloguj się kontem Google albo e-mailem i hasłem. Jeśli masz już u nas projekt, użyj adresu e-mail, który podałeś w zapytaniu.'],
+    fReg: ['Załóż <em>konto.</em>', 'Konto pozwoli Ci śledzić etapy projektu, płatności i pliki. Użyj adresu e-mail, który podałeś nam w zapytaniu. Wyślemy na niego link potwierdzający.'],
+    fForgot: ['Nie pamiętasz <em>hasła?</em>', 'Zdarza się. Podaj adres e-mail konta, a wyślemy Ci link do ustawienia nowego hasła.'],
+    fReset: ['Ustaw <em>nowe hasło.</em>', 'Wybierz hasło, którego nie używasz nigdzie indziej (min. 8 znaków). Po zapisaniu od razu się zalogujesz.']
+  };
+  const setHead = id => { const h = HEADS[id] || HEADS.fLogin; $('#lcH1').innerHTML = h[0]; $('#lcLead').textContent = h[1]; };
+  const showForm = id => { ['fLogin', 'fReg', 'fForgot', 'fReset'].forEach(f => { $('#' + f).hidden = f !== id; }); setHead(id); setErr(''); };
+  const setMode = m => { $('#paneE').hidden = m !== 'e'; $('#paneG').hidden = m !== 'g'; if (m === 'g') setHead('fLogin'); $$('#lcSeg button').forEach(bt => bt.setAttribute('aria-selected', bt.dataset.m === m ? 'true' : 'false')); setErr(''); };
   $('#lcSeg').addEventListener('click', e => { const bt = e.target.closest('button[data-m]'); if (bt) setMode(bt.dataset.m); });
   $('#paneE').addEventListener('click', e => { const a = e.target.closest('[data-f]'); if (a) showForm(a.dataset.f); });
   const finishLogin = async r => { csrf = r.csrf; state.user = r.user; if (qs.get('verify') || qs.get('reset')) history.replaceState(null, '', location.pathname); await openApp(); };

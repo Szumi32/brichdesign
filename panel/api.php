@@ -239,15 +239,123 @@ function client_view($db, $email)
 }
 
 // ---------- konta z hasłem ----------
-function send_mail($to, $subject, $text)
+function send_mail($to, $subject, $text, $html = null)
 {
     global $cfg;
     if (!empty($cfg['mail_debug'])) {   // tylko do testów automatycznych
-        @file_put_contents(__DIR__ . '/data/last_mail.txt', "TO: $to\nSUBJECT: $subject\n\n$text\n");
+        @file_put_contents(__DIR__ . '/data/last_mail.txt', "TO: $to\nSUBJECT: $subject\n\n$text\n\n---HTML---\n" . ($html ?? ''));
         return true;
     }
-    $hdr = 'From: birchdesign <panel@birchdesign.pl>' . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
-    return @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $text, $hdr);
+    $from = 'birchdesign <panel@birchdesign.pl>';
+    $subj = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    if ($html === null) {
+        $hdr = 'From: ' . $from . "\r\n" . 'Reply-To: hello@birchdesign.pl' . "\r\n" . 'Content-Type: text/plain; charset=UTF-8';
+        return @mail($to, $subj, $text, $hdr);
+    }
+    $bd = 'bd_' . bin2hex(random_bytes(12));
+    $hdr = 'From: ' . $from . "\r\n" . 'Reply-To: hello@birchdesign.pl' . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'X-Auto-Response-Suppress: All' . "\r\n" . 'Content-Type: multipart/alternative; boundary="' . $bd . '"';
+    $body = '--' . $bd . "\r\n" . "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($text)) . "\r\n"
+        . '--' . $bd . "\r\n" . "Content-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($html)) . "\r\n"
+        . '--' . $bd . '--';
+    return @mail($to, $subj, $body, $hdr);
+}
+
+/** Ładny mail HTML (tabele + style inline, działa w Gmailu, Outlooku i na telefonach). Przycisk i słowo „link” prowadzą pod ten sam adres. */
+function mail_html($o)
+{
+    global $siteUrl;
+    $e = function ($x) {
+        return htmlspecialchars((string)$x, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    };
+    $ink = '#14201a';
+    $copper = '#b0521d';
+    $muted = '#566559';
+    $font = "-apple-system,'Segoe UI',Helvetica,Arial,sans-serif";
+    $serif = "Georgia,'Times New Roman',serif";
+    $btn = $o['button'] ?? null;
+    $h = '<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light only"><title>' . $e($o['title']) . '</title></head>';
+    $h .= '<body style="margin:0;padding:0;background:#edf0e7;">';
+    $h .= '<div style="display:none;max-height:0;overflow:hidden;opacity:0;font-size:1px;line-height:1px;color:#edf0e7;">' . $e($o['preheader']) . str_repeat('&zwnj;&nbsp;', 40) . '</div>';
+    $h .= '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#edf0e7;"><tr><td align="center" style="padding:26px 12px 34px;">';
+    $h .= '<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background:#f8faf4;border:1px solid #d6dccd;border-radius:22px;">';
+    // nagłówek z grafiką
+    $h .= '<tr><td style="border-radius:22px 22px 0 0;overflow:hidden;font-size:0;line-height:0;"><img src="' . $e($siteUrl) . '/assets/mail/header.jpg" width="600" alt="birchdesign" style="display:block;width:100%;max-width:600px;height:auto;border:0;border-radius:22px 22px 0 0;"></td></tr>';
+    // nagłówek tekstowy
+    $h .= '<tr><td style="padding:34px 40px 6px;"><p style="margin:0 0 10px;font:600 12px/1 ' . $font . ';letter-spacing:.16em;text-transform:uppercase;color:' . $copper . ';">' . $e($o['eyebrow']) . '</p>';
+    $h .= '<h1 style="margin:0;font:400 34px/1.1 ' . $serif . ';color:' . $ink . ';">' . $o['headline'] . '</h1></td></tr>';
+    // treść
+    foreach ($o['paragraphs'] as $p) {
+        $h .= '<tr><td style="padding:14px 40px 0;font:400 16px/1.6 ' . $font . ';color:#2c3a31;">' . $p . '</td></tr>';
+    }
+    // lista korzyści
+    if (!empty($o['bullets'])) {
+        $h .= '<tr><td style="padding:16px 40px 0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#eef1e6;border-radius:14px;"><tr><td style="padding:16px 20px;">';
+        foreach ($o['bullets'] as $bl) {
+            $h .= '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:5px 0;"><tr><td valign="top" style="padding:7px 12px 0 0;"><span style="display:block;width:7px;height:7px;border-radius:7px;background:' . $copper . ';font-size:0;line-height:0;">&nbsp;</span></td><td style="font:400 15px/1.45 ' . $font . ';color:#2c3a31;">' . $bl . '</td></tr></table>';
+        }
+        $h .= '</td></tr></table></td></tr>';
+    }
+    // przycisk
+    if ($btn) {
+        $h .= '<tr><td style="padding:26px 40px 4px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td align="center" bgcolor="' . $ink . '" style="border-radius:999px;background:' . $ink . ';">';
+        $h .= '<a href="' . $e($btn['url']) . '" target="_blank" style="display:inline-block;padding:17px 34px;font:600 16px/1 ' . $font . ';color:#ffffff;text-decoration:none;border-radius:999px;">' . $e($btn['label']) . ' &rarr;</a></td></tr></table></td></tr>';
+        $h .= '<tr><td style="padding:16px 40px 0;font:400 13.5px/1.6 ' . $font . ';color:' . $muted . ';">Przycisk nie działa? Użyj tego <a href="' . $e($btn['url']) . '" target="_blank" style="color:' . $copper . ';text-decoration:underline;font-weight:600;">linku</a>.</td></tr>';
+    }
+    foreach ($o['notes'] ?? [] as $n) {
+        $h .= '<tr><td style="padding:12px 40px 0;font:400 13.5px/1.6 ' . $font . ';color:' . $muted . ';">' . $n . '</td></tr>';
+    }
+    // stopka
+    $h .= '<tr><td style="padding:30px 40px 0;"><div style="height:1px;background:#d6dccd;line-height:1px;font-size:1px;">&nbsp;</div></td></tr>';
+    $h .= '<tr><td style="padding:18px 40px 32px;font:400 13px/1.65 ' . $font . ';color:' . $muted . ';">Masz pytania? Odpowiedz na tę wiadomość albo napisz na <a href="mailto:hello@birchdesign.pl" style="color:' . $ink . ';text-decoration:underline;">hello@birchdesign.pl</a>, zadzwoń: <a href="tel:+48513970699" style="color:' . $ink . ';text-decoration:underline;">+48 513 970 699</a>.<br><span style="color:#7a877d;">birchdesign &middot; strony internetowe, Warszawa i cała Polska &middot; <a href="' . $e($siteUrl) . '" style="color:#7a877d;text-decoration:underline;">birchdesign.pl</a></span></td></tr>';
+    $h .= '</table>';
+    $h .= '<p style="margin:16px 0 0;font:400 12px/1.5 ' . $font . ';color:#7a877d;max-width:520px;">Ta wiadomość została wysłana automatycznie z panelu klienta birchdesign.pl w związku z akcją podjętą na Twoim adresie e-mail.</p>';
+    $h .= '</td></tr></table></body></html>';
+    return $h;
+}
+
+/** Zwraca [temat, tekst, html] dla rodzaju maila: verify | reset | exists */
+function mail_content($kind, $name, $url)
+{
+    global $siteUrl;
+    $n = clean($name, 80);
+    $first = trim(explode(' ', $n)[0] ?? '') ?: 'Cześć';
+    $hi = htmlspecialchars($first, ENT_QUOTES, 'UTF-8');
+    if ($kind === 'verify') {
+        $subject = 'Potwierdź konto w panelu birchdesign';
+        $text = "Cześć $first,\n\nwitamy w panelu klienta birchdesign. Jeszcze jeden krok: potwierdź adres e-mail, żeby aktywować konto.\n\nPotwierdź konto: $url\n\nLink działa 24 godziny i można go użyć jeden raz. Jeśli to nie Ty zakładasz konto, zignoruj tę wiadomość, a nic się nie stanie.\n\nbirchdesign\nhello@birchdesign.pl\n";
+        $html = mail_html([
+            'title' => $subject, 'preheader' => 'Jeszcze jeden krok i Twój panel klienta jest gotowy.', 'eyebrow' => 'Panel klienta',
+            'headline' => 'Cześć, <em style="font-style:italic;color:#b0521d;">' . $hi . '.</em>',
+            'paragraphs' => ['Witamy w panelu klienta birchdesign. Potwierdź adres e-mail, żeby aktywować konto. To zajmie sekundę.'],
+            'bullets' => ['Etapy projektu i najbliższy krok', 'Zaliczka i płatność końcowa w jednym miejscu', 'Pliki, podgląd strony i wiadomości do nas'],
+            'button' => ['label' => 'Potwierdź konto', 'url' => $url],
+            'notes' => ['Link działa <b>24 godziny</b> i można go użyć jeden raz. Jeśli to nie Ty zakładasz konto, po prostu zignoruj tę wiadomość.'],
+        ]);
+        return [$subject, $text, $html];
+    }
+    if ($kind === 'reset') {
+        $subject = 'Ustaw nowe hasło w panelu birchdesign';
+        $text = "Cześć $first,\n\notrzymaliśmy prośbę o ustawienie nowego hasła do panelu klienta birchdesign.\n\nUstaw nowe hasło: $url\n\nLink działa godzinę i można go użyć jeden raz. Jeśli to nie Ty, zignoruj tę wiadomość, Twoje hasło się nie zmieni.\n\nbirchdesign\nhello@birchdesign.pl\n";
+        $html = mail_html([
+            'title' => $subject, 'preheader' => 'Link do ustawienia nowego hasła jest ważny przez godzinę.', 'eyebrow' => 'Reset hasła',
+            'headline' => 'Nowe hasło do <em style="font-style:italic;color:#b0521d;">panelu.</em>',
+            'paragraphs' => ['Cześć ' . $hi . ', otrzymaliśmy prośbę o ustawienie nowego hasła do Twojego konta w panelu klienta. Kliknij przycisk, wpisz nowe hasło i od razu się zalogujesz.'],
+            'button' => ['label' => 'Ustaw nowe hasło', 'url' => $url],
+            'notes' => ['Link jest ważny <b>godzinę</b> i działa tylko raz.', '<b>To nie Ty?</b> Zignoruj tę wiadomość. Dopóki nie klikniesz w link, Twoje hasło pozostaje bez zmian.'],
+        ]);
+        return [$subject, $text, $html];
+    }
+    $login = $siteUrl . '/panel/';
+    $subject = 'Konto w panelu birchdesign już istnieje';
+    $text = "Cześć,\n\nktoś próbował założyć konto w panelu birchdesign na ten adres e-mail, ale konto już istnieje.\n\nJeśli to Ty, zaloguj się: $login\nNie pamiętasz hasła? Na ekranie logowania wybierz „Nie pamiętam hasła”.\n\nJeśli to nie Ty, zignoruj tę wiadomość.\n\nbirchdesign\nhello@birchdesign.pl\n";
+    $html = mail_html([
+        'title' => $subject, 'preheader' => 'Na ten adres jest już konto. Zaloguj się albo zresetuj hasło.', 'eyebrow' => 'Panel klienta',
+        'headline' => 'To konto <em style="font-style:italic;color:#b0521d;">już istnieje.</em>',
+        'paragraphs' => ['Ktoś próbował założyć konto w panelu birchdesign na ten adres e-mail, ale masz już u nas konto. Zaloguj się, a jeśli nie pamiętasz hasła, wybierz na ekranie logowania „Nie pamiętam hasła”.'],
+        'button' => ['label' => 'Przejdź do logowania', 'url' => $login],
+        'notes' => ['<b>To nie Ty?</b> Zignoruj tę wiadomość, nic się nie zmieniło.'],
+    ]);
+    return [$subject, $text, $html];
 }
 
 function valid_password($p)
@@ -345,9 +453,11 @@ if ($action === 'register') {
     });
     if ($mail && $mail[0] === 'verify') {
         $link = $siteUrl . '/panel/?verify=' . $mail[1] . '&email=' . rawurlencode($email);
-        send_mail($email, 'Potwierdź konto w panelu birchdesign', "Cześć $name,\n\nkliknij, żeby aktywować konto w panelu klienta birchdesign:\n\n$link\n\nLink działa 24 godziny. Jeśli to nie Ty zakładasz konto, zignoruj tę wiadomość.\n\nbirchdesign\n");
+        $mc = mail_content('verify', $name, $link);
+        send_mail($email, $mc[0], $mc[1], $mc[2]);
     } elseif ($mail && $mail[0] === 'exists') {
-        send_mail($email, 'Konto w panelu birchdesign już istnieje', "Ktoś próbował założyć konto w panelu birchdesign na ten adres, ale konto już istnieje.\n\nJeśli to Ty, zaloguj się: $siteUrl/panel/ (a jeśli nie pamiętasz hasła, użyj opcji „Nie pamiętam hasła”).\nJeśli to nie Ty, zignoruj tę wiadomość.\n\nbirchdesign\n");
+        $mc = mail_content('exists', '', '');
+        send_mail($email, $mc[0], $mc[1], $mc[2]);
     }
     out(['ok' => true, 'message' => $generic]);
 }
@@ -417,15 +527,18 @@ if ($action === 'forgot') {
         out(['ok' => true, 'message' => $generic]);
     }
     $tok = null;
-    db_update(function (&$db) use ($email, &$tok) {
+    $uname = '';
+    db_update(function (&$db) use ($email, &$tok, &$uname) {
         $u = $db['users'][$email] ?? null;
         if ($u && !empty($u['verified'])) {
             $tok = make_token($u, 'rtoken', 3600);
+            $uname = $u['name'] ?? '';
             $db['users'][$email] = $u;
         }
     });
     if ($tok) {
-        send_mail($email, 'Ustaw nowe hasło w panelu birchdesign', "Kliknij, żeby ustawić nowe hasło:\n\n$siteUrl/panel/?reset=$tok&email=" . rawurlencode($email) . "\n\nLink działa godzinę. Jeśli to nie Ty, zignoruj tę wiadomość, hasło się nie zmieni.\n\nbirchdesign\n");
+        $mc = mail_content('reset', $uname, $siteUrl . '/panel/?reset=' . $tok . '&email=' . rawurlencode($email));
+        send_mail($email, $mc[0], $mc[1], $mc[2]);
     }
     out(['ok' => true, 'message' => $generic]);
 }

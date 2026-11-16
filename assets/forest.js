@@ -32,6 +32,7 @@
   const SCROLL = TREE && cv.dataset.scroll === '1' && !!PIN && window.matchMedia('(min-width: 901px)').matches && !calm;   // wzrost steruje przewijanie
   const TG_MAX = 8.3, AUTO_G = 0.28;       // pełny czas wzrostu (s); od tego ułamka drzewo samo urośnie na starcie
   let Gs = 0, lastG = -1, lastRt = 0, BARK = null, GRAIN = null, grass = null, orbs = [];
+  let LOW = false, ftSum = 0, ftN = 0, lastNow = 0;   // tryb oszczędny włącza się sam, gdy komputer nie wyrabia
 
   /* ---------- tekstury (kora, ziarno filmu) ---------- */
   function makeBark() {
@@ -152,7 +153,7 @@
 
   /* ---------- scena ---------- */
   function build() {
-    DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    DPR = Math.min(window.devicePixelRatio || 1, LOW ? 1 : 1.5);
     const r = host.getBoundingClientRect();
     W = Math.max(320, Math.round(r.width)); H = Math.max(320, Math.round(r.height));
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
@@ -388,6 +389,8 @@
   function frame(now) {
     raf = 0;
     if (!started) { started = true; t0 = now; }
+    if (lastNow && !STILL) { const d = now - lastNow; if (d > 0 && d < 200 && now - t0 > 2500) { ftSum += d; ftN++; if (ftN >= 40) { if (!LOW && ftSum / ftN > 27) { LOW = true; build(); } ftSum = 0; ftN = 0; } } }
+    lastNow = now;
     const rt = STILL ? STILL_T : (now - t0) / 1000;            // czas rzeczywisty: wiatr, mgła, pyłki
     const dtr = Math.min(0.06, Math.max(0.001, rt - lastRt)); lastRt = rt;
     let tg = rt;                                                // czas wzrostu
@@ -469,23 +472,23 @@
       const sx = STILL ? 0 : Math.sin(rt * 0.6) * 3 * DPR;
       ctx.globalAlpha = 0.9 * ease((tg - 1) / 2); ctx.drawImage(grass, sx - mx * 30 * DPR, ch - grass.height + 6 * DPR); ctx.globalAlpha = 1;
     }
-    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    if (!LOW) { ctx.save(); ctx.globalCompositeOperation = 'screen';
     orbs.forEach(o => { const ox = (o.x + (STILL ? 0 : Math.sin(rt * 0.12 + o.ph) * o.sp * 3) - mx * 40) * DPR, oy = (o.y + (STILL ? 0 : Math.cos(rt * 0.1 + o.ph) * o.sp * 2)) * DPR, r = o.r * DPR;
       const og = ctx.createRadialGradient(ox, oy, 0, ox, oy, r); og.addColorStop(0, `rgba(255,244,214,${o.a})`); og.addColorStop(0.7, `rgba(255,244,214,${o.a * 0.5})`); og.addColorStop(1, 'rgba(255,244,214,0)'); ctx.fillStyle = og; ctx.fillRect(ox - r, oy - r, r * 2, r * 2); });
     [[0.34, 60, 0.1], [0.52, 38, 0.08], [0.76, 90, 0.07], [1.02, 46, 0.09]].forEach(f => { const fx = cw * 0.8 + (cw * 0.42 - cw * 0.8) * f[0] * 1.4, fy = -ch * 0.05 + (ch * 0.62 + ch * 0.05) * f[0] * 1.4, fr = f[1] * DPR * (U / 900);
       const fg = ctx.createRadialGradient(fx, fy, 0, fx, fy, fr); fg.addColorStop(0, `rgba(255,236,200,${f[2]})`); fg.addColorStop(1, 'rgba(255,236,200,0)'); ctx.fillStyle = fg; ctx.fillRect(fx - fr, fy - fr, fr * 2, fr * 2); });
-    ctx.restore();
+    ctx.restore(); }
     // winieta
     g = ctx.createRadialGradient(cw * 0.55, ch * 0.45, ch * 0.45, cw * 0.55, ch * 0.45, ch * 1.15);
     g.addColorStop(0, 'rgba(60,78,62,0)'); g.addColorStop(1, 'rgba(60,78,62,.22)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, cw, ch);
     // grading: ciepłe światło u góry, chłodny cień na dole (soft-light), potem delikatne ziarno
-    ctx.save(); ctx.globalCompositeOperation = 'soft-light';
+    if (!LOW) { ctx.save(); ctx.globalCompositeOperation = 'soft-light';
     g = ctx.createLinearGradient(cw, 0, 0, ch); g.addColorStop(0, 'rgba(255,205,140,.42)'); g.addColorStop(0.55, 'rgba(255,230,200,0)'); g.addColorStop(1, 'rgba(70,110,110,.36)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, cw, ch); ctx.restore();
     ctx.save(); ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = 0.17;
     const gox = STILL ? 0 : ((Math.random() * 256) | 0), goy = STILL ? 0 : ((Math.random() * 256) | 0);
-    ctx.translate(-gox, -goy); ctx.fillStyle = ctx.createPattern(GRAIN, 'repeat'); ctx.fillRect(0, 0, cw + 256, ch + 256); ctx.restore();
+    ctx.translate(-gox, -goy); ctx.fillStyle = ctx.createPattern(GRAIN, 'repeat'); ctx.fillRect(0, 0, cw + 256, ch + 256); ctx.restore(); }
     if (!STILL && !calm && visible) raf = requestAnimationFrame(frame);
     else if (!STILL && !calm && !visible) raf = 0;
     const doneAt = TREE ? (SCROLL ? 0.985 : 0.97) : 0;

@@ -120,3 +120,16 @@ AKTUALIZACJA 2026-11-14 (SEO i „O nas”)
 - Mniej elementów w hero: usunięte odręczna notka, ramka z opisami, chipy z liczbami, przycisk powtórki (ukryte w CSS lub usunięte z HTML).
 - Dopracowanie „filmowe” obrazu: ziarno, tekstura kory, liście dwutonowe z żyłką, rozmyte trawy, bokeh, flary, korekcja kolorów, głębia. To nadal grafika
   generowana w kodzie, nie film: foto-realizm wymagałby prawdziwego nagrania.
+
+--- v29 (2026-11-16): realizacje v2, płynność, maile HTML ---
+- Realizacje: zamiast korytarza 3D jest podgląd całej strony w ramce przeglądarki (assets/work/*-page.webp, wysokie zrzuty, + *-m.webp telefon).
+  Podgląd sam się przewija, kursor nad ramką przewija go za wskaźnikiem; po pierwszym przewinięciu przechodzi do kolejnego projektu (do czasu pierwszego kliknięcia).
+  Zrzuty powstają skryptem DevTools (zip/… brak w repo; patrz notatka w pamięci), warto je odświeżyć, gdy strony klientów się zmienią.
+- Płynność: wyłączona stara pętla kostki z hero, pętle w tle (pień, słowa) pracują tylko podczas przewijania/ruchu, tańsze odsłanianie sekcji (bez 3D i perspektywy),
+  content-visibility dla dolnych sekcji, tryb oszczędny animacji lasu włącza się sam (<~37 fps).
+- Maile panelu: HTML + tekst (multipart), grafika nagłówka assets/mail/header.jpg, przycisk i słowo „linku”; osobne maile: potwierdzenie konta, reset hasła, „konto już istnieje”.
+
+--- v30 (2026-11-16): porządki ---
+- Usunięta sekcja „Detale” (przycisk w 9 krokach). Kalkulator z wyceną (#cennik) przeniesiony zaraz pod Realizacje, menu: Realizacje, Cennik i wycena, Usługi, Proces, O nas, Regulamin, Kontakt.
+- Podglądy maili panelu: folder podglad-maili/ (html + png): aktywacja konta, reset hasła, „konto już istnieje”.
+- Profil Firmy w Google: nazwa zmieniona z brichdesign na birchdesign, opis poprawiony, witryna https://birchdesign.pl/ (zmiany czekają na zatwierdzenie przez Google, zwykle ~10 min).
